@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SignInPage = () => {
     return (
-        <Link to="/signin" className="start">點此開始</Link>
+        <Link to="/signin">member</Link>
         
     );
   };

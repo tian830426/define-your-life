@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const EditPage = () => {
     return (
-        <Link to="/">點此開始</Link>
+        <Link to="/edit">點此開始</Link>
         
     );
   };

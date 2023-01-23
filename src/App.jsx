@@ -23,9 +23,7 @@ const App = () => {
           <Route
             path="home"
             element={
-              <NavbarLayout>
                 <HomePage />
-              </NavbarLayout>
             }
           />
           <Route
