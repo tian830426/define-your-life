@@ -1,11 +1,17 @@
 const path = require("path");
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+// plugins: [
+//   new HtmlWebpackPlugin({
+//     template: path.resolve(__dirname, '..', './public/index.html'),
+//   }),
+// ],
 
 module.exports = {
   //建製的模式（ 差別在webpack 優化 ）
   // production 上線模式
   // development 開發模式 -> 除錯比較有參考價值
-  resolve :{
-    extensions:[".js",".jsx"]
+  resolve: {
+    extensions: [".js", ".jsx",".jpg",".jpeg",".svg" ,".png"],
   },
   mode: "development",
   //入口
@@ -24,10 +30,11 @@ module.exports = {
       directory: path.join(__dirname, "public"),
     },
     compress: true,
-    port: 9000,
+    port: 8000,
     hot: true,
     open: true,
   },
+  
   //模組載入規則
   module: {
     rules: [
@@ -52,7 +59,25 @@ module.exports = {
         test: /\.m?jsx?$/,
         exclude: /node_modules/,
         use: "babel-loader",
-    },
+      },
+      {
+        test: /\.(gif|svg|jpe?g|png)$/,
+        loader: "file-loader",
+        options: {
+          name: '[name].[ext]',
+        },
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
+      }
     ],
   },
 };
