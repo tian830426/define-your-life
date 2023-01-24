@@ -4,6 +4,7 @@
   margin: 0;
   list-style: none;
   border: none;
+  outline: none;
   text-decoration: none;
   font-family: "Courier New", Courier, monospace;
 }
@@ -25,8 +26,9 @@
     }
   }
   .animationTitle {
-    font-size: 60px;
+    font-size: 50px;
     color: beige;
+    // color: #FCD997;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -48,7 +50,7 @@
     }
 
     &:hover {
-      font-size: 62px;
+      font-size: 52px;
       color: rgb(249, 249, 120);
       cursor: pointer;
     }
@@ -62,23 +64,29 @@
 
 // components NavbarLayout
 .navbar {
-  width: 100%;
+  position: fixed;
+  width: 100vw;
   height: 70px;
+  z-index: 999;
+  //   background-color:#EFD9A7 ;
   background-color: rgb(248, 248, 232);
   display: flex;
   .navbarTitle {
     width: 80%;
     // max-width: 1200px;
     display: flex;
-    padding: 8px 0px 8px 320px;
+    align-items: center;
+    padding: 8px 0px 8px 310px;
     flex-direction: column;
     text-align: center;
     letter-spacing: 4px;
+    // color: #FCD997;
     color: burlywood;
     &:hover {
       cursor: pointer;
       letter-spacing: 5px;
       color: rgb(255, 212, 112);
+      // color: #FAA45B;
       opacity: 0.8;
       font-size: 105%;
       font-weight: 700;
@@ -95,12 +103,106 @@
     letter-spacing: 2px;
     .navbarIcon {
       width: 100%;
+      //   color: #CD7F7D;
       color: rgb(120, 106, 87);
       font-size: 20px;
       font-weight: 700;
       cursor: pointer;
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+}
+// components Signup
+#signupDialogCenter {
+  width: 100vw;
+  height: 100vh;
+  background-color: #95a7b5;
+  padding: 200px 0;
+  //   background-color: rgb(220, 220, 166);
+  .signupDialogBoxes {
+    background-color: rgb(248, 248, 232);
+    padding: 50px 10px;
+    width: 65%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    display: flex;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 0 30px rgb(119, 119, 119);
+    .signupDialogBgimg {
+      width: 45%;
+      padding: 20px;
+      position: relative;
+
+      img{
+        width: 100%;
+        border-radius: 15px;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%,-50%);
+        -webkit-transition: opacity 2s ease-in-out;
+        -moz-transition: opacity 2s ease-in-out;
+        -o-transition: opacity 2s ease-in-out;
+        transition: opacity 2s ease-in-out;
+        // .loginImg {
+            
+        //   }
+      }
+      img:nth-of-type(2):hover {
+        opacity: 0;
+      }
+    }
+    .signupDialogLogin {
+      width: 45%;
+      // padding: 20px;
+      .signupDialogTitle {
+        font-size: 24px;
+        line-height: 35px;
+        //   font-weight: 600;
+        // padding: 90px 0 0 0px;
+        letter-spacing: 1.5px;
+      }
+
+      #fields {
+        display: flex;
+        width: 300px;
+        flex-direction: column;
+        margin: 50px auto;
+
+        input {
+          width: 100%;
+          font-size: 20px;
+          padding: 10px;
+          margin: 10px 0;
+          border-radius: 10px;
+          letter-spacing: 1.5px;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+      .btn {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin: 0 auto;
+
+        button {
+          padding: 10px;
+          text-align: center;
+          margin-right: 10px;
+          border-radius: 10px;
+          letter-spacing: 1.5px;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
       }
     }
   }

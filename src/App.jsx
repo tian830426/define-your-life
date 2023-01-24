@@ -5,9 +5,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AnimationPage from "./pages/AnimationPage";
 import HomePage from "./pages/HomePage";
 import EditPage from "./pages/EditPage";
-// import AuthPage from "./pages/AuthPage";
 import NavbarLayout from "./components/NavbarLayout";
-
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
 
 // components
 
@@ -16,26 +16,42 @@ import NavbarLayout from "./components/NavbarLayout";
 
 const App = () => {
   return (
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/">
+    //       <Route index element={<AnimationPage />}></Route>
+    //       <Route
+    //         path="home"
+    //         element={
+    //           <NavbarLayout>
+    //             <HomePage />
+    //           </NavbarLayout>
+    //         }
+    //       />
+    //       <Route
+    //         path="edit"
+    //         element={
+    //           <NavbarLayout>
+    //             <EditPage />
+    //           </NavbarLayout>
+    //         }
+    //       ></Route>
+    //       <Route path="signup" element={<SignUpPage />}></Route>
+    //       {/* <Route path="edit" element={<EditPage />}></Route> */}
+    //     </Route>
+    //   </Routes>
+    // </BrowserRouter>
+
     <BrowserRouter>
       <Routes>
         <Route path="/">
           <Route index element={<AnimationPage />}></Route>
-          <Route
-            path="home"
-            element={
-                <HomePage />
-            }
-          />
-          <Route
-            path="edit"
-            element={
-              <NavbarLayout>
-                <EditPage />
-              </NavbarLayout>
-            }
-          ></Route>
-          {/* <Route path="signup" element={<SignUpPage />}></Route>
-          <Route path="signin" element={<SignInPage />}></Route> */}
+          <Route path="home" element={<HomePage />} />
+          <Route path="edit" element={<EditPage />}></Route>
+        </Route>
+        <Route path="/home">
+          <Route path="signup" element={<SignUpPage />}></Route>
+          {/* <Route path="edit" element={<EditPage />}></Route> */}
         </Route>
       </Routes>
     </BrowserRouter>

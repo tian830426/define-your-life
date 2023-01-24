@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import NavbarLayout from "../components/NavbarLayout";
 
 const EditPage = () => {
-    return (
-        <Link to="/edit">點此開始</Link>
-        
-    );
-  };
-  
-  export default EditPage;
+  return (
+    <div>
+      <NavbarLayout />
+    </div>
+  );
+};
+
+export default EditPage;

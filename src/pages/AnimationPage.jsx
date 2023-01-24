@@ -9,7 +9,7 @@ const AnimationPage = () => {
   return (
     <div>
       <div className="animationPage">
-        <Link to= "/home" className="animationTitle">define your life</Link>
+        <Link to= "/home" className="animationTitle">Define Your Life</Link>
       <img className="animationBgimg" src={animationBgimg} alt="animationBgimg" />
     </div>
     </div>
