@@ -12,11 +12,16 @@ const NavbarLayout = () => {
         <p>Album Editor</p>
       </Link>
       <div className="navbarItems">
-        <Link to="signup" className="signup navbarIcon">
-          <BsFillPeopleFill /> Signup{" "}
+        <Link to="/home/signup" className="signup ">
+          <div className="navbarIcon">
+            <BsFillPeopleFill /> Signup{" "}
+          </div>
         </Link>
-        <Link to="edit" className="edit navbarIcon">
-          <BiPhotoAlbum /> Album{" "}
+        <Link to="/home/edit" className="edit ">
+          <div className="navbarIcon">
+            {" "}
+            <BiPhotoAlbum /> Album{" "}
+          </div>
         </Link>
       </div>
     </div>

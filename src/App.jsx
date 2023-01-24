@@ -44,14 +44,13 @@ const App = () => {
 
     <BrowserRouter>
       <Routes>
-        <Route path="/">
-          <Route index element={<AnimationPage />}></Route>
+        <Route exact path="/">
+          <Route index element={<AnimationPage />} />
           <Route path="home" element={<HomePage />} />
-          <Route path="edit" element={<EditPage />}></Route>
         </Route>
         <Route path="/home">
-          <Route path="signup" element={<SignUpPage />}></Route>
-          {/* <Route path="edit" element={<EditPage />}></Route> */}
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="edit" element={<EditPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

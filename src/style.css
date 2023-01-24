@@ -80,6 +80,12 @@
   height: 100vh;
 }
 
+.homeCenter {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  background-color: #95a7b5;
+}
+
 .navbar {
   position: fixed;
   width: 100vw;
@@ -89,7 +95,7 @@
   display: flex;
 }
 .navbar .navbarTitle {
-  width: 80%;
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 8px 0px 8px 310px;
@@ -117,7 +123,11 @@
   letter-spacing: 2px;
 }
 .navbar .navbarItems .navbarIcon {
-  width: 100%;
+  width: 150px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-right: 5px;
   color: rgb(120, 106, 87);
   font-size: 20px;
   font-weight: 700;
@@ -127,33 +137,35 @@
   opacity: 0.8;
 }
 
-#signupDialogCenter {
-  width: 100vw;
-  height: 100vh;
+.signupDialogCenter {
+  width: 100%;
+  height: calc(100vh - 50px);
   background-color: #95a7b5;
-  padding: 200px 0;
+  position: relative;
 }
-#signupDialogCenter .signupDialogBoxes {
+.signupDialogCenter .signupDialogBoxes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: rgb(248, 248, 232);
-  padding: 50px 10px;
-  width: 65%;
+  padding: 70px 10px;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 0 auto;
-  display: flex;
   border-radius: 20px;
   position: relative;
   box-shadow: 0 0 30px rgb(119, 119, 119);
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogBgimg {
+.signupDialogCenter .signupDialogBoxes .signupDialogBgimg {
   width: 45%;
   padding: 20px;
   position: relative;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogBgimg img {
-  width: 100%;
+.signupDialogCenter .signupDialogBoxes .signupDialogBgimg img {
+  width: 85%;
   border-radius: 15px;
   position: absolute;
   top: 50%;
@@ -161,24 +173,24 @@
   transform: translate(-50%, -50%);
   transition: opacity 2s ease-in-out;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogBgimg img:nth-of-type(2):hover {
+.signupDialogCenter .signupDialogBoxes .signupDialogBgimg img:nth-of-type(2):hover {
   opacity: 0;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin {
   width: 45%;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin .signupDialogTitle {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin .signupDialogTitle {
   font-size: 24px;
   line-height: 35px;
   letter-spacing: 1.5px;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields {
   display: flex;
   width: 300px;
   flex-direction: column;
   margin: 50px auto;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields input {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields input {
   width: 100%;
   font-size: 20px;
   padding: 10px;
@@ -186,22 +198,44 @@
   border-radius: 10px;
   letter-spacing: 1.5px;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields input:hover {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin #fields input:hover {
   opacity: 0.8;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn {
   display: flex;
   width: 100%;
   justify-content: center;
   margin: 0 auto;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn button {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn button {
   padding: 10px;
   text-align: center;
   margin-right: 10px;
   border-radius: 10px;
   letter-spacing: 1.5px;
 }
-#signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn button:hover {
+.signupDialogCenter .signupDialogBoxes .signupDialogLogin .btn button:hover {
   opacity: 0.8;
+}
+
+.editCenter {
+  width: 100vw;
+  height: calc(100vh - 50px);
+  background-color: #95a7b5;
+}
+
+.footer {
+  width: 100vw;
+  height: 50px;
+  position: relative;
+  top: 0;
+  text-align: center;
+  line-height: 50px;
+  background-color: #192D2E;
+  color: #617F7F;
+  letter-spacing: 0.5px;
+}
+.footer:hover {
+  font-weight: 800;
+  letter-spacing: 1px;
 }/*# sourceMappingURL=style.css.map */

@@ -2,6 +2,7 @@ import React from "react";
 import { useRef, useState } from "react";
 import { signup, login, logout, useAuth } from "../components/firebase";
 import NavbarLayout from "../components/NavbarLayout";
+import FooterLayout from "../components/FooterLayout";
 
 //image
 import loginImg from "../assets/cryPeople.JPG";
@@ -47,7 +48,7 @@ function SignUpPage() {
   return (
     <div>
       <NavbarLayout />
-      <div id="signupDialogCenter">
+      <div className="signupDialogCenter">
         <div className="signupDialogBoxes">
           <div className="signupDialogBgimg">
             <img className="loginImg" src={loginImg} alt="loginImg" />
@@ -77,6 +78,7 @@ function SignUpPage() {
           </div>
         </div>
       </div>
+      <FooterLayout />
     </div>
   );
 }
