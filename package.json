@@ -45,11 +45,16 @@
     "firestore": "^1.1.6",
     "html-webpack-plugin": "^5.5.0",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-bootstrap": "^2.7.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-navigation": "^4.4.4",
     "react-router": "^6.7.0",
     "react-router-dom": "^6.7.0",
-    "url-loader": "^4.1.1"
+    "react-typewriter-hook": "^1.0.1",
+    "styled-components": "^5.3.6"
   }
 }

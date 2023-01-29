@@ -1,10 +1,5 @@
 const path = require("path");
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-// plugins: [
-//   new HtmlWebpackPlugin({
-//     template: path.resolve(__dirname, '..', './public/index.html'),
-//   }),
-// ],
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   //建製的模式（ 差別在webpack 優化 ）
@@ -19,7 +14,8 @@ module.exports = {
   //輸出
   output: {
     filename: "main.js",
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "build"),
+    publicPath:"/",
   },
   //DevServer 設定
   //伺服器根目錄
@@ -34,6 +30,11 @@ module.exports = {
     hot: true,
     open: true,
   },
+  plugins: [
+  new HtmlWebpackPlugin({
+    template: path.resolve(__dirname,'./public/index.html'),
+  }),
+],
   
   //模組載入規則
   module: {
@@ -61,23 +62,12 @@ module.exports = {
         use: "babel-loader",
       },
       {
-        test: /\.(gif|svg|jpe?g|png)$/,
+        test: /\.(gif|svg|jpe?g|png)$/i,
         loader: "file-loader",
         options: {
           name: '[name].[ext]',
         },
       },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 8192
-            }
-          }
-        ]
-      }
     ],
   },
 };

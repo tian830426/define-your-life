@@ -1,0 +1,47 @@
+step1: 打字機和花朵綻放特效/ solog
+step2: 選取照片下方預覽，拖拉至上方空格
+2-1 : 選取幾張便生成幾個格子，上限4張
+2-2 : drag aon drog 
+2-3 : 儲存狀態
+step3: 排完順序可預覽圖片
+3-1: 文字編輯器
+3-2: 
+
+
+
+額外功能：音樂播放器
+
+
+<div>
+        <p>`count ${next}`</p>
+        <button
+          onclick={() => {
+            setNext(next + 1);
+          }}
+        ></button>
+        <p>{prev}</p>
+        <button
+          onclick={() => {
+            setPrev(prev - 1);
+          }}
+        ></button>
+      </div>
+
+
+      const [next, setNext] = useState(0);
+  const [prev, setPrev] = useState(0);
+  const[count,setCount] = 
+
+
+
+  <div className="step">
+          <p>{`第${step}`}</p>
+          {step === 1 ? <StepOne /> : step === 2 ? <StepTwo /> : <StepThree />}
+          <button onClick={() => setStep(step + 1)}>下一頁</button>
+          {/* <div className="stepTwo step">
+          <StepTwo />
+        </div>
+        <div className="stepThree step">
+          <StepThree />
+        </div> */}
+        </div>
