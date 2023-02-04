@@ -40,21 +40,29 @@
     "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.11.7",
+    "@mui/styled-engine-sc": "^5.11.0",
     "dotenv": "^16.0.3",
     "firebase": "^9.16.0",
     "firestore": "^1.1.6",
     "html-webpack-plugin": "^5.5.0",
+    "immutability-helper": "^3.1.1",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-bootstrap": "^2.7.0",
+    "react-color": "^2.19.3",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-navigation": "^4.4.4",
+    "react-redux": "^8.0.5",
     "react-router": "^6.7.0",
-    "react-router-dom": "^6.7.0",
+    "react-router-dom": "^6.8.0",
     "react-typewriter-hook": "^1.0.1",
-    "styled-components": "^5.3.6"
+    "redux": "^4.2.1",
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   }
 }

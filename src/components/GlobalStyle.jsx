@@ -11,8 +11,9 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     text-decoration: none;
-    font-family: "Courier New", Courier, monospace;
-    /* font-family: "Signika", sans-serif; */
+    font-family:"Montserrat" ,sans-serif;
+    // font-family: "Courier New", Courier, monospace;
+    // font-family: "Signika", sans-serif; 
 }
 
 html,body {

@@ -1,12 +1,16 @@
 // react 相關套件
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 // pages
-import AnimationPage from "./pages/AnimationPage";
-import HomePage from "./pages/HomePage";
-import EditPage from "./pages/EditPage";
-import NavbarLayout from "./components/NavbarLayout";
-import SignUpPage from "./pages/SignUpPage";
+import AnimationPage from "./pages/HomePage/AnimationPage";
+import HomePage from "./pages/HomePage/HomePage";
+import EditPage from "./pages/AlbumEditPage/EditPage";
+import SignUpPage from "./pages/AuthPage/SignUpPage";
+import MemberPage from "./pages/MemberPage/MemberPage";
+import ProfilePage from "./pages/MemberPage/ProfilePage";
+import LibraryPage from "./pages/MemberPage/LibraryPage";
+import NotFound from "./pages/NotFound";
 
 const App = () => {
   return (
@@ -17,9 +21,16 @@ const App = () => {
           <Route path="home" element={<HomePage />} />
         </Route>
         <Route path="/home">
-          {/* <Route path="member" element={<MemberPage/>} /> */}
+          <Route path="member" element={<MemberPage />} />
           <Route path="signup" element={<SignUpPage />} />
           <Route path="edit" element={<EditPage />} />
+        </Route>
+        <Route path="/home/member">
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="library" element={<LibraryPage />} />
+        </Route>
+        <Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -27,3 +38,5 @@ const App = () => {
 };
 
 export default App;
+
+//Switch 會報錯

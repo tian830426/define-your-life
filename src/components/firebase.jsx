@@ -10,6 +10,12 @@ import {
   signOut,
 } from "firebase/auth";
 
+// firestore
+import { getFirestore } from "firebase/firestore";
+
+// storage
+import { getStorage } from "firebase/storage";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,6 +35,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const auth = getAuth();
+
+export const storage = getStorage(app);
 
 export function signup(email, password) {
   return createUserWithEmailAndPassword(auth, email, password);
@@ -53,3 +61,5 @@ export function useAuth() {
 
   return currentUser;
 }
+
+export const db = getFirestore(app);

@@ -7,6 +7,9 @@ module.exports = {
   // development 開發模式 -> 除錯比較有參考價值
   resolve: {
     extensions: [".js", ".jsx",".jpg",".jpeg",".svg" ,".png"],
+    alias: {
+      '@mui/styled-engine': '@mui/styled-engine-sc'
+    },
   },
   mode: "development",
   //入口
