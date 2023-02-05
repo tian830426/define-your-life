@@ -1,7 +1,10 @@
 .abc {
+  flex-direction: column;
   cursor: pointer;
   position: absolute;
   outline: 2px dash;
+  justify-content: space-between;
+  align-items: baseline;
   top: 0;
   right: 0;
   border: 2px solid;

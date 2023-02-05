@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
@@ -22,13 +22,22 @@ import StepByStep from "./StepByStep/StepByStep";
 // const StepThree = (props) => {
 //   return <>StepThree{props.image}</>;
 // };
+const randomColor = () => {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
 
 const EditPage = () => {
+  const [bgColor, setBgColor] = useState(randomColor());
   return (
     <>
       <NavbarLayout />
       <BackgroundLayout>
         {/* <ButtonSideBar /> */}
+        <div style={{ backgroundColor: bgColor }}>
+          <button onClick={() => setBgColor(randomColor())}>
+            Change Background Color
+          </button>
+        </div>
         <StepByStep />
       </BackgroundLayout>
       <FooterLayout />

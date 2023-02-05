@@ -7,7 +7,7 @@ const Button = styled.button`
   background: rgba(255, 255, 255, 0.1);
   outline: 2px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
-  margin: 15px 15px;
+  /* margin: 15px 15px; */
   display: flex;
   justify-content: center;
   text-align: center;
@@ -23,4 +23,4 @@ const Button = styled.button`
   }
 `;
 
-export default Button ;
+export default Button;

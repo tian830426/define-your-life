@@ -1,47 +1,54 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
-// { useContext }
-// import { AlbumName, AlbumDate, AlbumDescription } from "../components/StepByStep/StepMenu";
+import Button from "../../../components/Button";
+import { StepContext } from "./StepByStep";
 
-const AlbumBg = styled.li`
-  width: 300px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  color: rgb(61, 86, 133);
-  outline: 5px dashed rgb(119, 150, 202);
-  border-radius: 20px;
-  line-hight: 6px;
-  padding: 20px;
-  margin: 10px 0;
-
-  P {
-    padding: 5px;
-    span {
-      padding: 5px 10px;
-    }
+const AlbumList = styled.div`
+  max-width: 80%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  margin: -50px auto 0 auto;
+  justify-content: center;
+  align-items: center;
+`;
+const AlbumTitle = styled.div`
+  margin: 50px auto;
+  color: gray;
+  h2 {
+    font-size: 1.9rem;
+    color: transparent;
+    -webkit-text-stroke: 1.5px gray;
+    letter-spacing: 2px;
   }
+`;
 
-  button {
-    width: 120px;
-    height: 30px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    outline: 1.5px solid rgb(42, 58, 88);
-    color: rgb(42, 58, 88);
-    margin: 15px 0;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    line-height: 30px;
-    padding: auto 15px;
-    font-size: 1rem;
-    cursor: pointer;
+const AlbumItem = styled.span`
+  display: flex;
+  flex-direction: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 10px auto;
+  color: gray;
+  font-size: 18px;
+  padding: 0 15px;
+`;
 
-    &:hover {
-      opacity: 0.7;
-      background: rgb(42, 58, 88);
-      color: white;
-    }
+const AlbumButtonBorder = styled.div`
+  display: flex;
+  margin: 20px auto;
+`;
+
+const AlbumButton = styled(Button)`
+  display: flex;
+  margin: 60px 20px;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: 2.5px solid gray;
+  color: gray;
+
+  &:hover {
+    background: gray;
   }
 `;
 
@@ -58,22 +65,22 @@ const Albums = ({ album, deleteAlbum }) => {
   // console.log(album.Name);
   // console.log(album.name);
 
+  const { next } = useContext(StepContext);
+
   return (
-    <AlbumBg>
-      <p>
-        Editor:<span>{album.Editor}</span>
-      </p>
-      <p>
-        Album name:<span>{album.Name}</span>
-      </p>
-      <p>
-        Date:<span>{album.Date}</span>
-      </p>
-      <p>
-        Description:<span>{album.Description}</span>
-      </p>
-      <button onClick={() => deleteAlbum(album.id)}>Delete Album</button>
-    </AlbumBg>
+    <AlbumList>
+      <AlbumTitle>
+        <h2>If there are no issues, let's proceed to the next step.</h2>
+      </AlbumTitle>
+      <AlbumItem>Editor : {album.Editor}</AlbumItem>
+      <AlbumItem>Album name : {album.Name}</AlbumItem>
+      <AlbumItem>Date : {album.Date}</AlbumItem>
+      <AlbumItem>Description : {album.Description}</AlbumItem>
+      <AlbumButtonBorder>
+        <AlbumButton onClick={() => deleteAlbum(album.id)}>Prev</AlbumButton>
+        <AlbumButton onClick={() => next()}>Next</AlbumButton>
+      </AlbumButtonBorder>
+    </AlbumList>
   );
 };
 

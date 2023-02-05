@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { signup, login, logout, useAuth } from "../../components/firebase";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
@@ -65,7 +66,6 @@ const SignupDialogBgimg = styled.div`
       img:nth-of-type(2):hover {
         opacity: 0;
       }
-    }
 `;
 
 const SignupDialogLogin = styled.div`

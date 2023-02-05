@@ -15,8 +15,8 @@ import {
 import { v4 } from "uuid";
 // useRef,useEffect
 import PreviewImage from "./PreviewImage";
-
-// import { AlbumName, AlbumDate, AlbumDescription, Test } from "../StepMenu";
+import { StepContext } from "../StepByStep";
+import Button from "../../../../components/Button";
 
 const PreviewBoxes = styled.section`
   width: 100%;
@@ -34,22 +34,22 @@ const PreviewLabel = styled.label`
   margin: 20px auto;
   padding: 5px;
   border-radius: 25%;
-  outline: 3px dashed rgb(104, 142, 129);
+  outline: 3px dashed gray;
   background: rgba(255, 255, 255, 0.1);
   // box-shadow: rgb(104, 142, 129) 2px 2px 2px 4px;
-  color:gray;
+  color: gray;
   cursor: pointer;
   font-size: 20px;
 
   &:hover {
-    outline: 3px solid rgb(104, 142, 129);
+    // outline: 3px solid rgb(104, 142, 129);
     opacity: 0.7;
-    background: rgb(104, 142, 129);
+    background: gray;
     color: white;
   }
   svg {
     font-size: 28px;
-    color: rgb(104, 142, 129);
+    color: gray;
     &:hover {
       opacity: 0.7;
       color: white;
@@ -76,13 +76,16 @@ const PreviewAlbum = styled.ul`
   justify-content: start;
   align-items: center;
   overflow: scroll;
-  background: rgb(99, 125, 110);
 `;
 
 const PreviewImages = styled.li`
   margin: 16px 16px;
+  margin-bottom: 60px;
   box-shadow: 0px 1px 2px 0px;
   position: relative;
+  outline: 2px solid rgb(104, 142, 129);
+  // background: rgb(104, 142, 129);
+  padding: 10px 10px;
 
   img {
     width: 250px;
@@ -92,7 +95,7 @@ const PreviewImages = styled.li`
 
   button {
     width: 20px;
-    hieght: 20px;
+    height: 20px;
     border-radius: 50%;
     position: absolute;
     background-color: transparent;
@@ -118,23 +121,33 @@ const PreviewImagesLen = styled.p`
   }
 `;
 
-const PreviewContainer = (props) => {
-  // //取得相簿名稱,日期,描述
-  // const name = useContext(AlbumName);
-  // const date = useContext(AlbumDate);
-  // const description = useContext(AlbumDescription);
-  // const test = useContext(Test);
-  // console.log(test);
-  // console.log(name, date, description);
+const PreviewBorderButton = styled.div`
+  display: flex;
+  margin: 20px auto;
+`;
 
-  //拖曳上傳
+const PreviewButton = styled(Button)`
+  display: flex;
+  margin: 60px 20px;
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: 2.5px solid gray;
+  color: gray;
+
+  &:hover {
+    background: gray;
+  }
+`;
+
+const PreviewContainer = (props) => {
+  const { prev, next, selectedImages, setSelectedImages } =
+    useContext(StepContext);
 
   // 點選照片
-  const [selectedImages, setSelectedImages] = useState([]);
+  // const [selectedImages, setSelectedImages] = useState([]);
 
   // 上傳照片
   const [files, setFiles] = useState([]);
-
   const [cards, setCards] = useState([]);
 
   // const [imageUrls, setImageUrls] = useState([]);
@@ -169,15 +182,6 @@ const PreviewContainer = (props) => {
     setCards((previousImages) => previousImages.concat(cardsArray));
 
     // setSelectedImages(imagesArray);
-    // console.log(imagesArray);
-
-    // console.log(selectFiles);
-    console.log(selectFilesArray);
-    // console.log(selectedImages);
-    // console.log(setSelectedImages);
-    // console.log(imagesArray);
-    console.log(imagesArray[0]);
-    console.log(imagesArray[1]);
   };
 
   const moveCard = useCallback((dragIndex, hoverIndex) => {
@@ -293,6 +297,10 @@ const PreviewContainer = (props) => {
             );
           })}
       </PreviewAlbum>
+      <PreviewBorderButton>
+        <PreviewButton onClick={() => prev()}>Prev</PreviewButton>
+        <PreviewButton onClick={() => next()}>Next</PreviewButton>
+      </PreviewBorderButton>
     </PreviewBoxes>
   );
 };
