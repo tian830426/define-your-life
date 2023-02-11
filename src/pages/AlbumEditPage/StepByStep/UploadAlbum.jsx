@@ -21,7 +21,8 @@ const UploadAlbumButton = styled(Button)`
 `;
 
 const EditWord = () => {
-  const { prev, next, selectedImages, setSelectedImages } = useContext(StepContext);
+  const { prev, next, selectedImages, setSelectedImages,  cards,setCards} = useContext(StepContext);
+
   return (
     <div>
       {selectedImages &&

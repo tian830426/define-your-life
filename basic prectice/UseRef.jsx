@@ -16,7 +16,7 @@ function UseRef() {
   const inputRef = useRef(null);
   inputRef.current.focus();
 
-  //狀態二 植被更新時不會觸發重新渲染
+  //狀態二 值被更新時不會觸發重新渲染
   const [timer, setTimer] = useState(0);
   const intervalRef = useRef();
   useEffect(() => {

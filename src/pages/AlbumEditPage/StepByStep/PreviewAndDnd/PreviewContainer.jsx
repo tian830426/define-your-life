@@ -22,6 +22,7 @@ const PreviewBoxes = styled.section`
   width: 100%;
   height: 100%;
   padding: 1.5rem 0;
+  position: relative;
 `;
 
 const PreviewLabel = styled.label`
@@ -68,8 +69,8 @@ const PreviewLabel = styled.label`
 `;
 
 const PreviewAlbum = styled.ul`
-  width: 100%;
-  height: 80%;
+  /* width: 100%; */
+  /* height: 80%; */
   display: flex;
   flex-direction: row;
   // flex-wrap: wrap;
@@ -88,8 +89,8 @@ const PreviewImages = styled.li`
   padding: 10px 10px;
 
   img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
   }
 
@@ -123,12 +124,15 @@ const PreviewImagesLen = styled.p`
 
 const PreviewBorderButton = styled.div`
   display: flex;
-  margin: 20px auto;
+  position: absolute;
+  bottom: 20px;
+  left: 38%;
+  /* transform: translate(0, -50%);  */
 `;
 
 const PreviewButton = styled(Button)`
   display: flex;
-  margin: 60px 20px;
+  margin: 0 20px;
   font-size: 20px;
   background: rgba(255, 255, 255, 0.1);
   outline: 2.5px solid gray;
@@ -140,15 +144,23 @@ const PreviewButton = styled(Button)`
 `;
 
 const PreviewContainer = (props) => {
-  const { prev, next, selectedImages, setSelectedImages } =
-    useContext(StepContext);
+  const {
+    prev,
+    next,
+    selectedImages,
+    setSelectedImages,
+    cards,
+    setCards,
+    // editorState,
+    // setEditorState
+  } = useContext(StepContext);
 
   // 點選照片
   // const [selectedImages, setSelectedImages] = useState([]);
 
   // 上傳照片
-  const [files, setFiles] = useState([]);
-  const [cards, setCards] = useState([]);
+  // const [files, setFiles] = useState([]);
+  // const [cards, setCards] = useState([]);
 
   // const [imageUrls, setImageUrls] = useState([]);
   // const imagesListRef = ref(storage, "images/");
@@ -177,7 +189,7 @@ const PreviewContainer = (props) => {
     setSelectedImages((previousImages) => previousImages.concat(imagesArray)); // selectedImages => string[]
 
     // 因為上傳的照片需要blob，所以上傳照片的最新狀態就是當前圖片後加上 選取照片後的 blob[]
-    setFiles((previousImages) => previousImages.concat(selectFilesArray)); /// files => Blob[]
+    // setFiles((previousImages) => previousImages.concat(selectFilesArray)); /// files => Blob[]
 
     setCards((previousImages) => previousImages.concat(cardsArray));
 
@@ -208,18 +220,18 @@ const PreviewContainer = (props) => {
   }, []);
 
   // 上傳照片執行的 func
-  const uploadImg = () => {
-    if (files == null) return;
-    for (let i = 0; i < files.length; i++) {
-      const imageRef = ref(storage, `images/${files[i].name + v4()}`);
-      uploadBytes(imageRef, files[i]).then((snapshot) => {
-        // getDownloadURL(snapshot.ref).then((url) => {
-        //   setImageUrls((prev) => [...prev, url]);
-        // });
-        alert("image upload");
-      });
-    }
-  };
+  // const uploadImg = () => {
+  //   if (files == null) return;
+  //   for (let i = 0; i < files.length; i++) {
+  //     const imageRef = ref(storage, `images/${files[i].name + v4()}`);
+  //     uploadBytes(imageRef, files[i]).then((snapshot) => {
+  //       // getDownloadURL(snapshot.ref).then((url) => {
+  //       //   setImageUrls((prev) => [...prev, url]);
+  //       // });
+  //       alert("image upload");
+  //     });
+  //   }
+  // };
 
   // useEffect(() => {
   //   listAll(imagesListRef).then((response) => {
@@ -261,7 +273,7 @@ const PreviewContainer = (props) => {
         />
       </PreviewLabel>
       <br />
-      {selectedImages.length > 0 &&
+      {/* {selectedImages.length > 0 &&
         (selectedImages.length > 10 ? (
           <PreviewImagesLen>
             limit 10 images.
@@ -273,29 +285,32 @@ const PreviewContainer = (props) => {
             UPLOAD {selectedImages.length} IMAGE
             {selectedImages.length === 1 ? "" : "S"}
           </button>
-        ))}
+        ))} */}
       {/* {imageUrls.map((url) => {
  return <img src={url} />;
 })} */}
 
       <PreviewAlbum>
-        {selectedImages &&
-          selectedImages.map((image, index) => {
-            return (
-              <PreviewImages key={image}>
-                {renderCard(cards[index], index)}
-                {/* <img src={image} alt="upload images" /> */}
-                <button
-                  onClick={() =>
-                    setSelectedImages(selectedImages.filter((e) => e !== image))
-                  }
-                >
-                  <TiDeleteOutline />
-                </button>
-                <p>{index + 1}</p>
-              </PreviewImages>
-            );
-          })}
+        {cards.map((card, index) => {
+          return (
+            <PreviewImages key={card}>
+              {renderCard(cards[index], index)}
+              {/* <img src={image} alt="upload images" /> */}
+
+              <button
+                onClick={() => {
+                  // console.log(selectedImages);
+                  setCards(cards.filter((e) => e !== card));
+                  // let cat = selectedImages.filter((e) => e !== card);
+                  // console.log(cat);
+                }}
+              >
+                <TiDeleteOutline />
+              </button>
+              {/* <p>{index + 1}</p> */}
+            </PreviewImages>
+          );
+        })}
       </PreviewAlbum>
       <PreviewBorderButton>
         <PreviewButton onClick={() => prev()}>Prev</PreviewButton>

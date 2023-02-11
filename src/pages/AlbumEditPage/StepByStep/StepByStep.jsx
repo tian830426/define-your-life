@@ -6,41 +6,43 @@ import EditWord from "./EditWord";
 import EditBgFrame from "./EditBgFrame";
 import UploadAlbum from "./UploadAlbum";
 import Finish from "./Finish";
-import Button from "../../../components/Button";
 
 export const StepContext = React.createContext({
   prev: () => {},
   next: () => {},
   selectedImages: [],
   setSelectedImages: () => {},
+  cards: [],
+  setCards: () => {},
+  editorState: [],
+  setEditorState: () => {},
+  message: [],
+  setMessage: () => {},
 });
 
 const StepBoxes = styled.div`
-  width: 70%;
-  height: 65%;
-  border-radius: 20px;
+  width: 85%;
+  height: 70%;
+  border-radius: 25px;
   background-color: rgb(248, 248, 232);
   margin: 120px auto;
   display: flex;
   flex-direction: column;
-`;
-
-const StepContent = styled.div``;
-
-const StepBtn = styled.div`
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto 0;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 const StepByStep = () => {
-  const [step, setStep] = useState(1);
   const imageRef = useRef("");
-
+  const [step, setStep] = useState(1);
+  // useContext
   const [selectedImages, setSelectedImages] = useState([]);
+  const [cards, setCards] = useState([]);
+
+  const [message, setMessage] = useState("Try the editor below!");
+  const [rawMessage, setRawMessage] = useState("");
+  // editor useContext
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
   return (
     <>
@@ -50,24 +52,28 @@ const StepByStep = () => {
           next: () => setStep(step + 1),
           selectedImages: selectedImages,
           setSelectedImages: setSelectedImages,
+          cards: cards,
+          setCards: setCards,
+          message: message,
+          setMessage: setMessage,
+          rawMessage: rawMessage,
+          setRawMessage: setRawMessage,
         }}
       >
         <StepBoxes>
-          <StepContent>
-            {step === 1 ? (
-              <StepMenu image={imageRef.current} />
-            ) : step === 2 ? (
-              <PreviewCenter image={imageRef.current} />
-            ) : step === 3 ? (
-              <EditWord image={imageRef.current} />
-            ) : step === 4 ? (
-              <EditBgFrame image={imageRef.current} />
-            ) : step === 5 ? (
-              <UploadAlbum image={imageRef.current} />
-            ) : (
-              <Finish image={imageRef.current} />
-            )}
-          </StepContent>
+          {step === 1 ? (
+            <StepMenu image={imageRef.current} />
+          ) : step === 2 ? (
+            <PreviewCenter image={imageRef.current} />
+          ) : step === 3 ? (
+            <EditWord image={imageRef.current} />
+          ) : step === 4 ? (
+            <EditBgFrame image={imageRef.current} />
+          ) : step === 5 ? (
+            <UploadAlbum image={imageRef.current} />
+          ) : (
+            <Finish image={imageRef.current} />
+          )}
           {/* <StepBtn>
             {step === 2 ? (
               <div>

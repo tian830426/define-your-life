@@ -1,14 +1,14 @@
 const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   //建製的模式（ 差別在webpack 優化 ）
   // production 上線模式
   // development 開發模式 -> 除錯比較有參考價值
   resolve: {
-    extensions: [".js", ".jsx",".jpg",".jpeg",".svg" ,".png"],
+    extensions: [".js", ".jsx", ".jpg", ".jpeg", ".svg", ".png"],
     alias: {
-      '@mui/styled-engine': '@mui/styled-engine-sc'
+      "@mui/styled-engine": "@mui/styled-engine-sc",
     },
   },
   mode: "development",
@@ -18,7 +18,7 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "build"),
-    publicPath:"/",
+    publicPath: "/",
   },
   //DevServer 設定
   //伺服器根目錄
@@ -34,11 +34,11 @@ module.exports = {
     open: true,
   },
   plugins: [
-  new HtmlWebpackPlugin({
-    template: path.resolve(__dirname,'./public/index.html'),
-  }),
-],
-  
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "./public/index.html"),
+    }),
+  ],
+
   //模組載入規則
   module: {
     rules: [
@@ -47,6 +47,10 @@ module.exports = {
       {
         test: /\.scss$/i,
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.m?js$/,
@@ -68,7 +72,7 @@ module.exports = {
         test: /\.(gif|svg|jpe?g|png)$/i,
         loader: "file-loader",
         options: {
-          name: '[name].[ext]',
+          name: "[name].[ext]",
         },
       },
     ],

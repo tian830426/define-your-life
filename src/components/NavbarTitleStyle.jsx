@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 const NavbarTitleStyle = styled.div`
-position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 20px;
-    font: bold 4.2vw/1.6 "Signika", sans-serif;
-    user-select: none;
-    animation: focus-in-expand 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    letter-spacing: 8px;
-  }
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  font: bold 4.2vw/1.6 "Signika", sans-serif;
+  user-select: none;
+  animation: focus-in-expand 5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  letter-spacing: 8px;
+
   @keyframes focus-in-expand {
     0% {
       letter-spacing: -0.5em;
@@ -116,25 +116,23 @@ position: absolute;
   span:nth-child(14) {
     animation-delay: 0.65s;
   }
-
 `;
 
-
 const NavbarTitleH1 = styled.h1`
-  position: absolute;
+  position: absolute; 
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3rem;
+  transform: translate(-50%, -50%); 
+  font-size: 40px;
   font-family: "Signika", sans-serif;
   // font: bold 2vw/1.6 ;
   user-select: none;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   span {
-           display: inline-block;
-        }
+    display: inline-block;
+  }
 
-    span:nth-child(4n) {
+  span:nth-child(4n) {
     color: hsl(50, 75%, 55%);
     text-shadow: 1px 1px hsl(50, 75%, 45%), 2px 2px hsl(50, 45%, 45%),
       3px 3px hsl(50, 45%, 45%), 4px 4px hsl(50, 75%, 45%);
@@ -154,6 +152,5 @@ const NavbarTitleH1 = styled.h1`
     text-shadow: 1px 1px hsl(30, 45%, 50%), 2px 2px hsl(30, 45%, 50%),
       3px 3px hsl(30, 45%, 50%), 4px 4px hsl(30, 45%, 50%);
   }
-}
 `;
-export { NavbarTitleStyle , NavbarTitleH1};
+export { NavbarTitleStyle, NavbarTitleH1 };

@@ -6,20 +6,20 @@ import { Link } from "react-router-dom";
 import { NavbarTitleH1 } from "../../components/NavbarTitleStyle";
 
 const Navbar = styled.div`
+  display: flex;
   position: fixed;
   width: 100%;
   height: 70px;
   z-index: 999;
-  //   background-color:#EFD9A7 ;
   background-color: rgb(248, 248, 232);
-  display: flex;
 `;
+
 const NavbarTitle = styled(Link)`
-  width: 75%;
-  max-width: 1200px;
+  /* width: 75%; */
+  /* max-width: 1200px; */
   display: flex;
   align-items: center;
-  padding: 8px 0px 8px 310px;
+  /* padding: 8px 0px 8px 310px; */
   flex-direction: column;
   text-align: center;
   letter-spacing: 4px;
@@ -41,19 +41,18 @@ const NavbarTitle = styled(Link)`
 `;
 
 const NavbarItems = styled.div`
-  width: 25%;
-  margin: 0 20px;
+  /* width: 25%; */
+  margin: 0 10px;
   display: flex;
   position: absolute;
   top: 50%;
-  left: 82%;
+  right: -20px;
   transform: translate(-50%, -50%);
-  // justify-content: sp;
   line-height: 70px;
   letter-spacing: 2px;
 `;
 const NavbarItem = styled(Link)`
-  width: 185px;
+  /* width: 185px; */
   margin: auto 12px;
   // background-color: #fee6e3;
   // background-color: rgb(163, 145, 123);
@@ -72,7 +71,7 @@ const NavbarItem = styled(Link)`
   height: 42px;
   justify-content: center;
   line-height: 24px;
-  max-width: 100%;
+  /* max-width: 100%; */
   padding: 0 5px;
   position: relative;
   text-align: center;
@@ -156,7 +155,7 @@ const NavbarLi = styled.li`
   width: 185px;
   color: white;
   line-height: 30px;
-  padding: 0 10px;
+  padding: 0 15px;
   margin: 0 auto;
   margin-right: 10px;
   background-color: rgb(198, 161, 80);

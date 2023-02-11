@@ -26,7 +26,7 @@ import Button from "../../../components/Button";
 // .attrs({ className: stepMenuBoxes })
 
 const StepMenuBoxes = styled.div`
-  max-width: 80%;
+  max-width: 75%;
   height: 85%;
   display: flex;
   flex-direction: column;
@@ -84,8 +84,7 @@ const StepMenuButton = styled(Button)`
   }
 `;
 
-const StepMenuUl = styled.div`
-`;
+const StepMenuUl = styled.div``;
 
 function StepMenu(props) {
   const [editor, setEditor] = useState("");
@@ -122,7 +121,7 @@ function StepMenu(props) {
     }
     await addDoc(collection(db, "albums"), {
       Editor: editor,
-      Album_Name: name,
+      Name: name,
       Date: date,
       Description: description,
     });
@@ -162,9 +161,11 @@ function StepMenu(props) {
   //   }, 3000);
   // }, [navigate]);
 
+  console.log(albums);
+
   return (
     <>
-      <StepMenuBoxes>
+      {/* <StepMenuBoxes> */}
         <StepMenuTitle>
           {show ? <h2>Let's try to make special album by yourself !</h2> : null}
         </StepMenuTitle>
@@ -177,7 +178,6 @@ function StepMenu(props) {
                   type="text"
                   value={editor}
                   onChange={handleEditor}
-                  placeholder="Helen"
                   required
                 />
               </label>{" "}
@@ -187,7 +187,7 @@ function StepMenu(props) {
                   type="text"
                   value={name}
                   onChange={handleName}
-                  placeholder="Road Ttip in Japan "
+                  required
                 />
               </label>{" "}
               <label htmlFor="">
@@ -213,7 +213,7 @@ function StepMenu(props) {
             <Albums key={index} album={album} deleteAlbum={deleteAlbum} />
           ))}
         </StepMenuUl>
-      </StepMenuBoxes>
+      {/* </StepMenuBoxes> */}
     </>
   );
 }

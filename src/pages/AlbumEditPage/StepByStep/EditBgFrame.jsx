@@ -3,6 +3,7 @@ import styled from "styled-components";
 // import { SketchPicker } from "react-color";
 import { CirclePicker } from "react-color";
 import ColorItemBox from "./Finish";
+import { StepContext } from "../StepByStep/StepByStep";
 import Button from "../../../components/Button";
 
 // const ColorSwitcher = styled.div`
@@ -74,7 +75,18 @@ const EditBgFrameButton = styled(Button)`
 `;
 
 const EditBgFrame = () => {
-  const { prev, next, selectedImages, setSelectedImages } = useContext(StepContext);
+  const {
+    prev,
+    next,
+    selectedImages,
+    setSelectedImages,
+    cards,
+    setCard,
+    editorState,
+    setEditorState,
+    rawMessage,
+    setRawMessage,
+  } = useContext(StepContext);
   const [currentColor, setCurrentColor] = useState("#ff6");
 
   const handleOnChange = (color) => {
@@ -98,6 +110,9 @@ const EditBgFrame = () => {
   return (
     <div className="App" style={appStyle}>
       <h1>hello</h1>
+      <p>{rawMessage}</p>
+      <p>{setRawMessage}</p>
+
       <CirclePicker color={currentColor} onChangeComplete={handleOnChange} />
       <EditBgFrameBorderButton>
         <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>

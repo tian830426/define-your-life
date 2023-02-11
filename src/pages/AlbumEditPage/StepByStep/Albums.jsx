@@ -4,8 +4,6 @@ import Button from "../../../components/Button";
 import { StepContext } from "./StepByStep";
 
 const AlbumList = styled.div`
-  max-width: 80%;
-  height: 85%;
   display: flex;
   flex-direction: column;
   margin: -50px auto 0 auto;
@@ -61,7 +59,7 @@ const Albums = ({ album, deleteAlbum }) => {
   // console.log(name);
   // console.log(date);
 
-  // console.log(album);
+  // console.log(album.Editor);
   // console.log(album.Name);
   // console.log(album.name);
 
