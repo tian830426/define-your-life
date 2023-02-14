@@ -21,21 +21,11 @@ const UploadAlbumButton = styled(Button)`
 `;
 
 const EditWord = () => {
-  const { prev, next, selectedImages, setSelectedImages,  cards,setCards} = useContext(StepContext);
+  const { prev, next, selectedImages, setSelectedImages, cards, setCards } =
+    useContext(StepContext);
 
   return (
     <div>
-      {selectedImages &&
-        selectedImages.map((image, index) => {
-          return (
-            <img
-              key={index}
-              src={image}
-              alt=""
-              style={{ width: 200, height: 200 }}
-            />
-          );
-        })}
       <UploadAlbumBorderButton>
         <UploadAlbumButton onClick={() => prev()}>Prev</UploadAlbumButton>
         <UploadAlbumButton onClick={() => next()}>Next</UploadAlbumButton>

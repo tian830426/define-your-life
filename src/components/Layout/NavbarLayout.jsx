@@ -15,11 +15,11 @@ const Navbar = styled.div`
 `;
 
 const NavbarTitle = styled(Link)`
-  /* width: 75%; */
-  /* max-width: 1200px; */
+  width: 75%;
+  /* max-width: 1200px;  */
   display: flex;
   align-items: center;
-  /* padding: 8px 0px 8px 310px; */
+  padding: 8px 0px 8px 310px; 
   flex-direction: column;
   text-align: center;
   letter-spacing: 4px;
@@ -43,6 +43,7 @@ const NavbarTitle = styled(Link)`
 const NavbarItems = styled.div`
   /* width: 25%; */
   margin: 0 10px;
+  margin-left: 50px;
   display: flex;
   position: absolute;
   top: 50%;
@@ -51,6 +52,7 @@ const NavbarItems = styled.div`
   line-height: 70px;
   letter-spacing: 2px;
 `;
+
 const NavbarItem = styled(Link)`
   /* width: 185px; */
   margin: auto 12px;

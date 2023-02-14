@@ -166,53 +166,48 @@ function StepMenu(props) {
   return (
     <>
       {/* <StepMenuBoxes> */}
-        <StepMenuTitle>
-          {show ? <h2>Let's try to make special album by yourself !</h2> : null}
-        </StepMenuTitle>
-        <StepMenuInput>
-          {show ? (
-            <StepMenuForm onSubmit={submit}>
-              <label htmlFor="">
-                Editor :
-                <input
-                  type="text"
-                  value={editor}
-                  onChange={handleEditor}
-                  required
-                />
-              </label>{" "}
-              <label htmlFor="">
-                Album Name :
-                <input
-                  type="text"
-                  value={name}
-                  onChange={handleName}
-                  required
-                />
-              </label>{" "}
-              <label htmlFor="">
-                Date :
-                <input type="date" value={date} onChange={handleDate} />
-              </label>{" "}
-              <label htmlFor="">
-                {" "}
-                Description :
-                <input
-                  type="text"
-                  value={description}
-                  onChange={handleDescription}
-                  required
-                />
-              </label>
-              <StepMenuButton>Submit</StepMenuButton>
-            </StepMenuForm>
-          ) : null}
-        </StepMenuInput>
-        <StepMenuUl>
-          {albums.map((album, index) => (
-            <Albums key={index} album={album} deleteAlbum={deleteAlbum} />
-          ))}
-        </StepMenuUl>
+      <StepMenuTitle>
+        {show ? <h2>Let's try to make special album by yourself !</h2> : null}
+      </StepMenuTitle>
+      <StepMenuInput>
+        {show ? (
+          <StepMenuForm onSubmit={submit}>
+            <label htmlFor="">
+              Editor :
+              <input
+                type="text"
+                value={editor}
+                onChange={handleEditor}
+                required
+              />
+            </label>{" "}
+            <label htmlFor="">
+              Album Name :
+              <input type="text" value={name} onChange={handleName} required />
+            </label>{" "}
+            <label htmlFor="">
+              Date :
+              <input type="date" value={date} onChange={handleDate} />
+            </label>{" "}
+            <label htmlFor="">
+              {" "}
+              Description :
+              <input
+                type="text"
+                value={description}
+                onChange={handleDescription}
+                required
+              />
+            </label>
+            <StepMenuButton>Submit</StepMenuButton>
+          </StepMenuForm>
+        ) : null}
+      </StepMenuInput>
+      <StepMenuUl>
+        {albums.map((album, index) => (
+          <Albums key={index} album={album} deleteAlbum={deleteAlbum} />
+        ))}
+      </StepMenuUl>
       {/* </StepMenuBoxes> */}
     </>
   );

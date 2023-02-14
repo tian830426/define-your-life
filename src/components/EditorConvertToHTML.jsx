@@ -19,8 +19,6 @@ const EditorConvertToHTML = () => {
     setMessage,
     rawMessage,
     setRawMessage,
-    // editorState,
-    // setEditorState,
   } = useContext(StepContext);
 
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -38,18 +36,19 @@ const EditorConvertToHTML = () => {
     setMessage(rawMessage);
   };
 
+
   const wrapperStyle = {
-    border: "1px solid #969696",
+    border: "1px solid #cabc88",
   };
   const editorStyle = {
-    height: "10rem",
+    height: "20rem",
     padding: "1rem",
   };
 
   return (
     <>
       <React.Fragment>
-        <div
+        {/* <div
           style={{
             border: "1px solid #969696",
             borderRadius: "3px",
@@ -58,8 +57,8 @@ const EditorConvertToHTML = () => {
           }}
         >
           <div dangerouslySetInnerHTML={{ __html: message }}></div>
-        </div>
-        <div style={{ marginTop: "5%" }}>
+        </div> */}
+        <div>
           <Editor
             initialEditorState={editorState}
             wrapperClassName="wrapper-class"
@@ -94,9 +93,9 @@ const EditorConvertToHTML = () => {
             }}
           />
         </div>
-        <div style={{ marginTop: "2%" }}>
+        {/* <div style={{ marginTop: "2%" }}>
           <button onClick={handleEditorStateToMessage}>submit</button>
-        </div>
+        </div> */}
       </React.Fragment>
       {/* <Editor
         editorState={editorState}

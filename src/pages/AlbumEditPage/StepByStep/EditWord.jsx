@@ -4,12 +4,6 @@ import { StepContext } from "../StepByStep/StepByStep";
 import Button from "../../../components/Button";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import EditorConvertToHTML from "../../../components/EditorConvertToHTML";
-import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 
 const EditorContainer = styled.div`
   width: 100%;
@@ -17,32 +11,34 @@ const EditorContainer = styled.div`
   position: relative;
 `;
 
-const EditorBoxes = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-evenly;
-`;
+// const EditorBoxes = styled.div`
+//   width: 100%;
+//   margin: 0 auto;
+//   margin-bottom: 10px;
+//   display: flex;
+//   justify-content: space-evenly;
+// `;
 
-const EditorAlbum = styled.div`
-  width: 50%;
-`;
+// const EditorAlbum = styled.div`
+//   width: 50%;
+// `;
 
-const EditorImg = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* width: 100%;
-  height: 80%; */
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
-`;
+// const EditorImg = styled.img`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   /* width: 100%;
+//   height: 80%; */
+//   width: 100%;
+//   height: 450px;
+//   object-fit: cover;
+// `;
 
 const EditorNote = styled.div`
-  width: 50%;
-  background: #6c6262;
+  width: 100%;
+  height: 80%;
+  background:#c2c27b;
+  /* background-color: */
 `;
 
 const EditorTitele = styled.div`
@@ -63,7 +59,7 @@ const EditWordButton = styled(Button)`
   display: flex;
   margin: 0px 20px;
   font-size: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(173, 161, 132, 0.1);
   outline: 2.5px solid gray;
   color: gray;
 
@@ -71,8 +67,6 @@ const EditWordButton = styled(Button)`
     background: gray;
   }
 `;
-
-
 
 const EditWord = () => {
   const {
@@ -89,10 +83,14 @@ const EditWord = () => {
     // editorState,
     // setEditorState,
   } = useContext(StepContext);
+
+  const handleEditorStateToMessage = () => {
+    setMessage(rawMessage);
+  };
   return (
     <EditorContainer>
-      <EditorBoxes>
-        <EditorAlbum>
+      {/* <EditorBoxes> */}
+      {/* <EditorAlbum>
           <Swiper
             effect="fade"
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -114,14 +112,14 @@ const EditWord = () => {
               );
             })}
           </Swiper>
-        </EditorAlbum>
-        <EditorNote>
-          <EditorTitele>
-            <h2>Note</h2>
-          </EditorTitele>
-          <EditorConvertToHTML></EditorConvertToHTML>
-        </EditorNote>
-      </EditorBoxes>
+        </EditorAlbum> */}
+      <EditorNote>
+        <EditorTitele>
+          <h2>Note</h2>
+        </EditorTitele>
+        <EditorConvertToHTML>Enter Text...</EditorConvertToHTML>
+      </EditorNote>
+      {/* </EditorBoxes> */}
       <EditWordBorderButton>
         <EditWordButton onClick={() => prev()}>Prev</EditWordButton>
         <EditWordButton

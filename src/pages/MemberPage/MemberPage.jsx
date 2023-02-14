@@ -28,7 +28,7 @@ function MemberPage() {
     <>
       <NavbarLayout />
       <BackgroundLayout>
-        <Popup onClose={goToNextPage}>
+        {/* <Popup onClose={goToNextPage}>
           {" "}
           <Notification
             title="Notice"
@@ -46,7 +46,7 @@ function MemberPage() {
             severity="urgory"
           />
           hello word
-        </Popup>
+        </Popup> */}
       </BackgroundLayout>
       <FooterLayout />
     </>
