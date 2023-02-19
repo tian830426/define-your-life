@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect, useState, useRef,useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
-import { signup, login, logout, useAuth } from "../../components/firebase";
+// import { signup, login, logout } from "../../components/firebase";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 // import BackGroundSetup from "../components/BackGroundSetup";
-// image
 import loginImg from "../../assets/cryPeople.JPG";
 import changeImg from "../../assets/musicPeople.JPG";
+
+import { AuthErrorCodes } from "firebase/auth";
+import { AuthContext } from "./UserAuthProvider";
 
 const SignupDialogCenter = styled.div`
   width: 100%;
   height: calc(100vh - 50px);
-  //   background-image: linear-gradient(-225deg,#95a7b5 0%, #2580B3 100%);;
+  //  background-image: linear-gradient(-225deg,#95a7b5 0%, #2580B3 100%);;
   // background-color: #95a7b5;
   background: rgb(222, 208, 173);
   position: relative;
@@ -51,26 +52,25 @@ const SignupDialogBgimg = styled.div`
   width: 45%;
   padding: 20px;
   position: relative;
-        img {
-        width: 85%;
-        border-radius: 15px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -webkit-transition: opacity 2s ease-in-out;
-        -moz-transition: opacity 2s ease-in-out;
-        -o-transition: opacity 2s ease-in-out;
-        transition: opacity 2s ease-in-out;
-      }
-      img:nth-of-type(2):hover {
-        opacity: 0;
-      }
+  img {
+    width: 85%;
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transition: opacity 2s ease-in-out;
+    -moz-transition: opacity 2s ease-in-out;
+    -o-transition: opacity 2s ease-in-out;
+    transition: opacity 2s ease-in-out;
+  }
+  img:nth-of-type(2):hover {
+    opacity: 0;
+  }
 `;
 
 const SignupDialogLogin = styled.div`
   width: 45%;
-  // padding: 20px;
 `;
 
 const SignupDialogTitle = styled.div`
@@ -117,46 +117,260 @@ const SignupBtn = styled.div`
 `;
 
 function SignUpPage() {
-  const [loading, setLoading] = useState(false);
-  const currentUser = useAuth();
+  // , error, currentuser
+  // const { SignUp } = AuthContext();
+  const {SignUp} = useContext(AuthContext)
+  const navigate = useNavigate();
+  const [err, setError] = useState("");
+  // const [backError, setBackError] = useState("");
+  const [user, setUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
 
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  console.log(user.email);
 
-  async function handleSignup() {
-    setLoading(true);
-    // try {
-    await signup(emailRef.current.value, passwordRef.current.value);
-    // } catch {
-    // alert("Error!");
-    // }
-    setLoading(false);
-  }
+  // useEffect(() => {
+  //   console.log("i am in");
+  //   if (error) {
+  //     setinterval(() => {
+  //       setBackError("");
+  //     }, 5000);
+  //     setBackError(error);
+  //   }
+  // }, [error, currentuser]);
 
-  async function handleLogin() {
-    setLoading(true);
-    try {
-      await login(emailRef.current.value, passwordRef.current.value);
-    } catch {
-      alert("Error!");
+  const UserHandler = (e) => {
+    const { name, value } = e.target;
+    console.log(name + "::::" + value);
+    setUser((perState) => ({ ...perState, [name]: value }));
+  };
+
+  // confirmpassword,
+  const SubmitHandler = async (e) => {
+    e.preventDefault();
+    const { email, password, username } = user;
+    if (password == "" || email == "" || username == "") {
+      setInterval(() => {
+        setError("");
+      }, 5000);
+      return setError("please fill all the field");
+      // } else if (password !== confirmpassword) {
+      //   setInterval(() => {
+      //     setError("");
+      //   }, 5000);
+      //   return setError("password does not match");
+      // } else if (password.length >= 6 || !confirmpassword.length >= 6) {
+      //   setInterval(() => {
+      //     setError("");
+      //   }, 5000);
+      //   return setError("password must be greater then 6 length");
+    } else {
+      try {
+        await SignUp(email, password, username);
+        alert("WelCome New User Create successfully");
+        navigate("/home/login");
+      } catch (err) {
+        if (err.code === "auth/email-already-in-use") {
+          setInterval(() => {
+            setError("");
+          }, 5000);
+          setError("email already in use try another email");
+        } else if (err.code === AuthErrorCodes.WEAK_PASSWORD) {
+          setInterval(() => {
+            setError("");
+          }, 5000);
+          setError("Password Must be 6 charecter");
+        } else {
+          setError(err.message);
+        }
+      }
+
+      // {
+      //   currentuser &&
+      //     setUser({
+      //       username: "",
+      //       email: "",
+      //       password: "",
+      //     });
+      // }
     }
-    setLoading(false);
-  }
+  };
 
-  async function handleLogout() {
-    setLoading(true);
-    try {
-      await logout();
-    } catch {
-      alert("Error!");
-    }
-    setLoading(false);
-  }
+  // const [loading, setLoading] = useState(false);
+  // const currentUser = UseAuth();
+
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
+
+  // async function handleSignup() {
+  //   setLoading(true);
+  //   // try {
+  //   await signup(emailRef.current.value, passwordRef.current.value);
+  //   // } catch {
+  //   // alert("Error!");
+  //   // }
+  //   setLoading(false);
+  // }
+
+  // async function handleLogin() {
+  //   setLoading(true);
+  //   try {
+  //     await login(emailRef.current.value, passwordRef.current.value);
+  //   } catch {
+  //     alert("Error!");
+  //   }
+  //   setLoading(false);
+  // }
+
+  // async function handleLogout() {
+  //   setLoading(true);
+  //   try {
+  //     await logout();
+  //   } catch {
+  //     alert("Error!");
+  //   }
+  //   setLoading(false);
+  // }
 
   return (
     <div>
       <NavbarLayout />
       <SignupDialogCenter>
+        <SignupDialogBoxes>
+          <SignupDialogBgimg>
+            <img className="loginImg" src={loginImg} alt="loginImg" />
+            <img className="changeImg" src={changeImg} alt="changeImg" />
+          </SignupDialogBgimg>
+          <SignupDialogLogin>
+            <SignupDialogTitle>
+              Welcome to Album Editor
+              <br />
+              {/* Currently logged in as: {currentUser?.email}{" "} */}
+            </SignupDialogTitle>
+            <Fields>
+              {err && <p className="error">{err}</p>}
+              {/* {err
+                ? err && <p className="error">{err}</p>
+                : backError && <p className="error">{backError}</p>} */}
+              <form onSubmit={SubmitHandler} className="form">
+                <h2>Registration Form</h2>
+                <div className="inputfield">
+                  <input
+                    type="text"
+                    placeholder="UserName"
+                    value={user.username}
+                    name="username"
+                    onChange={UserHandler}
+                  />
+                </div>
+                <div className="inputfield">
+                  <input
+                    type="text"
+                    placeholder="Email"
+                    value={user.email}
+                    name="email"
+                    onChange={UserHandler}
+                  />
+                </div>
+
+                <div className="inputfield">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={user.password}
+                    name="password"
+                    onChange={UserHandler}
+                  />
+                </div>
+                <div className="inputfield">
+                  {/* <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={user.confirmpassword}
+                    name="confirmPassword"
+                    onChange={UserHandler}
+                  /> */}
+                </div>
+                <div className="inputfield">
+                  <input type="submit" />
+                </div>
+                <p className="forget">
+                  Already Have an account?{" "}
+                  <Link to={"/home/login"} className="link">
+                    {"login"}
+                  </Link>
+                </p>
+              </form>
+            </Fields>
+            {/* <SignupBtn>
+              <button disabled={loading || currentUser} onClick={handleSignup}>
+                Sign Up
+              </button>
+              <button disabled={loading || currentUser} onClick={handleLogin}>
+                Log In
+              </button>
+              <button disabled={loading || !currentUser} onClick={handleLogout}>
+                Log Out
+              </button>
+            </SignupBtn> */}
+          </SignupDialogLogin>
+        </SignupDialogBoxes>
+      </SignupDialogCenter>
+      {/* <div className="box">
+        {err
+          ? err && <p className="error">{err}</p>
+          : backError && <p className="error">{backError}</p>}
+
+        <form onSubmit={SubmitHandler} className="form">
+          <h2>Registration Form</h2>
+          <div className="inputfield">
+            <input
+              type="text"
+              placeholder="UserName"
+              value={user.FullName}
+              name="FullName"
+              onChange={UserHandler}
+            />
+          </div>
+          <div className="inputfield">
+            <input
+              type="text"
+              placeholder="Email"
+              value={user.email}
+              name="email"
+              onChange={UserHandler}
+            />
+          </div>
+
+          <div className="inputfield">
+            <input
+              type="password"
+              placeholder="Password"
+              value={user.password}
+              name="password"
+              onChange={UserHandler}
+            />
+          </div>
+          <div className="inputfield">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={user.confirmPassword}
+              name="confirmPassword"
+              onChange={UserHandler}
+            />
+          </div>
+          <div className="inputfield">
+            <input type="submit" />
+          </div>
+          <p className="forget">
+            Don't have an account? <a href="">Sign up </a>
+          </p>
+        </form>
+      </div> */}
+      {/* <SignupDialogCenter>
         <SignupDialogBoxes>
           <SignupDialogBgimg>
             <img className="loginImg" src={loginImg} alt="loginImg" />
@@ -185,7 +399,7 @@ function SignUpPage() {
             </SignupBtn>
           </SignupDialogLogin>
         </SignupDialogBoxes>
-      </SignupDialogCenter>
+      </SignupDialogCenter> */}
       <FooterLayout />
     </div>
   );

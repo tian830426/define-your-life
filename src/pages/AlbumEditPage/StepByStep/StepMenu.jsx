@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { db } from "../../../components/firebase";
@@ -9,10 +9,13 @@ import {
   collection,
   onSnapshot,
   addDoc,
+  setDoc,
   doc,
   deleteDoc,
 } from "firebase/firestore";
 import Button from "../../../components/Button";
+
+import { AuthContext } from "../../AuthPage/UserAuthProvider";
 
 // export const AlbumName = React.createContext();
 // export const AlbumDate = React.createContext();
@@ -94,6 +97,9 @@ function StepMenu(props) {
 
   const [show, setShow] = useState(true);
 
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
   // 建立相簿
   const [albums, setAlbums] = useState([]);
 
@@ -119,7 +125,18 @@ function StepMenu(props) {
     if (editor === "" || name === "" || date === "" || description === "") {
       return;
     }
-    await addDoc(collection(db, "albums"), {
+    // await setDoc(
+    //   doc(db, currentUser.email, "album"),
+    //   {
+    //     Editor: editor,
+    //     Name: name,
+    //     Date: date,
+    //     Description: description,
+    //   },
+    //   { merge: false }
+    // );
+
+    await addDoc(collection(db, currentUser.email), {
       Editor: editor,
       Name: name,
       Date: date,
@@ -135,7 +152,7 @@ function StepMenu(props) {
   };
 
   useEffect(() => {
-    const q = query(collection(db, "albums"));
+    const q = query(collection(db, currentUser.email));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let albumsArr = [];
       querySnapshot.forEach((doc) => {
@@ -149,7 +166,7 @@ function StepMenu(props) {
   // const navigate = useNavigate();
   // 從資料庫將資料刪除
   const deleteAlbum = async (id) => {
-    await deleteDoc(doc(db, "albums", id));
+    await deleteDoc(doc(db, currentUser.email, id));
     setShow(true);
     // props.prev();
     // navigate("/home/edit");

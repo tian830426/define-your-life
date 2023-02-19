@@ -35,6 +35,7 @@ const StepBoxes = styled.div`
 const StepByStep = () => {
   const imageRef = useRef("");
   const [step, setStep] = useState(1);
+  
   // useContext
   const [selectedImages, setSelectedImages] = useState([]);
   const [cards, setCards] = useState([]);

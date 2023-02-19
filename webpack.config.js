@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  //建製的模式（ 差別在webpack 優化 ）
+  // 建製的模式（ 差別在webpack 優化 ）
   // production 上線模式
   // development 開發模式 -> 除錯比較有參考價值
   resolve: {

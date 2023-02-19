@@ -34,32 +34,35 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
-const auth = getAuth();
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { db, auth };
 
 export const storage = getStorage(app);
 
-export function signup(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password);
-}
+// export function signup(email, password) {
+//   return createUserWithEmailAndPassword(auth, email, password);
+// }
 
-export function login(email, password) {
-  return signInWithEmailAndPassword(auth, email, password);
-}
+// export function login(email, password) {
+//   return signInWithEmailAndPassword(auth, email, password);
+// }
 
-export function logout() {
-  return signOut(auth);
-}
+// export function logout() {
+//   return signOut(auth);
+// }
 
 // Custom Hook
-export function useAuth() {
-  const [currentUser, setCurrentUser] = useState();
+// export function useAuth() {
+//   const [currentUser, setCurrentUser] = useState();
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
-    return unsub;
-  }, []);
+//   useEffect(() => {
+//     const unsub = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+//     return unsub;
+//   }, []);
 
-  return currentUser;
-}
+//   return currentUser;
+// }
 
-export const db = getFirestore(app);
+// export const db = getFirestore(app);
