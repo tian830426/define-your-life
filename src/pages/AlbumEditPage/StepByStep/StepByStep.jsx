@@ -33,24 +33,33 @@ const StepBoxes = styled.div`
 `;
 
 const StepByStep = () => {
-  const imageRef = useRef("");
   const [step, setStep] = useState(1);
-  
+
   // useContext
+  const [editor, setEditor] = useState("");
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [cards, setCards] = useState([]);
-
   const [message, setMessage] = useState("Try the editor below!");
   const [rawMessage, setRawMessage] = useState("");
-  // editor useContext
-  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+  // image={imageRef.current}
   return (
     <>
       <StepContext.Provider
         value={{
           prev: () => setStep(step - 1),
           next: () => setStep(step + 1),
+          editor: editor,
+          setEditor: setEditor,
+          name: name,
+          setName: setName,
+          date: date,
+          setDate: setDate,
+          description: description,
+          setDescription: setDescription,
           selectedImages: selectedImages,
           setSelectedImages: setSelectedImages,
           cards: cards,
@@ -63,47 +72,18 @@ const StepByStep = () => {
       >
         <StepBoxes>
           {step === 1 ? (
-            <StepMenu image={imageRef.current} />
+            <StepMenu />
           ) : step === 2 ? (
-            <PreviewCenter image={imageRef.current} />
+            <PreviewCenter />
           ) : step === 3 ? (
-            <EditWord image={imageRef.current} />
+            <EditWord />
           ) : step === 4 ? (
-            <EditBgFrame image={imageRef.current} />
+            <EditBgFrame />
           ) : step === 5 ? (
-            <UploadAlbum image={imageRef.current} />
+            <UploadAlbum />
           ) : (
-            <Finish image={imageRef.current} />
+            <Finish />
           )}
-          {/* <StepBtn>
-            {step === 2 ? (
-              <div>
-                {" "}
-                <Button onClick={() => setStep(step - 1)}>prev</Button>
-                <Button onClick={() => setStep(step + 1)}>next</Button>
-              </div>
-            ) : step === 3 ? (
-              <div>
-                {" "}
-                <Button onClick={() => setStep(step - 1)}>prev</Button>
-                <Button onClick={() => setStep(step + 1)}>next</Button>
-              </div>
-            ) : step === 4 ? (
-              <div>
-                {" "}
-                <Button onClick={() => setStep(step - 1)}>prev</Button>
-                <Button onClick={() => setStep(step + 1)}>next</Button>
-              </div>
-            ) : step === 5 ? (
-              <div>
-                {" "}
-                <Button onClick={() => setStep(step - 1)}>prev</Button>
-                <Button onClick={() => setStep(step + 1)}>next</Button>
-              </div>
-            ) : (
-              <Finish image={imageRef.current} />
-            )}
-          </StepBtn> */}
         </StepBoxes>
       </StepContext.Provider>
     </>

@@ -37,14 +37,14 @@ const EditorContainer = styled.div`
 const EditorNote = styled.div`
   width: 100%;
   height: 80%;
-  background:#c2c27b;
+  /* background:#c2c27b; */
   /* background-color: */
 `;
 
 const EditorTitele = styled.div`
   padding: 20px;
   h2 {
-    color: white;
+    color: #a99941;
     margin: 0 auto;
   }
 `;
