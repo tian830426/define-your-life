@@ -1,9 +1,28 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-// import { SketchPicker } from "react-color";
-import { CirclePicker } from "react-color";
-import ColorItemBox from "./Finish";
+import { AuthContext } from "../../AuthPage/UserAuthProvider";
 import { StepContext } from "../StepByStep/StepByStep";
+import { useNavigate } from "react-router-dom";
+import { db } from "../../../components/firebase";
+import {
+  query,
+  collection,
+  onSnapshot,
+  addDoc,
+  setDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
+import { storage } from "../../../components/firebase";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  listAll,
+  list,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { v4 } from "uuid";
 import Button from "../../../components/Button";
 
 import { EditorState, convertToRaw } from "draft-js";
@@ -30,10 +49,6 @@ const EditorBgBoxes = styled.div`
   display: flex;
 `;
 
-// const CirclePicker = styled.div`
-
-// `
-
 const EditorImg = styled.img`
   display: flex;
   justify-content: center;
@@ -58,6 +73,7 @@ const EditBgFrameBorderButton = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
 const EditBgFrameButton = styled(Button)`
   display: flex;
   margin: 60px 20px;
@@ -72,13 +88,29 @@ const EditBgFrameButton = styled(Button)`
 `;
 
 const EditBgFrame = () => {
+  const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
   const {
     prev,
     next,
+    editor,
+    setEditor,
+    name,
+    setName,
+    date,
+    setDate,
+    description,
+    setDescription,
     selectedImages,
     setSelectedImages,
+    files,
+    setFiles,
     cards,
-    setCard,
+    setCards,
+    imageUrls,
+    setImageUrls,
     message,
     setMessage,
     rawMessage,
@@ -98,18 +130,6 @@ const EditBgFrame = () => {
     setMessage(rawMessage);
   };
 
-  const [currentColor, setCurrentColor] = useState("#c2c299");
-
-  const handleOnChange = (color) => {
-    setCurrentColor(color.hex);
-    console.log(color.hex);
-  };
-
-  const appStyle = {
-    backgroundColor: currentColor,
-    height: "100%",
-  };
-
   const wrapperStyle = {
     border: "1px solid #969696",
   };
@@ -119,21 +139,90 @@ const EditBgFrame = () => {
     padding: "1rem",
   };
 
+  //upload albumInfo and message text
+  // const onSelectFile = (event) => {
+  //   // filelist 取得一張照片
+  //   const selectFiles = event.target.files; // files[0] -> Blob
+  //   // 取得多張照片後轉 filelist array
+  //   const selectFilesArray = Array.from(selectFiles); // Blob[]
+  //   // 將filelist array 裡的每張照片展開 並回傳 url
+  //   const imagesArray = selectFilesArray.map((file) => {
+  //     return URL.createObjectURL(file);
+  //   }); // string[] object
+
+  //   const cardsArray = imagesArray.map((card, index) => {
+  //     return {
+  //       id: index,
+  //       text: card,
+  //     };
+  //   });
+
+  //   console.log(cardsArray);
+
+  //   //最新狀態會是在當前圖片後上 網址
+  //   setSelectedImages((previousImages) => previousImages.concat(imagesArray)); // selectedImages => string[]
+
+  //   // 因為上傳的照片需要blob，所以上傳照片的最新狀態就是當前圖片後加上 選取照片後的 blob[]
+  //   setFiles((previousImages) => previousImages.concat(selectFilesArray));
+  //   // files => Blob[]
+
+  //   setCards((previousImages) => previousImages.concat(cardsArray));
+
+  //   // setSelectedImages(imagesArray);
+  // };
+  const finish = async (e) => {
+    // e.preventDefault(e);
+
+    try {
+      const urlArray = [];
+      for (let i = 0; i < cards.length; i++) {
+        const imageRef = ref(storage, `images/${cards[i].file.name + v4()}`);
+        const snapshot = await uploadBytes(imageRef, cards[i].file);
+        const url = await getDownloadURL(snapshot.ref);
+        urlArray.push(url);
+      }
+      // await uploadBytes(imageRef, cards[i].file).then((snapshot) => {
+      //   // console.log(cards);
+      //   // console.log(imageRef);
+      //   getDownloadURL(snapshot.ref).then((url) => {
+      //     // setImageUrls((prev) => [...prev, url]);
+      //     // console.log(url);
+      //   });
+      //   alert("image upload");
+      // });
+      alert("image upload");
+      const newDocRef = doc(collection(db, currentUser.email));
+      await setDoc(newDocRef, {
+        Editor: editor,
+        Name: name,
+        Date: date,
+        Description: description,
+        Message: message,
+        UrlArray: urlArray,
+      });
+      navigate("/home/library");
+
+      console.log("Document written with ID: ", newDocRef.id);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
+
   // 上傳照片
   // const [files, setFiles] = useState([]);
 
   // 上傳照片執行的 func
   // const uploadImg = () => {
   //   if (files == null) return;
-  //   for (let i = 0; i < files.length; i++) {
-  //     const imageRef = ref(storage, `images/${files[i].name + v4()}`);
-  //     uploadBytes(imageRef, files[i]).then((snapshot) => {
-  //       // getDownloadURL(snapshot.ref).then((url) => {
-  //       //   setImageUrls((prev) => [...prev, url]);
-  //       // });
-  //       // alert("image upload");
-  //     });
-  //   }
+  // for (let i = 0; i < files.length; i++) {
+  //   const imageRef = ref(storage, `images/${files[i].name + v4()}`);
+  //   uploadBytes(imageRef, files[i]).then((snapshot) => {
+  //     // getDownloadURL(snapshot.ref).then((url) => {
+  //     //   setImageUrls((prev) => [...prev, url]);
+  //     // });
+  //     // alert("image upload");
+  //   });
+  // }
   // };
 
   //
@@ -175,93 +264,55 @@ const EditBgFrame = () => {
 
   return (
     <EditorBgContainer>
-      <div className="App" style={appStyle}>
-        <CirclePicker
-          color={currentColor}
-          onChangeComplete={handleOnChange}
-          // triangle="top-right"
-          colors={["#f1dfb6", "#d4c5ba", "#bad6c8", "#d8bebe", "#c5d5ec"]}
-        />
-        <EditorBgBoxes>
-          <EditorAlbum>
-            <Swiper
-              effect="fade"
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={0}
-              slidesPerView={1}
-              navigation
-              //  pagination={{ clickable: true}}
-              scrollbar={{ draggable: true }}
-              //  onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-            >
-              {cards.map((image, index) => {
-                // console.log(cards);
-                // console.log(image);
-                return (
-                  <SwiperSlide key={index}>
-                    <EditorImg src={image.text} alt="" />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </EditorAlbum>
-          <React.Fragment>
-            <div
-              style={{
-                // border: "1px solid #969696",
-                borderRadius: "3px",
-                width: "50%",
-                height: "80%",
-                padding: "1rem",
-              }}
-            >
-              <div dangerouslySetInnerHTML={{ __html: message }}></div>
-            </div>
-            {/* <div style={{ marginTop: "5%" }}>
-              <Editor
-                initialEditorState={editorState}
-                wrapperClassName="wrapper-class"
-                wrapperStyle={wrapperStyle}
-                editorStyle={editorStyle}
-                editorClassName="demo-editor"
-                onEditorStateChange={onEditorStateChange}
-                toolbar={{
-                  options: [
-                    "inline",
-                    "blockType",
-                    "fontSize",
-                    "textAlign",
-                    "history",
-                    "colorPicker",
-                  ],
-                  inline: {
-                    options: ["italic", "bold"],
-                    bold: { className: "demo-option-custom" },
-                    italic: { className: "demo-option-custom" },
-                    underline: { className: "demo-option-custom" },
-                    strikethrough: { className: "demo-option-custom" },
-                    monospace: { className: "demo-option-custom" },
-                    superscript: { className: "demo-option-custom" },
-                    subscript: { className: "demo-option-custom" },
-                  },
-                  blockType: {
-                    className: "demo-option-custom-wide",
-                    dropdownClassName: "demo-dropdown-custom",
-                  },
-                  fontSize: { className: "demo-option-custom-medium" },
-                }}
-              />
-            </div> */}
-            {/* <div style={{ marginTop: "2%" }}>
-          <button onClick={handleEditorStateToMessage}>submit</button>
-        </div> */}
-          </React.Fragment>
-        </EditorBgBoxes>
-        <EditBgFrameBorderButton>
-          <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
-          <EditBgFrameButton onClick={() => next()}>Next</EditBgFrameButton>
-          {/* <EditBgFrameButton
+      <EditorBgBoxes>
+        <EditorAlbum>
+          <Swiper
+            effect="fade"
+            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            spaceBetween={0}
+            slidesPerView={1}
+            navigation
+            //  pagination={{ clickable: true}}
+            scrollbar={{ draggable: true }}
+            //  onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => console.log("slide change")}
+          >
+            {cards.map((image, index) => {
+              // console.log(cards);
+              // console.log(image);
+              return (
+                <SwiperSlide key={index}>
+                  <EditorImg src={image.text} alt="" />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
+        </EditorAlbum>
+        <React.Fragment>
+          <div
+            style={{
+              // border: "1px solid #969696",
+              borderRadius: "3px",
+              width: "50%",
+              height: "80%",
+              padding: "1rem",
+            }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: message }}></div>
+          </div>
+        </React.Fragment>
+      </EditorBgBoxes>
+      <EditBgFrameBorderButton>
+        <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
+        <EditBgFrameButton
+          // onChange={onSelectFile}
+          // multiple
+          // accept="image/png, image/jpeg, image/jpg, image/svg"
+          onClick={() => finish()}
+        >
+          Finish
+        </EditBgFrameButton>
+        {/* <EditBgFrameButton
           onClick={() => {
             next();
             uploadImg();
@@ -270,20 +321,8 @@ const EditBgFrame = () => {
         >
           UPLOAD
         </EditBgFrameButton> */}
-        </EditBgFrameBorderButton>
-      </div>
+      </EditBgFrameBorderButton>
     </EditorBgContainer>
-
-    // <>
-    //   <ColorSwitcher>
-    //   <ColorButton>PPP</ColorButton>
-    //     <Heading>select color</Heading>
-    //     <ColorList >
-    //       {colors.map((color, idx) =>
-    //         <ColorItemBox color={color} />)}
-    //     </ColorList>
-    //   </ColorSwitcher>
-    // </>
   );
 };
 

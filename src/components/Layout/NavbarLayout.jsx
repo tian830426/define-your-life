@@ -8,6 +8,8 @@ import { async } from "@firebase/util";
 
 const Navbar = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   position: fixed;
   width: 100%;
   height: 70px;
@@ -43,20 +45,19 @@ const NavbarTitle = styled(Link)`
 
 const NavbarItems = styled.div`
   /* width: 25%; */
-  margin: 0 10px;
-  margin-left: 50px;
+  /* margin: 0 10px; */
   display: flex;
-  position: absolute;
-  top: 50%;
-  right: -20px;
-  transform: translate(-50%, -50%);
-  line-height: 70px;
-  letter-spacing: 2px;
+  /* position: absolute;
+  top: 150%;
+  right: 0px; */
+  /* transform: translate(-50%, -50%); */
+  /* line-height: 70px;
+  letter-spacing: 2px; */
 `;
 
 const NavbarItem = styled(Link)`
-  /* width: 185px; */
-  margin: auto 12px;
+  width: 130px; 
+  margin: 10px 10px;
   // background-color: #fee6e3;
   // background-color: rgb(163, 145, 123);
   background-color: #c6612b;
@@ -70,7 +71,7 @@ const NavbarItem = styled(Link)`
   cursor: pointer;
   display: flex;
   // font-family: Inter,sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   height: 42px;
   justify-content: center;
   line-height: 24px;
@@ -120,8 +121,8 @@ const NavbarItem = styled(Link)`
 `;
 
 const NavbarItemButton = styled.button`
-  /* width: 185px; */
-  margin: auto 12px;
+  width: 130px; 
+  margin: 10px 10px;
   // background-color: #fee6e3;
   // background-color: rgb(163, 145, 123);
   background-color: #c6612b;
@@ -135,7 +136,7 @@ const NavbarItemButton = styled.button`
   cursor: pointer;
   display: flex;
   // font-family: Inter,sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   height: 42px;
   justify-content: center;
   line-height: 24px;
@@ -281,16 +282,6 @@ const NavbarLayout = () => {
     navigate("/home/edit");
   };
 
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       navigate("/home");
-  //     } else {
-  //       console.log("no user availble");
-  //     }
-  //   });
-  // }, []);
-
   return (
     <Navbar>
       <NavbarUsername>
@@ -300,7 +291,7 @@ const NavbarLayout = () => {
             : " welcome , " + currentUser.displayName}
         </h3>
       </NavbarUsername>
-      <NavbarTitle to="/">
+      <NavbarTitle to="/home">
         <NavbarTitleH1>
           <span>D</span>
           <span>E</span>
@@ -343,9 +334,9 @@ const NavbarLayout = () => {
         <NavbarItemButton>
           <NavbarIcon>
             {currentUser == undefined ? (
-              <div onClick={() => handleSignup()}>Sign up</div>
+              <div onClick={() => handleTosignin()}>Album Edit</div>
             ) : (
-              <div onClick={() => handleLogout()}>Sign out</div>
+              <div onClick={() => handleAlbumEdit()}>Album Edit</div>
             )}
           </NavbarIcon>
         </NavbarItemButton>
@@ -353,9 +344,9 @@ const NavbarLayout = () => {
         <NavbarItemButton>
           <NavbarIcon>
             {currentUser == undefined ? (
-              <div onClick={() => handleTosignin()}>Album Edit</div>
+              <div onClick={() => handleSignup()}>Sign up</div>
             ) : (
-              <div onClick={() => handleAlbumEdit()}>Album Edit</div>
+              <div onClick={() => handleLogout()}>Sign out</div>
             )}
           </NavbarIcon>
         </NavbarItemButton>

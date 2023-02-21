@@ -41,6 +41,8 @@ const StepByStep = () => {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);
   const [cards, setCards] = useState([]);
   const [message, setMessage] = useState("Try the editor below!");
   const [rawMessage, setRawMessage] = useState("");
@@ -62,6 +64,10 @@ const StepByStep = () => {
           setDescription: setDescription,
           selectedImages: selectedImages,
           setSelectedImages: setSelectedImages,
+          files:files,
+          setFiles:setFiles,
+          imageUrls:imageUrls,
+          setImageUrls:setImageUrls,
           cards: cards,
           setCards: setCards,
           message: message,

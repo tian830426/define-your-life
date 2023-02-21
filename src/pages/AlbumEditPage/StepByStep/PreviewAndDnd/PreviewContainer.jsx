@@ -156,10 +156,10 @@ const PreviewContainer = (props) => {
   } = useContext(StepContext);
 
   // 點選照片
-  // const [selectedImages, setSelectedImages] = useState([]);
+  //const [selectedImages, setSelectedImages] = useState([]);
 
   // 上傳照片
-  // const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState([]);
   // const [cards, setCards] = useState([]);
 
   // const [imageUrls, setImageUrls] = useState([]);
@@ -176,10 +176,11 @@ const PreviewContainer = (props) => {
       return URL.createObjectURL(file);
     }); // string[] object
 
-    const cardsArray = imagesArray.map((card, index) => {
+    const cardsArray = selectFilesArray.map((file, index) => {
       return {
         id: index,
-        text: card,
+        text: URL.createObjectURL(file),
+        file: file,
       };
     });
 
@@ -189,7 +190,8 @@ const PreviewContainer = (props) => {
     setSelectedImages((previousImages) => previousImages.concat(imagesArray)); // selectedImages => string[]
 
     // 因為上傳的照片需要blob，所以上傳照片的最新狀態就是當前圖片後加上 選取照片後的 blob[]
-    // setFiles((previousImages) => previousImages.concat(selectFilesArray)); /// files => Blob[]
+    setFiles((previousImages) => previousImages.concat(selectFilesArray));
+    // files => Blob[]
 
     setCards((previousImages) => previousImages.concat(cardsArray));
 
@@ -273,6 +275,10 @@ const PreviewContainer = (props) => {
         />
       </PreviewLabel>
       <br />
+      {/* <button onClick={uploadImg}>
+        UPLOAD {selectedImages.length} IMAGE
+        {selectedImages.length === 1 ? "" : "S"}
+      </button> */}
       {/* {selectedImages.length > 0 &&
         (selectedImages.length > 10 ? (
           <PreviewImagesLen>
@@ -287,8 +293,8 @@ const PreviewContainer = (props) => {
           </button>
         ))} */}
       {/* {imageUrls.map((url) => {
- return <img src={url} />;
-})} */}
+        return <img src={url} />;
+      })} */}
 
       <PreviewAlbum>
         {cards.map((card, index) => {
