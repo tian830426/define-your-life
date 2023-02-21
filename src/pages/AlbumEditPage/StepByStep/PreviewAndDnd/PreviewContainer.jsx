@@ -156,7 +156,7 @@ const PreviewContainer = (props) => {
   } = useContext(StepContext);
 
   // 點選照片
-  //const [selectedImages, setSelectedImages] = useState([]);
+  // const [selectedImages, setSelectedImages] = useState([]);
 
   // 上傳照片
   const [files, setFiles] = useState([]);

@@ -96,19 +96,45 @@ const albums = [
 
 function LibraryPage() {
   const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   const { imageUrls, setImageUrls } = useContext(StepContext);
-  
+  const [albums, setAlbums] = useState([]);
+
+  // useEffect(() => {
+  //   const q = query(collection(db, "albums"));
+  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //     let albumsArr = [];
+  //     querySnapshot.forEach((doc) => {
+  //       albumsArr.push({ ...doc.data(), id: doc.id });
+  //     });
+  //     setAlbums(albumsArr);
+  //   });
+  //   return () => unsubscribe();
+  // }, []);
+
+  //生命週期 先做同步 在做非同步
+  //渲染之前被定義 渲染後被執行
+  // 特定情況下 1.會執行第一次 2.狀態改變才重新執行一次
   useEffect(() => {
-    const q = query(collection(db, "albums"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let albumsArr = [];
-      querySnapshot.forEach((doc) => {
-        albumsArr.push({ ...doc.data(), id: doc.id });
+    if (currentUser != undefined) {
+      const q = query(collection(db, currentUser.email));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        let albumsArr = [];
+        querySnapshot.forEach((doc) => {
+          albumsArr.push({ ...doc.data(), id: doc.id });
+        });
+        console.log(albumsArr);
+        setAlbums(albumsArr);
       });
-      setAlbums(albumsArr);
-    });
-    return () => unsubscribe();
-  }, []);
+      return () => unsubscribe();
+    }
+  }, [currentUser]);
+
+  if (currentUser == undefined) {
+    console.log("loading");
+    return "loading";
+  }
+
 
   // useEffect(() => {
   //   listAll(imagesListRef).then((response) => {
@@ -126,11 +152,11 @@ function LibraryPage() {
       <BackgroundLayout>
         <Grid>
           {albums.map((album) => (
-            <Card key={album.id}>
-              <Image src={album.image} alt={album.title} />
+            <Card key={album.Id}>
+              <Image src={album.UrlArray[0]}/>
               <Info>
-                <Title>{album.title}</Title>
-                <Artist>{album.artist}</Artist>
+                <Title>{album.Editor}</Title>
+                <Artist>{album.Name}</Artist>
               </Info>
             </Card>
           ))}
