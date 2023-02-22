@@ -9,21 +9,20 @@ import { StepContext } from "../StepByStep";
 import ConfirmAlbumInfo from "./ConfirmAlbumInfo";
 
 const SubmitBoxes = styled.div`
-  max-width: 75%;
-  height: 85%;
+  /* width: 90%;
+  height: 90%; */
   display: flex;
   flex-direction: column;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
 `;
 
 const SubmitTitle = styled.div`
-  margin: 50px auto;
+  margin: 70px auto;
   color: gray;
+
   h2 {
-    font-size: 2.2rem;
-    color: transparent;
+    /* font-family: "Courier New", Courier, monospace; */
+    font-size: 50px;
+    /* color: transparent; */
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
   }
@@ -33,24 +32,31 @@ const SubmitInput = styled.div``;
 
 const SubmitForm = styled.form`
   margin: auto;
+  font-family: "Courier New", Courier, monospace;
 
   label {
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    margin: 25px auto;
+    margin: 30px auto;
     color: gray;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     input {
       display: flex;
-      justify-content: end;
+      justify-content: center;
       align-items: center;
       margin-left: 10px;
       padding: 0 10px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
       outline: 1.5px solid gray;
-      font-size: 18px;
+      font-size: 22px;
+
+      &:active {
+        color: white;
+      }
     }
   }
 `;
@@ -115,44 +121,58 @@ function SubmitAlbumInfo(props) {
 
   return (
     <>
-      <SubmitTitle>
-        {show ? <h2>Let's try to make special album by yourself !</h2> : null}
-      </SubmitTitle>
-      <SubmitInput>
+      <SubmitBoxes>
         {show ? (
-          <SubmitForm onSubmit={submit}>
-            <label htmlFor="">
-              Editor :
-              <input
-                type="text"
-                value={editor}
-                onChange={handleEditor}
-                required
-              />
-            </label>{" "}
-            <label htmlFor="">
-              Album Name :
-              <input type="text" value={name} onChange={handleName} required />
-            </label>{" "}
-            <label htmlFor="">
-              Date :
-              <input type="date" value={date} onChange={handleDate} />
-            </label>{" "}
-            <label htmlFor="">
-              {" "}
-              Description :
-              <input
-                type="text"
-                value={description}
-                onChange={handleDescription}
-                required
-              />
-            </label>
-            <SubmitButton>Submit</SubmitButton>
-          </SubmitForm>
+          <>
+            <SubmitTitle>
+              <h2>Let's try to make special album by yourself !</h2>
+            </SubmitTitle>
+            <SubmitInput>
+              <SubmitForm onSubmit={submit}>
+                <label htmlFor="">
+                  Editor :
+                  <input
+                    type="text"
+                    value={editor}
+                    onChange={handleEditor}
+                    required
+                  />
+                </label>{" "}
+                <label htmlFor="">
+                  Album Name :
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={handleName}
+                    required
+                  />
+                </label>{" "}
+                <label htmlFor="">
+                  Date :
+                  <input type="date" value={date} onChange={handleDate} />
+                </label>{" "}
+                <label htmlFor="">
+                  {" "}
+                  Description :
+                  <input
+                    type="text"
+                    value={description}
+                    onChange={handleDescription}
+                    required
+                  />
+                </label>
+                <SubmitButton>Submit</SubmitButton>
+              </SubmitForm>
+            </SubmitInput>
+          </>
         ) : null}
-      </SubmitInput>
-      <SubmitUl>{show ? null : <ConfirmAlbumInfo />}</SubmitUl>
+
+        {show ? null : (
+          <SubmitUl>
+            <ConfirmAlbumInfo />
+          </SubmitUl>
+        )}
+      </SubmitBoxes>
     </>
   );
 }

@@ -175,6 +175,7 @@ const EditBgFrame = () => {
 
     try {
       const urlArray = [];
+
       for (let i = 0; i < cards.length; i++) {
         const imageRef = ref(storage, `images/${cards[i].file.name + v4()}`);
         const snapshot = await uploadBytes(imageRef, cards[i].file);
@@ -191,7 +192,10 @@ const EditBgFrame = () => {
       //   alert("image upload");
       // });
       alert("image upload");
-      const newDocRef = doc(collection(db, currentUser.email));
+      const timestamp = Date.now();
+      const randomString = Math.random().toString(36).substring(2);
+      const uniqueId = `${timestamp}_${randomString}`;
+      const newDocRef = doc(collection(db, "albums"), uniqueId);
       await setDoc(newDocRef, {
         Editor: editor,
         Name: name,
@@ -199,6 +203,26 @@ const EditBgFrame = () => {
         Description: description,
         Message: message,
         UrlArray: urlArray,
+        createdAt: new Date(),
+      });
+      console.log(newDocRef.id);
+      // newDocRefArray.push(newDocRef.id);
+
+      const newDocRef2 = doc(
+        db,
+        "users",
+        currentUser.email,
+        "album",
+        newDocRef.id
+      );
+      await setDoc(newDocRef2, {
+        Editor: editor,
+        Name: name,
+        Date: date,
+        Description: description,
+        Message: message,
+        UrlArray: urlArray,
+        createdAt: new Date(),
       });
       navigate("/home/library");
 

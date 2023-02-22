@@ -11,9 +11,10 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     outline: none;
     text-decoration: none;
-    font-family:"Montserrat" ,sans-serif;
-    // font-family: "Courier New", Courier, monospace;
-    // font-family: "Signika", sans-serif; 
+    /* font-family:"Montserrat" ,sans-serif;  */
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif; 
+    /* font-family: "Courier New", Courier, monospace; */
+    /* font-family: "Signika", sans-serif;  */
 }
 
 html,body {

@@ -123,7 +123,7 @@ const NavbarTitleH1 = styled.h1`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); 
-  font-size: 40px;
+  font-size: 50px;
   font-family: "Signika", sans-serif;
   // font: bold 2vw/1.6 ;
   user-select: none;

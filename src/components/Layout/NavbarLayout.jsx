@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { NavbarTitleH1 } from "../../components/NavbarTitleStyle";
-
+import { TiDeleteOutline } from "react-icons/ti";
 import { AuthContext } from "../../pages/AuthPage/UserAuthProvider";
 import { async } from "@firebase/util";
 
@@ -12,30 +12,45 @@ const Navbar = styled.div`
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  height: 70px;
+  height: 100px;
   z-index: 999;
-  background-color: rgb(248, 248, 232);
+  /* background-color: rgb(248, 248, 232); */
+  background: rgb(245, 239, 230);
+  padding: 0 30px;
+`;
+
+const NavbarUsername = styled.div`
+  line-height: 100px;
+
+  h2 {
+    text-align: center;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
+    color: gray;
+    text-shadow: gray 0.05em 0.05em 0.05em;
+    letter-spacing: 1px;
+    cursor: pointer;
+    &:hover {
+      font-size: 26px;
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
 `;
 
 const NavbarTitle = styled(Link)`
-  width: 75%;
-  /* max-width: 1200px;  */
   display: flex;
   align-items: center;
-  padding: 8px 0px 8px 310px;
+  line-height: 100px;
+  /* padding: 8px 0px 8px 310px; */
   flex-direction: column;
   text-align: center;
-  letter-spacing: 4px;
-  // color: #FCD997;
-  // color: linear-gradient(-225deg,#EE592E 0%, #DE7E44 100%);
+  letter-spacing: 3px;
   color: burlywood;
 
   &:hover {
     cursor: pointer;
     letter-spacing: 5px;
     color: rgb(255, 212, 112);
-    // color: #FAA45B;
-    opacity: 0.8;
     font-size: 105%;
     font-weight: 700;
     padding: 4px 0;
@@ -44,49 +59,30 @@ const NavbarTitle = styled(Link)`
 `;
 
 const NavbarItems = styled.div`
-  /* width: 25%; */
-  /* margin: 0 10px; */
   display: flex;
-  /* position: absolute;
-  top: 150%;
-  right: 0px; */
-  /* transform: translate(-50%, -50%); */
-  /* line-height: 70px;
-  letter-spacing: 2px; */
+  margin:auto 0;
+  text-align: center;
 `;
 
 const NavbarItem = styled(Link)`
-  width: 130px; 
-  margin: 10px 10px;
-  // background-color: #fee6e3;
-  // background-color: rgb(163, 145, 123);
-  background-color: #c6612b;
-  border: 2px solid #a23419;
-  // border: 2px solid rgb(133, 121, 121);
-  border-radius: 8px;
-  // color: #111;
-  // color: burlywood;
-  color: #e1c9a0;
-  // color:#D9CFC5;
-  cursor: pointer;
-  display: flex;
-  // font-family: Inter,sans-serif;
-  font-size: 16px;
+  position: relative;
   height: 42px;
   justify-content: center;
-  line-height: 24px;
-  /* max-width: 100%; */
+  margin: 10px 10px;
   padding: 0 5px;
-  position: relative;
+  color: #e1c9a0;
+  font-size: 16px;
+  line-height: 42px;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  background-color: #c6612b;
+  border: 2px solid #a23419;
+  border-radius: 8px;
   cursor: pointer;
-  line-height: 42px;
   &:after {
-    // background-color: #A23419;
     background-color: rgb(133, 121, 121);
     border-radius: 8px;
     content: "";
@@ -105,7 +101,6 @@ const NavbarItem = styled(Link)`
   }
   &:hover:after {
     transform: translate(0, 0);
-    // opacity: 0.8;
     li {
       display: block;
     }
@@ -121,37 +116,24 @@ const NavbarItem = styled(Link)`
 `;
 
 const NavbarItemButton = styled.button`
-  width: 130px; 
-  margin: 10px 10px;
-  // background-color: #fee6e3;
-  // background-color: rgb(163, 145, 123);
-  background-color: #c6612b;
-  border: 2px solid #a23419;
-  // border: 2px solid rgb(133, 121, 121);
-  border-radius: 8px;
-  // color: #111;
-  // color: burlywood;
-  color: #e1c9a0;
-  // color:#D9CFC5;
-  cursor: pointer;
-  display: flex;
-  // font-family: Inter,sans-serif;
-  font-size: 16px;
+  position: relative;
   height: 42px;
   justify-content: center;
-  line-height: 24px;
-  /* max-width: 100%; */
+  margin: 10px 10px;
   padding: 0 5px;
-  position: relative;
+  color: #e1c9a0;
+  font-size: 16px;
+  line-height: 42px;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  background-color: #c6612b;
+  border: 2px solid #a23419;
+  border-radius: 8px;
   cursor: pointer;
-  line-height: 42px;
   &:after {
-    // background-color: #A23419;
     background-color: rgb(133, 121, 121);
     border-radius: 8px;
     content: "";
@@ -170,7 +152,6 @@ const NavbarItemButton = styled.button`
   }
   &:hover:after {
     transform: translate(0, 0);
-    // opacity: 0.8;
     li {
       display: block;
     }
@@ -186,12 +167,9 @@ const NavbarItemButton = styled.button`
 `;
 
 const NavbarIcon = styled.div`
-  // width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // padding-right:5px;
-  // font-size: 18px;
   letter-spacing: 2.5px;
   font-weight: 600;
   position: relative;
@@ -203,67 +181,104 @@ const NavbarIcon = styled.div`
   }
 `;
 
-const NavbarUl = styled.ul`
-  // display:none;
-  height: 30px;
-  display: flex;
-  // flex-direction: column;
-  position: absolute;
-  top: 150%;
-  left: -25%;
-  // background-color: white;
-  /* &:hover {
-    outline: 0;
+// const NavbarUl = styled.ul`
+//   // display:none;
+//   height: 30px;
+//   display: flex;
+//   // flex-direction: column;
+//   position: absolute;
+//   top: 150%;
+//   left: -25%;
+//   // background-color: white;
+//   /* &:hover {
+//     outline: 0;
 
-    li {
-      display: block;
-    }
-  } */
-`;
+//     li {
+//       display: block;
+//     }
+//   } */
+// `;
 
-const NavbarLi = styled.li`
-  display: none;
-  width: 185px;
-  color: white;
-  line-height: 30px;
-  padding: 0 15px;
-  margin: 0 auto;
-  margin-right: 10px;
-  background-color: rgb(198, 161, 80);
-  border-radius: 8px;
-  &:hover {
-    outline: 0;
-    display: block;
-  }
-`;
-
-const NavbarUsername = styled.div`
-  line-height: 70px;
-  margin-left: 20px;
-  h3 {
-    color: gray;
-  }
-`;
+// const NavbarLi = styled.li`
+//   display: none;
+//   width: 185px;
+//   color: white;
+//   line-height: 30px;
+//   padding: 0 15px;
+//   margin: 0 auto;
+//   margin-right: 10px;
+//   background-color: rgb(198, 161, 80);
+//   border-radius: 8px;
+//   &:hover {
+//     outline: 0;
+//     display: block;
+//   }
+// `;
 
 const RemindSigninTag = styled.div`
-  width: 180px;
-  height: 65px;
+  /* height: 50px; */
+  padding: 20px 20px;
   background: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  position: absolute;
-  top: 150%;
-  left: 60%;
+  border-radius: 15px;
+  /* position: absolute;
+  top: 140%;
+  left: 85%; */
+  /* animation 參數設定 */
+  animation-name: MoveToRight; /*動畫名稱，需與 keyframe 名稱對應*/
+  animation-duration: 4s; /*動畫持續時間，單位為秒*/
+  animation-delay: 2s; /*動畫延遲開始時間*/
+  animation-iteration-count: infinite; /*動畫次數，infinite 為無限次*/
+
+  @keyframes MoveToRight {
+    0% {
+      left: 80%;
+    }
+    25% {
+      left: 60%;
+    }
+    50% {
+      left: 40%;
+    }
+    75% {
+      left: 20%;
+    }
+    100% {
+      left: 0;
+    }
+  }
   p {
+    display: flex;
+    align-items: center;
     text-align: center;
-    line-height: 65px;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 700;
+    color: gray;
+    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
   }
   /* display: none; */
 `;
+
+const DeleteIcon = styled.div`
+  position: absolute;
+  color: gray;
+  font-size: 18px;
+  top: -8%;
+  left: -8%;
+  svg:hover {
+    color: white;
+    background-color: #a84d4d;
+    border-radius: 50%;
+  }
+`;
+
 const NavbarLayout = () => {
   const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [display, setDisplay] = useState(true);
+
+  const handleUsername = async () => {
+    navigate("/home/library");
+  };
 
   const handleSignup = async () => {
     navigate("/home/signup");
@@ -285,11 +300,15 @@ const NavbarLayout = () => {
   return (
     <Navbar>
       <NavbarUsername>
-        <h3>
+        <h2
+          onClick={() => {
+            handleUsername();
+          }}
+        >
           {currentUser == undefined
             ? ""
-            : " welcome , " + currentUser.displayName}
-        </h3>
+            : " Hello , " + currentUser.displayName + " . "}
+        </h2>
       </NavbarUsername>
       <NavbarTitle to="/home">
         <NavbarTitleH1>
@@ -351,7 +370,10 @@ const NavbarLayout = () => {
           </NavbarIcon>
         </NavbarItemButton>
         <RemindSigninTag style={{ display: display ? "none" : "block" }}>
-          <p>請先註冊或登入</p>{" "}
+          <p>Please register or login.</p>{" "}
+          <DeleteIcon>
+            <TiDeleteOutline />
+          </DeleteIcon>
         </RemindSigninTag>
         {/* <NavbarItem to="/home/edit">
           <NavbarIcon>Album Edit</NavbarIcon>

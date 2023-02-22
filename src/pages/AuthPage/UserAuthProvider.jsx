@@ -120,7 +120,7 @@ const UserAuthProvider = ({ children }) => {
         // both id in auth and firestore are different
         try {
           // const ref = doc(db, "userinfo", result.user.uid);
-          const ref = doc(db, email, "profile");
+          const ref = doc(db, "users", email);
           const docRef = await setDoc(ref, { username });
 
           alert("welcome new user create successfully");

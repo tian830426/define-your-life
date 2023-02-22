@@ -1,6 +1,6 @@
 // react 相關套件
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 
 // pages
 import AnimationPage from "./pages/HomePage/AnimationPage";
@@ -9,8 +9,9 @@ import EditPage from "./pages/AlbumEditPage/EditPage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import LoginPage from "./pages/AuthPage/LoginPage";
 import MemberPage from "./pages/MemberPage/MemberPage";
-import ProfilePage from "./pages/MemberPage/ProfilePage";
+import ProfilePage from "./pages/MemberPage/PlayAlbumPage";
 import LibraryPage from "./pages/MemberPage/LibraryPage";
+import PlayAlbumPage from "./pages/MemberPage/PlayAlbumPage";
 import NotFound from "./pages/NotFound";
 
 import UserAuthProvider from "./pages/AuthPage/UserAuthProvider";
@@ -25,8 +26,8 @@ const App = () => {
             <Route path="home" element={<HomePage />} />
           </Route>
           <Route path="/home">
-            <Route path="library" element={<LibraryPage />} />
-            {/* <Route path="member" element={<MemberPage />} /> */}
+            <Route path="library/:id" element={<PlayAlbumPage />} />
+            <Route path="library" element={<LibraryPage />}></Route>
             <Route path="signup" element={<SignUpPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="edit" element={<EditPage />} />

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
 import BackgroundLayout from "../../components/Layout/BackgroundLayout";
@@ -67,38 +68,40 @@ const Artist = styled.p`
   color: #666;
 `;
 
-const albums = [
-  {
-    id: 1,
-    title: "The Dark Side of the Moon",
-    artist: "Pink Floyd",
-    image: mountImg,
-  },
-  {
-    id: 2,
-    title: "Thriller",
-    artist: "Michael Jackson",
-    image: mountImg,
-  },
-  {
-    id: 3,
-    title: "Abbey Road",
-    artist: "The Beatles",
-    image: mountImg,
-  },
-  {
-    id: 4,
-    title: "Abbey Road",
-    artist: "The Beatles",
-    image: mountImg,
-  },
-];
+// const albums = [
+//   {
+//     id: 1,
+//     title: "The Dark Side of the Moon",
+//     artist: "Pink Floyd",
+//     image: mountImg,
+//   },
+//   {
+//     id: 2,
+//     title: "Thriller",
+//     artist: "Michael Jackson",
+//     image: mountImg,
+//   },
+//   {
+//     id: 3,
+//     title: "Abbey Road",
+//     artist: "The Beatles",
+//     image: mountImg,
+//   },
+//   {
+//     id: 4,
+//     title: "Abbey Road",
+//     artist: "The Beatles",
+//     image: mountImg,
+//   },
+// ];
 
 function LibraryPage() {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   const { imageUrls, setImageUrls } = useContext(StepContext);
   const [albums, setAlbums] = useState([]);
+  const params = useParams();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   const q = query(collection(db, "albums"));
@@ -117,7 +120,11 @@ function LibraryPage() {
   // 特定情況下 1.會執行第一次 2.狀態改變才重新執行一次
   useEffect(() => {
     if (currentUser != undefined) {
-      const q = query(collection(db, currentUser.email));
+      const q = query(collection(db, "users", currentUser.email ,"album"));
+
+      // const q = query(collection(db, "users",currentUser.email));
+      // const q = query(collection(db, "users"), where("email", "==", currentUser.email));
+      console.log(q);
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         let albumsArr = [];
         querySnapshot.forEach((doc) => {
@@ -135,6 +142,9 @@ function LibraryPage() {
     return "loading";
   }
 
+  // function play() {
+  //   navigate("playAlbum");
+  // }
 
   // useEffect(() => {
   //   listAll(imagesListRef).then((response) => {
@@ -152,8 +162,14 @@ function LibraryPage() {
       <BackgroundLayout>
         <Grid>
           {albums.map((album) => (
-            <Card key={album.Id}>
-              <Image src={album.UrlArray[0]}/>
+            <Card
+              key={album.id}
+              onClick={() => {
+                navigate(album.id);
+                console.log(album);
+              }}
+            >
+              <Image src={album.UrlArray[0]} />
               <Info>
                 <Title>{album.Editor}</Title>
                 <Artist>{album.Name}</Artist>
@@ -162,6 +178,7 @@ function LibraryPage() {
           ))}
         </Grid>
 
+        {/* <p>{params}</p> */}
         {/* {imageUrls.map((url) => {
           return <img src={url} />;
         })} */}

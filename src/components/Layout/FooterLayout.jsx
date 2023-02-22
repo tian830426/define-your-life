@@ -8,12 +8,14 @@ const Footer = styled.footer`
   top: 0;
   text-align: center;
   line-height: 50px;
-  background-color: #192d2e;
+  background: rgba(255, 255, 255, 0.1);
+  /* background-color: #192d2e; */
   color: #617f7f;
   letter-spacing: 0.5px;
 
   &:hover {
-    font-weight: 800;
+    opacity: 0.8;
+    /* font-weight: 800; */
     letter-spacing: 1px;
   }
 `;

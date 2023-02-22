@@ -34,27 +34,19 @@ const PreviewLabel = styled.label`
   height: 100px;
   margin: 20px auto;
   padding: 5px;
-  border-radius: 25%;
-  outline: 3px dashed gray;
-  background: rgba(255, 255, 255, 0.1);
-  // box-shadow: rgb(104, 142, 129) 2px 2px 2px 4px;
-  color: gray;
+  border-radius: 50%;
+  /* outline: 3px  ;  */
+  background: rgba(0, 0, 0, 0.1);
+  /* box-shadow: rgb(104, 142, 129) 2px 2px 2px 4px; */
+  /* color: gray; */
   cursor: pointer;
   font-size: 20px;
 
   &:hover {
-    // outline: 3px solid rgb(104, 142, 129);
+   
     opacity: 0.7;
     background: gray;
     color: white;
-  }
-  svg {
-    font-size: 28px;
-    color: gray;
-    &:hover {
-      opacity: 0.7;
-      color: white;
-    }
   }
 
   span {
@@ -76,7 +68,7 @@ const PreviewAlbum = styled.ul`
   // flex-wrap: wrap;
   justify-content: start;
   align-items: center;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 const PreviewImages = styled.li`

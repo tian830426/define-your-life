@@ -7,8 +7,7 @@ function HomePage() {
   return (
     <>
       <NavbarLayout />
-      <BackgroundLayout>
-      </BackgroundLayout>
+      <BackgroundLayout></BackgroundLayout>
       <FooterLayout />
     </>
   );

@@ -21,15 +21,26 @@ export const StepContext = React.createContext({
 });
 
 const StepBoxes = styled.div`
+  max-width: 1200px;
   width: 85%;
-  height: 70%;
+  height: 80%;
   border-radius: 25px;
-  background-color: rgb(248, 248, 232);
-  margin: 120px auto;
+  background: rgb(246, 239, 230);
+  /* background-color:white; */
+  /* background-color: rgb(248, 248, 232); */
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+  /* box-shadow: 0 0 2px 1px inset; */
+  /* box-shadow: 
+    0 20px 30px 0px rgba(0,0,0,.1),
+    0 4px 4px 0px rgba(0,0,0,.14),
+    0 2px 2px 0px rgba(0,0,0,.3); */
 `;
 
 const StepByStep = () => {
@@ -64,10 +75,10 @@ const StepByStep = () => {
           setDescription: setDescription,
           selectedImages: selectedImages,
           setSelectedImages: setSelectedImages,
-          files:files,
-          setFiles:setFiles,
-          imageUrls:imageUrls,
-          setImageUrls:setImageUrls,
+          files: files,
+          setFiles: setFiles,
+          imageUrls: imageUrls,
+          setImageUrls: setImageUrls,
           cards: cards,
           setCards: setCards,
           message: message,
