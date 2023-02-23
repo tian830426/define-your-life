@@ -7,7 +7,7 @@ import EditorConvertToHTML from "../../../components/EditorConvertToHTML";
 
 const EditorContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   position: relative;
 `;
 
@@ -34,26 +34,34 @@ const EditorContainer = styled.div`
 //   object-fit: cover;
 // `;
 
-const EditorNote = styled.div`
-  width: 100%;
-  height: 80%;
-  /* background:#c2c27b; */
-  /* background-color: */
-`;
-
 const EditorTitele = styled.div`
-  padding: 20px;
+  margin: 40px auto;
+  padding: 0 50px;
+  line-height: 70px;
+  text-align: center;
+  color: gray;
   h2 {
-    color: #a99941;
-    margin: 0 auto;
+    font-size: 50px;
+    /* color: transparent; */
+    -webkit-text-stroke: 1.5px gray;
+    letter-spacing: 2px;
   }
 `;
 
+const EditorNote = styled.div`
+  width: 100%;
+  padding: 0 100px;
+  /* color: transparent;  */
+  /* background: rgb(207, 198, 175); */
+  /* background-color: */
+`;
+
+
+
 const EditWordBorderButton = styled.div`
   display: flex;
-  position: absolute;
-  bottom: 20px;
-  left: 38%;
+  justify-content: center;
+  align-items: center;
 `;
 const EditWordButton = styled(Button)`
   display: flex;
@@ -88,9 +96,10 @@ const EditWord = () => {
     setMessage(rawMessage);
   };
   return (
-    <EditorContainer>
-      {/* <EditorBoxes> */}
-      {/* <EditorAlbum>
+    <>
+      <EditorContainer>
+        {/* <EditorBoxes> */}
+        {/* <EditorAlbum>
           <Swiper
             effect="fade"
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -113,13 +122,14 @@ const EditWord = () => {
             })}
           </Swiper>
         </EditorAlbum> */}
-      <EditorNote>
         <EditorTitele>
-          <h2>Note</h2>
+          <h2>Add Text To Your Album</h2>
         </EditorTitele>
-        <EditorConvertToHTML>Enter Text...</EditorConvertToHTML>
-      </EditorNote>
-      {/* </EditorBoxes> */}
+        <EditorNote>
+          <EditorConvertToHTML>Enter Text...</EditorConvertToHTML>
+        </EditorNote>
+        {/* </EditorBoxes> */}
+      </EditorContainer>
       <EditWordBorderButton>
         <EditWordButton onClick={() => prev()}>Prev</EditWordButton>
         <EditWordButton
@@ -131,7 +141,7 @@ const EditWord = () => {
           Next
         </EditWordButton>
       </EditWordBorderButton>
-    </EditorContainer>
+    </>
   );
 };
 

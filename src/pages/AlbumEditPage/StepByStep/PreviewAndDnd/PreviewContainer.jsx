@@ -3,6 +3,7 @@ import update from "immutability-helper";
 import styled from "styled-components";
 import { TiDeleteOutline } from "react-icons/ti";
 import { AiOutlineCloudUpload } from "react-icons/ai";
+import uploadImageIcon from "../../../../assets/iconmonstr-picture-8.svg";
 import { storage } from "../../../../components/firebase";
 import {
   getDownloadURL,
@@ -20,32 +21,52 @@ import Button from "../../../../components/Button";
 
 const PreviewBoxes = styled.section`
   width: 100%;
-  height: 100%;
-  padding: 1.5rem 0;
+  height: 90%;
+  /* padding: 1.5rem 0; */
   position: relative;
 `;
 
+const PreviewTitle = styled.div`
+  margin: 30px auto;
+  padding: 0 50px;
+  line-height: 70px;
+  text-align: center;
+  color: gray;
+  h2 {
+    font-size: 50px;
+    /* color: transparent; */
+    -webkit-text-stroke: 1.5px gray;
+    letter-spacing: 2px;
+  }
+  p {
+    font-size: 24px;
+    text-align: center;
+  }
+`;
 const PreviewLabel = styled.label`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 100px;
-  margin: 20px auto;
-  padding: 5px;
-  border-radius: 50%;
-  /* outline: 3px  ;  */
-  background: rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+  height: 280px;
+  /* padding: 20px; */
+  margin: 0 40px 40px 20px;
+  opacity: 0.7;
+  border: 5px dashed gray;
+  border-radius: 12px;
+  /* background: rgba(0, 0, 0, 0.1); */
   /* box-shadow: rgb(104, 142, 129) 2px 2px 2px 4px; */
-  /* color: gray; */
+  color: gray;
   cursor: pointer;
-  font-size: 20px;
+  img {
+    width: 100px;
+    height: 100px;
+    color: gray;
+    opacity: 0.7;
+  }
 
   &:hover {
-   
-    opacity: 0.7;
-    background: gray;
+    opacity: 1;
     color: white;
   }
 
@@ -59,47 +80,59 @@ const PreviewLabel = styled.label`
     display: none;
   }
 `;
-
-const PreviewAlbum = styled.ul`
-  /* width: 100%; */
-  /* height: 80%; */
+const PreviewAlbum = styled.div`
   display: flex;
-  flex-direction: row;
-  // flex-wrap: wrap;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  overflow: auto;
+  padding: 0 10px;
 `;
 
-const PreviewImages = styled.li`
-  margin: 16px 16px;
-  margin-bottom: 60px;
-  box-shadow: 0px 1px 2px 0px;
+const PreviewAlbumSwiper = styled.div`
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: row;
+  align-items: center;
+  margin: auto;
+  overflow-y: auto; 
+  overflow-x: scroll;
+  /* overflow-y: hidden; */
+`;
+
+const PreviewImages = styled.div`
+  margin: 20px 20px;
+  /* margin-bottom: 50px; */
+  /* box-shadow: 0px 1px 2px 0px; */
   position: relative;
-  outline: 2px solid rgb(104, 142, 129);
-  // background: rgb(104, 142, 129);
-  padding: 10px 10px;
+  /* outline: 2px solid rgb(104, 142, 129); */
+  background: white;
+  padding: 20px 20px 60px 20px;
+  border-radius: 12px;
 
   img {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
     object-fit: cover;
+    border-radius: 12px;
   }
 
   button {
-    width: 20px;
-    height: 20px;
     border-radius: 50%;
     position: absolute;
     background-color: transparent;
-    top: -16px;
-    right: -16px;
+    top: -20px;
+    right: -20px;
     cursor: pointer;
-    color: gray;
     font-size: 20px;
-
-    &:hover {
-      opacity: 0.7;
+    svg {
+      width: 30px;
+      height: 30px;
+      color: rgb(165, 165, 165);
+      opacity: 0.5;
+      &:hover {
+        width: 32px;
+        height: 32px;
+        opacity: 1;
+      }
     }
   }
 `;
@@ -116,10 +149,13 @@ const PreviewImagesLen = styled.p`
 
 const PreviewBorderButton = styled.div`
   display: flex;
-  position: absolute;
-  bottom: 20px;
-  left: 38%;
-  /* transform: translate(0, -50%);  */
+  justify-content: center;
+  align-items: center;
+
+  /* position: absolute;
+  bottom: 20px; */
+  /* left: 50%; */
+  /* transform: translate(0, -50%);   */
 `;
 
 const PreviewButton = styled(Button)`
@@ -152,6 +188,7 @@ const PreviewContainer = (props) => {
 
   // 上傳照片
   const [files, setFiles] = useState([]);
+  const [show, setShow] = useState(true);
   // const [cards, setCards] = useState([]);
 
   // const [imageUrls, setImageUrls] = useState([]);
@@ -213,108 +250,51 @@ const PreviewContainer = (props) => {
     );
   }, []);
 
-  // 上傳照片執行的 func
-  // const uploadImg = () => {
-  //   if (files == null) return;
-  //   for (let i = 0; i < files.length; i++) {
-  //     const imageRef = ref(storage, `images/${files[i].name + v4()}`);
-  //     uploadBytes(imageRef, files[i]).then((snapshot) => {
-  //       // getDownloadURL(snapshot.ref).then((url) => {
-  //       //   setImageUrls((prev) => [...prev, url]);
-  //       // });
-  //       alert("image upload");
-  //     });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   listAll(imagesListRef).then((response) => {
-  //     response.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageUrls((prev) => [...prev, url]);
-  //       });
-  //     });
-  //   });
-  // }, []);
-
-  // // console.log(onSelectFile);
-
   return (
-    // <AlbumName.Consumer>
-    //   <AlbumDate.Consumer>
-    //     <AlbumDescription.Consumer>
-    //       <Test.Consumer>
+    <>
+      <PreviewBoxes>
+        <PreviewTitle>
+          <h2>UpLoad and Sort Photos</h2>
+          <p>Try to drag and drog for sorting photos</p>
+        </PreviewTitle>
+        <PreviewAlbum>
+          <PreviewAlbumSwiper>
+            {cards.map((card, index) => {
+              return (
+                <PreviewImages key={card}>
+                  {renderCard(cards[index], index)}
+                  {/* <img src={image} alt="upload images" /> */}
 
-    //       </Test.Consumer>
-    //     </AlbumDescription.Consumer>
-    //   </AlbumDate.Consumer>
-    // </AlbumName.Consumer>
-    <PreviewBoxes>
-      {/* <p>{name}</p>
-     <p>{date}</p>
-     <p>{description}</p>
-     <p>{test}</p> */}
-      {/* <div>{cards.map((card, i) => renderCard(card, i))}</div> */}
-      <PreviewLabel>
-        <AiOutlineCloudUpload />
-        add images
-        <input
-          type="file"
-          name="images"
-          onChange={onSelectFile}
-          multiple
-          accept="image/png, image/jpeg, image/jpg, image/svg"
-        />
-      </PreviewLabel>
-      <br />
-      {/* <button onClick={uploadImg}>
-        UPLOAD {selectedImages.length} IMAGE
-        {selectedImages.length === 1 ? "" : "S"}
-      </button> */}
-      {/* {selectedImages.length > 0 &&
-        (selectedImages.length > 10 ? (
-          <PreviewImagesLen>
-            limit 10 images.
+                  <button
+                    onClick={() => {
+                      setCards(cards.filter((e) => e !== card));
+                    }}
+                  >
+                    <TiDeleteOutline />
+                  </button>
+                  {/* <p>{index + 1}</p> */}
+                </PreviewImages>
+              );
+            })}
             <br />
-            <span>Please delete {selectedImages.length - 10} of them.</span>
-          </PreviewImagesLen>
-        ) : (
-          <button onClick={uploadImg}>
-            UPLOAD {selectedImages.length} IMAGE
-            {selectedImages.length === 1 ? "" : "S"}
-          </button>
-        ))} */}
-      {/* {imageUrls.map((url) => {
-        return <img src={url} />;
-      })} */}
-
-      <PreviewAlbum>
-        {cards.map((card, index) => {
-          return (
-            <PreviewImages key={card}>
-              {renderCard(cards[index], index)}
-              {/* <img src={image} alt="upload images" /> */}
-
-              <button
-                onClick={() => {
-                  // console.log(selectedImages);
-                  setCards(cards.filter((e) => e !== card));
-                  // let cat = selectedImages.filter((e) => e !== card);
-                  // console.log(cat);
-                }}
-              >
-                <TiDeleteOutline />
-              </button>
-              {/* <p>{index + 1}</p> */}
-            </PreviewImages>
-          );
-        })}
-      </PreviewAlbum>
+            <PreviewLabel>
+              <img src={uploadImageIcon}></img>
+              <input
+                type="file"
+                name="images"
+                onChange={onSelectFile}
+                multiple
+                accept="image/png, image/jpeg, image/jpg, image/svg"
+              />
+            </PreviewLabel>
+          </PreviewAlbumSwiper>
+        </PreviewAlbum>
+      </PreviewBoxes>
       <PreviewBorderButton>
         <PreviewButton onClick={() => prev()}>Prev</PreviewButton>
         <PreviewButton onClick={() => next()}>Next</PreviewButton>
       </PreviewBorderButton>
-    </PreviewBoxes>
+    </>
   );
 };
 

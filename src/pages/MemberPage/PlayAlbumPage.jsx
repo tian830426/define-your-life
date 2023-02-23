@@ -27,64 +27,59 @@ const BackToPrevious = styled.button`
   }
 `;
 
-// const Container = styled.div`
-//   max-width: 1000px;
-//   margin: 100px auto;
-//   display: flex;
-//   flex-wrap: wrap;
-//   justify-content: space-around;
-// `;
+const Container = styled.div`
+  max-width: 1000px;
+  margin: 100px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
 
-// const Card = styled.div`
-//   position: relative;
-//   width: 300px;
-//   height: 400px;
-//   transform-style: preserve-3d;
-//   transform: perspective(2000px);
-//   background-color: white;
-//   box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.5);
-//   transition: 1s;
+const Card = styled.div`
+  position: relative;
+  width: 300px;
+  height: 400px;
+  transform-style: preserve-3d;
+  transform: perspective(2000px);
+  background-color: white;
+  box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.5);
+  transition: 1s;
 
-//   &:hover {
-//     transform: rotateY(-160deg);
-//     transform: perspective(2000px);
-//     /* ImgBox{
-//       box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
-//     } */
-//   }
-// `;
+  &:hover {
+    transform: rotateY(-160deg);
+    transform: perspective(2000px);
+    /* ImgBox{
+      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
+    } */
+  }
+`;
 
-// const ImgBox = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   border: 1px solid black;
-//   z-index: 1;
+const ImgBox = styled.div`
+  width: 100%;
+  height: 100%;
+  border: 1px solid black;
+  z-index: 1;
 
-//   transform-origin: left;
-//   transition: 2s;
-//   transform: rotateY(-160deg);
+  transform-origin: left;
+  transition: 2s;
+  transform: rotateY(-160deg);
 
-//   &:hover {
-//     box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
-//   }
-// `;
+  &:hover {
+    box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
+  }
+`;
 
-// const AnimationBgimg = styled.img`
-//   width: 300px;
-//   height: 400px;
-// `;
+const AnimationBgimg = styled.img`
+  width: 300px;
+  height: 400px;
+`;
 
-// const TextWord = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   padding: 30px;
-// `;
-
-
-  
- 
-
+const TextWord = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 30px;
+`;
 
 function PlayAlbumPage(props) {
   const navigate = useNavigate();
@@ -93,8 +88,7 @@ function PlayAlbumPage(props) {
     <>
       <NavbarLayout />
       <BackgroundLayout>
-        
-        {/* <Container>
+        <Container>
           <Card>
             <ImgBox>
               <AnimationBgimg
@@ -113,7 +107,7 @@ function PlayAlbumPage(props) {
               </p>
             </TextWord>
           </Card>
-        </Container> */}
+        </Container>
         <BackToPrevious onClick={() => navigate(-1)}>回上一頁</BackToPrevious>
       </BackgroundLayout>
       <FooterLayout />

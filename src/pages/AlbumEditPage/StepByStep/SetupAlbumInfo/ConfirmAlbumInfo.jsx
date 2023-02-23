@@ -43,6 +43,7 @@ const ConfirmAlbumItems = styled.span`
   font-weight: 700;
   letter-spacing: 1.5px;
   padding:0 50px;
+  
   /* margin: 10px auto;
   padding: 0 15px;
   display: flex;

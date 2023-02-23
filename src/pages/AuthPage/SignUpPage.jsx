@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useRef,useContext } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 // import { signup, login, logout } from "../../components/firebase";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
+import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
+
 // import BackGroundSetup from "../components/BackGroundSetup";
 import loginImg from "../../assets/cryPeople.JPG";
 import changeImg from "../../assets/musicPeople.JPG";
@@ -119,7 +121,7 @@ const SignupBtn = styled.div`
 function SignUpPage() {
   // , error, currentuser
   // const { SignUp } = AuthContext();
-  const {SignUp} = useContext(AuthContext)
+  const { SignUp } = useContext(AuthContext);
   const navigate = useNavigate();
   const [err, setError] = useState("");
   // const [backError, setBackError] = useState("");
@@ -237,74 +239,75 @@ function SignUpPage() {
   return (
     <div>
       <NavbarLayout />
-      <SignupDialogCenter>
-        <SignupDialogBoxes>
-          <SignupDialogBgimg>
-            <img className="loginImg" src={loginImg} alt="loginImg" />
-            <img className="changeImg" src={changeImg} alt="changeImg" />
-          </SignupDialogBgimg>
-          <SignupDialogLogin>
-            <SignupDialogTitle>
-              Welcome to Album Editor
-              <br />
-              {/* Currently logged in as: {currentUser?.email}{" "} */}
-            </SignupDialogTitle>
-            <Fields>
-              {err && <p className="error">{err}</p>}
-              {/* {err
+      <BackgroundLayout>
+        <SignupDialogCenter>
+          <SignupDialogBoxes>
+            <SignupDialogBgimg>
+              <img className="loginImg" src={loginImg} alt="loginImg" />
+              <img className="changeImg" src={changeImg} alt="changeImg" />
+            </SignupDialogBgimg>
+            <SignupDialogLogin>
+              <SignupDialogTitle>
+                Welcome to Album Editor
+                <br />
+                {/* Currently logged in as: {currentUser?.email}{" "} */}
+              </SignupDialogTitle>
+              <Fields>
+                {err && <p className="error">{err}</p>}
+                {/* {err
                 ? err && <p className="error">{err}</p>
                 : backError && <p className="error">{backError}</p>} */}
-              <form onSubmit={SubmitHandler} className="form">
-                <h2>Registration Form</h2>
-                <div className="inputfield">
-                  <input
-                    type="text"
-                    placeholder="UserName"
-                    value={user.username}
-                    name="username"
-                    onChange={UserHandler}
-                  />
-                </div>
-                <div className="inputfield">
-                  <input
-                    type="text"
-                    placeholder="Email"
-                    value={user.email}
-                    name="email"
-                    onChange={UserHandler}
-                  />
-                </div>
+                <form onSubmit={SubmitHandler} className="form">
+                  <h2>Registration Form</h2>
+                  <div className="inputfield">
+                    <input
+                      type="text"
+                      placeholder="UserName"
+                      value={user.username}
+                      name="username"
+                      onChange={UserHandler}
+                    />
+                  </div>
+                  <div className="inputfield">
+                    <input
+                      type="text"
+                      placeholder="Email"
+                      value={user.email}
+                      name="email"
+                      onChange={UserHandler}
+                    />
+                  </div>
 
-                <div className="inputfield">
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={user.password}
-                    name="password"
-                    onChange={UserHandler}
-                  />
-                </div>
-                <div className="inputfield">
-                  {/* <input
+                  <div className="inputfield">
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      value={user.password}
+                      name="password"
+                      onChange={UserHandler}
+                    />
+                  </div>
+                  <div className="inputfield">
+                    {/* <input
                     type="password"
                     placeholder="Confirm Password"
                     value={user.confirmpassword}
                     name="confirmPassword"
                     onChange={UserHandler}
                   /> */}
-                </div>
-                <div className="inputfield">
-                  <input type="submit" />
-                </div>
-                <p className="forget">
-                  Already Have an account?{" "}
-                  <Link to={"/home/login"} className="link">
-                    {"login"}
-                  </Link>
-                </p>
-              </form>
-            </Fields>
-            {/* <SignupBtn>
+                  </div>
+                  <div className="inputfield">
+                    <input type="submit" />
+                  </div>
+                  <p className="forget">
+                    Already Have an account?{" "}
+                    <Link to={"/home/login"} className="link">
+                      {"login"}
+                    </Link>
+                  </p>
+                </form>
+              </Fields>
+              {/* <SignupBtn>
               <button disabled={loading || currentUser} onClick={handleSignup}>
                 Sign Up
               </button>
@@ -315,10 +318,10 @@ function SignUpPage() {
                 Log Out
               </button>
             </SignupBtn> */}
-          </SignupDialogLogin>
-        </SignupDialogBoxes>
-      </SignupDialogCenter>
-      {/* <div className="box">
+            </SignupDialogLogin>
+          </SignupDialogBoxes>
+        </SignupDialogCenter>
+        {/* <div className="box">
         {err
           ? err && <p className="error">{err}</p>
           : backError && <p className="error">{backError}</p>}
@@ -370,7 +373,7 @@ function SignUpPage() {
           </p>
         </form>
       </div> */}
-      {/* <SignupDialogCenter>
+        {/* <SignupDialogCenter>
         <SignupDialogBoxes>
           <SignupDialogBgimg>
             <img className="loginImg" src={loginImg} alt="loginImg" />
@@ -400,6 +403,7 @@ function SignUpPage() {
           </SignupDialogLogin>
         </SignupDialogBoxes>
       </SignupDialogCenter> */}
+      </BackgroundLayout>
       <FooterLayout />
     </div>
   );

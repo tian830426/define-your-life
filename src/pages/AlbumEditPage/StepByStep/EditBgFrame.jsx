@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../../AuthPage/UserAuthProvider";
 import { StepContext } from "../StepByStep/StepByStep";
@@ -25,22 +25,38 @@ import {
 import { v4 } from "uuid";
 import Button from "../../../components/Button";
 
-import { EditorState, convertToRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
+// import { EditorState, convertToRaw } from "draft-js";
+// import { Editor } from "react-draft-wysiwyg";
+// import draftToHtml from "draftjs-to-html";
+// import htmlToDraft from "html-to-draftjs";
 
-import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+// import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
+// import "swiper/css/scrollbar";
+
+import
 
 const EditorBgContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 90%;
   position: relative;
+`;
+
+const EditorBgTitle = styled.div`
+  margin: 40px auto;
+  padding: 0 50px;
+  line-height: 70px;
+  text-align: center;
+  color: gray;
+  h2 {
+    font-size: 50px;
+    /* color: transparent; */
+    -webkit-text-stroke: 1.5px gray;
+    letter-spacing: 2px;
+  }
 `;
 
 const EditorBgBoxes = styled.div`
@@ -62,16 +78,13 @@ const EditorImg = styled.img`
 `;
 
 const EditorAlbum = styled.div`
-  width: 50%;
+  width: 100%;
 `;
 
 const EditBgFrameBorderButton = styled.div`
   display: flex;
-  margin: 20px auto;
-  position: absolute;
-  top: 85;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
 `;
 
 const EditBgFrameButton = styled(Button)`
@@ -87,10 +100,13 @@ const EditBgFrameButton = styled(Button)`
   }
 `;
 
+const ParallaxGallery = styled.div`
+  transform: translateX(${props => (props.index - 1) * props.scrollPosition * 0.2}px);
+`;
+
 const EditBgFrame = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   const {
     prev,
@@ -117,80 +133,51 @@ const EditBgFrame = () => {
     setRawMessage,
   } = useContext(StepContext);
 
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const containerRef = useRef(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  const onEditorStateChange = (newEditorState) => {
-    setEditorState(newEditorState);
-    setRawMessage(
-      draftToHtml(convertToRaw(newEditorState.getCurrentContent()))
-    );
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop } = containerRef.current;
+      setScrollPosition(scrollTop);
+    };
+    containerRef.current.addEventListener("scroll", handleScroll);
 
-  const handleEditorStateToMessage = () => {
-    setMessage(rawMessage);
-  };
+    return () =>
+      containerRef.current.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const wrapperStyle = {
-    border: "1px solid #969696",
-  };
+  // const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
-  const editorStyle = {
-    height: "10rem",
-    padding: "1rem",
-  };
-
-  //upload albumInfo and message text
-  // const onSelectFile = (event) => {
-  //   // filelist 取得一張照片
-  //   const selectFiles = event.target.files; // files[0] -> Blob
-  //   // 取得多張照片後轉 filelist array
-  //   const selectFilesArray = Array.from(selectFiles); // Blob[]
-  //   // 將filelist array 裡的每張照片展開 並回傳 url
-  //   const imagesArray = selectFilesArray.map((file) => {
-  //     return URL.createObjectURL(file);
-  //   }); // string[] object
-
-  //   const cardsArray = imagesArray.map((card, index) => {
-  //     return {
-  //       id: index,
-  //       text: card,
-  //     };
-  //   });
-
-  //   console.log(cardsArray);
-
-  //   //最新狀態會是在當前圖片後上 網址
-  //   setSelectedImages((previousImages) => previousImages.concat(imagesArray)); // selectedImages => string[]
-
-  //   // 因為上傳的照片需要blob，所以上傳照片的最新狀態就是當前圖片後加上 選取照片後的 blob[]
-  //   setFiles((previousImages) => previousImages.concat(selectFilesArray));
-  //   // files => Blob[]
-
-  //   setCards((previousImages) => previousImages.concat(cardsArray));
-
-  //   // setSelectedImages(imagesArray);
+  // const onEditorStateChange = (newEditorState) => {
+  //   setEditorState(newEditorState);
+  //   setRawMessage(
+  //     draftToHtml(convertToRaw(newEditorState.getCurrentContent()))
+  //   );
   // };
-  const finish = async (e) => {
-    // e.preventDefault(e);
 
+  // const handleEditorStateToMessage = () => {
+  //   setMessage(rawMessage);
+  // };
+
+  // const wrapperStyle = {
+  //   border: "1px solid #969696",
+  // };
+
+  // const editorStyle = {
+  //   height: "10rem",
+  //   padding: "1rem",
+  // };
+
+  const finish = async (e) => {
     try {
       const urlArray = [];
-
       for (let i = 0; i < cards.length; i++) {
         const imageRef = ref(storage, `images/${cards[i].file.name + v4()}`);
         const snapshot = await uploadBytes(imageRef, cards[i].file);
         const url = await getDownloadURL(snapshot.ref);
         urlArray.push(url);
       }
-      // await uploadBytes(imageRef, cards[i].file).then((snapshot) => {
-      //   // console.log(cards);
-      //   // console.log(imageRef);
-      //   getDownloadURL(snapshot.ref).then((url) => {
-      //     // setImageUrls((prev) => [...prev, url]);
-      //     // console.log(url);
-      //   });
-      //   alert("image upload");
-      // });
       alert("image upload");
       const timestamp = Date.now();
       const randomString = Math.random().toString(36).substring(2);
@@ -205,8 +192,6 @@ const EditBgFrame = () => {
         UrlArray: urlArray,
         createdAt: new Date(),
       });
-      console.log(newDocRef.id);
-      // newDocRefArray.push(newDocRef.id);
 
       const newDocRef2 = doc(
         db,
@@ -232,121 +217,81 @@ const EditBgFrame = () => {
     }
   };
 
-  // 上傳照片
-  // const [files, setFiles] = useState([]);
-
-  // 上傳照片執行的 func
-  // const uploadImg = () => {
-  //   if (files == null) return;
-  // for (let i = 0; i < files.length; i++) {
-  //   const imageRef = ref(storage, `images/${files[i].name + v4()}`);
-  //   uploadBytes(imageRef, files[i]).then((snapshot) => {
-  //     // getDownloadURL(snapshot.ref).then((url) => {
-  //     //   setImageUrls((prev) => [...prev, url]);
-  //     // });
-  //     // alert("image upload");
-  //   });
-  // }
+  // const handleMessage = (event) => {
+  //   setMessage(event.target.value);
   // };
 
-  //
-  const handleMessage = (event) => {
-    setMessage(event.target.value);
-  };
-
-  // 將資料存到firestorge
-  // const submit = async (e) => {
-  //   e.preventDefault(e);
-  //   if (message === "") {
-  //     return;
-  //   }
-  //   await addDoc(collection(db, "text"), {
-  //     Message: message,
-  //   });
-
-  //   setMessage("");
+  // const handleScroll = () => {
+  //   setScrollPosition(window.scrollY);
   // };
 
   // useEffect(() => {
-  //   const q = query(collection(db, "text"))
-  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     let TextArr = [];
-  //     querySnapshot.forEach((doc) => {
-  //       TextArr.push({ ...doc.data(), id: doc.id });
-  //     });
-  //     setAlbums(TextArr);
-  //   });
-  //   return () => unsubscribe();
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
   // }, []);
 
-  // 從資料庫將資料刪除
-  // const deleteText = async (id) => {
-  //   await deleteDoc(doc(db, "text", id));
-  //   setShow(true);
-
-  // const [show, setShow] = useState(true);
-
   return (
-    <EditorBgContainer>
-      <EditorBgBoxes>
-        <EditorAlbum>
-          <Swiper
-            effect="fade"
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation
-            //  pagination={{ clickable: true}}
-            scrollbar={{ draggable: true }}
-            //  onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
-            {cards.map((image, index) => {
-              // console.log(cards);
-              // console.log(image);
-              return (
-                <SwiperSlide key={index}>
-                  <EditorImg src={image.text} alt="" />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </EditorAlbum>
-        <React.Fragment>
-          <div
-            style={{
-              // border: "1px solid #969696",
-              borderRadius: "3px",
-              width: "50%",
-              height: "80%",
-              padding: "1rem",
-            }}
-          >
-            <div dangerouslySetInnerHTML={{ __html: message }}></div>
-          </div>
-        </React.Fragment>
-      </EditorBgBoxes>
+    <>
+      <EditorBgContainer>
+        <EditorBgTitle>
+          <h2>Preview</h2>
+        </EditorBgTitle>
+        <EditorBgBoxes>
+          <EditorAlbum>
+            {/* <Swiper
+              effect="fade"
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              spaceBetween={0}
+              slidesPerView={10}
+              navigation
+              //  pagination={{ clickable: true}}
+              scrollbar={{ draggable: true }}
+              //  onSwiper={(swiper) => console.log(swiper)}
+              onSlideChange={() => console.log("slide change")}
+            >
+              {cards.map((image, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <EditorImg src={image.text} alt="" />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper> */}
+            <div ref={containerRef}>
+              {cards.map((image, index) => {
+                return (
+                  <ParallaxGallery key={index} scrollPosition={scrollPosition}>
+                    <EditorImg src={image.text} alt="" />
+                  </ParallaxGallery>
+                  // <SwiperSlide key={index}>
+                  //   <EditorImg src={image.text} alt="" />
+                  // </SwiperSlide>
+                );
+              })}
+            </div>
+          </EditorAlbum>
+          {/* <React.Fragment>
+            <div
+              style={{
+                // border: "1px solid #969696",
+                borderRadius: "3px",
+                width: "50%",
+                height: "80%",
+                padding: "1rem",
+              }}
+            >
+              <div dangerouslySetInnerHTML={{ __html: message }}></div>
+            </div>
+          </React.Fragment> */}
+        </EditorBgBoxes>
+      </EditorBgContainer>
       <EditBgFrameBorderButton>
         <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
-        <EditBgFrameButton
-          // onChange={onSelectFile}
-          // multiple
-          // accept="image/png, image/jpeg, image/jpg, image/svg"
-          onClick={() => finish()}
-        >
-          Finish
-        </EditBgFrameButton>
-        {/* <EditBgFrameButton
-          onClick={() => {
-            next();
-            uploadImg();
-            handleMessage();
-          }}
-        >
-          UPLOAD
-        </EditBgFrameButton> */}
+        <EditBgFrameButton onClick={() => finish()}>Finish</EditBgFrameButton>
       </EditBgFrameBorderButton>
-    </EditorBgContainer>
+    </>
   );
 };
 

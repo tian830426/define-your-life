@@ -36,9 +36,11 @@ const EditorConvertToHTML = () => {
     setMessage(rawMessage);
   };
 
-
   const wrapperStyle = {
-    border: "1px solid #cabc88",
+    // border: "4px solid #cabc88",
+    border: "4px solid rgb(219,154,87)",
+    background: "rgb(246,239,230)",
+    borderRadius: "10px",
   };
   const editorStyle = {
     height: "20rem",

@@ -23,7 +23,7 @@ export const StepContext = React.createContext({
 const StepBoxes = styled.div`
   max-width: 1200px;
   width: 85%;
-  height: 80%;
+  height: 70vh;
   border-radius: 25px;
   background: rgb(246, 239, 230);
   /* background-color:white; */
