@@ -24,15 +24,24 @@ const NavbarUsername = styled.div`
 
   h2 {
     text-align: center;
+    font-size: 28px;
     font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
     color: gray;
     text-shadow: gray 0.05em 0.05em 0.05em;
     letter-spacing: 1px;
     cursor: pointer;
+    position: relative;
     &:hover {
-      font-size: 26px;
+      font-size: 30px;
       opacity: 0.8;
       cursor: pointer;
+      color: #9c9c9c;
+      /* width: 100px;
+      height: 10px;
+      background: #e7b68b;
+      position: absolute;
+      left: 20%;
+      top: 40%; */
     }
   }
 `;
@@ -60,7 +69,7 @@ const NavbarTitle = styled(Link)`
 
 const NavbarItems = styled.div`
   display: flex;
-  margin:auto 0;
+  margin: auto 0;
   text-align: center;
 `;
 

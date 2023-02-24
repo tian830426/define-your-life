@@ -338,7 +338,7 @@ const EditBgFrame = () => {
         </EditorBgTitle>
         <EditorBgBoxes>
           <EditorAlbum>
-            <Swiper
+            {/* <Swiper
               effect="fade"
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               spaceBetween={0}
@@ -356,7 +356,7 @@ const EditBgFrame = () => {
                   </SwiperSlide>
                 );
               })}
-            </Swiper>
+            </Swiper> */}
             {/* <ParallaxBox>
               <Parallax1
                 src={animationBgimg}
@@ -374,16 +374,16 @@ const EditBgFrame = () => {
                 style={{ transform: `translateX(${offsetY * 0.4}px)` }}
               />
             </ParallaxBox> */}
-            {/* {cards.map((image, index) => {
+            {cards.map((image, index) => {
               return (
-                <div key={index}>
-                  <img src={image.text} alt="" />
-                </div>
+                <SwiperSlide key={index}>
+                  <EditorImg src={image.text} alt="" />
+                </SwiperSlide>
                 // <SwiperSlide key={index}>
                 //   <EditorImg src={image.text} alt="" />
                 // </SwiperSlide>
               );
-            })} */}
+            })}
             {/* <Container>
               <Wrapper>
                 <Slide>
