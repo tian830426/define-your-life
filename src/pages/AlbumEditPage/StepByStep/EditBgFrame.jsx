@@ -25,19 +25,19 @@ import {
 import { v4 } from "uuid";
 import Button from "../../../components/Button";
 
-// import { EditorState, convertToRaw } from "draft-js";
-// import { Editor } from "react-draft-wysiwyg";
-// import draftToHtml from "draftjs-to-html";
-// import htmlToDraft from "html-to-draftjs";
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
 
-// import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
-// import "swiper/css/scrollbar";
+import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
-import
+import animationBgimg from "../../../assets/toy.jpg";
 
 const EditorBgContainer = styled.div`
   width: 100%;
@@ -69,7 +69,9 @@ const EditorImg = styled.img`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 300px;
+  height: 300px;
+  /* width: 100%; */
   margin-top: 20px;
   /* height: 70%;  */
   /* width: 50%px; */
@@ -101,7 +103,96 @@ const EditBgFrameButton = styled(Button)`
 `;
 
 const ParallaxGallery = styled.div`
-  transform: translateX(${props => (props.index - 1) * props.scrollPosition * 0.2}px);
+  /* transform: translateX(
+    ${(props) => (props.index - 1) * props.scrollPosition * 0.2}px
+  ); */
+`;
+
+const ParallaxBox = styled.div`
+  display: flex;
+`;
+
+// const Parallax1 = styled.img`
+//   width: 800px;
+//   height: 800px;
+// `;
+
+// const Parallax2 = styled.img`
+//   width: 800px;
+//   height: 800px;
+// `;
+// const Parallax3 = styled.img`
+//   width: 800px;
+//   height: 800px;
+// `;
+
+const Container = styled.div`
+  width: 100vh;
+  height: 100vw;
+  transform: rotate(-90deg) translateX(-100vh);
+  transform-origin: top left;
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 200vw;
+  transform: rotate(90deg) translateY(-100vh);
+  transform-origin: top left;
+  background: lightblue;
+`;
+
+const Slide = styled.div`
+  /* height: 100vh;
+  width: 100vw; */
+
+  :nth-child(1) {
+    /* height: 100vh;
+    width: 100vw; */
+    div {
+      height: 100vh;
+      width: 50vw;
+      background: white;
+      h1 {
+        margin: auto;
+        text-align: center;
+      }
+      h3 {
+        text-align: center;
+      }
+    }
+    div {
+      height: 50vw;
+      width: 100vh;
+      background: rgb(221, 214, 201);
+    }
+  }
+
+  :nth-child(2) {
+    background: lightyellow;
+    img {
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  :nth-child(3) {
+    background: lightblue;
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  :nth-child(4) {
+    background: lightyellow;
+    img {
+      width: 400px;
+      height: 400px;
+    }
+  }
 `;
 
 const EditBgFrame = () => {
@@ -133,19 +224,26 @@ const EditBgFrame = () => {
     setRawMessage,
   } = useContext(StepContext);
 
-  const containerRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // const containerRef = useRef(null);
+  // const [scrollPosition, setScrollPosition] = useState(0);
+  // const [offsetY, setOffsetY] = useState(0);
+  // const handleScroll = () => setOffsetY(window.pageXOffset);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop } = containerRef.current;
-      setScrollPosition(scrollTop);
-    };
-    containerRef.current.addEventListener("scroll", handleScroll);
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
 
-    return () =>
-      containerRef.current.removeEventListener("scroll", handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const { scrollTop } = containerRef.current;
+  //     setScrollPosition(scrollTop);
+  //   };
+  //   containerRef.current.addEventListener("scroll", handleScroll);
+
+  //   return () =>
+  //     containerRef.current.removeEventListener("scroll", handleScroll);
+  // }, []);
 
   // const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
@@ -156,18 +254,18 @@ const EditBgFrame = () => {
   //   );
   // };
 
-  // const handleEditorStateToMessage = () => {
-  //   setMessage(rawMessage);
-  // };
+  const handleEditorStateToMessage = () => {
+    setMessage(rawMessage);
+  };
 
-  // const wrapperStyle = {
-  //   border: "1px solid #969696",
-  // };
+  const wrapperStyle = {
+    border: "1px solid #969696",
+  };
 
-  // const editorStyle = {
-  //   height: "10rem",
-  //   padding: "1rem",
-  // };
+  const editorStyle = {
+    height: "10rem",
+    padding: "1rem",
+  };
 
   const finish = async (e) => {
     try {
@@ -217,9 +315,9 @@ const EditBgFrame = () => {
     }
   };
 
-  // const handleMessage = (event) => {
-  //   setMessage(event.target.value);
-  // };
+  const handleMessage = (event) => {
+    setMessage(event.target.value);
+  };
 
   // const handleScroll = () => {
   //   setScrollPosition(window.scrollY);
@@ -240,7 +338,7 @@ const EditBgFrame = () => {
         </EditorBgTitle>
         <EditorBgBoxes>
           <EditorAlbum>
-            {/* <Swiper
+            <Swiper
               effect="fade"
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               spaceBetween={0}
@@ -258,21 +356,50 @@ const EditBgFrame = () => {
                   </SwiperSlide>
                 );
               })}
-            </Swiper> */}
-            <div ref={containerRef}>
-              {cards.map((image, index) => {
-                return (
-                  <ParallaxGallery key={index} scrollPosition={scrollPosition}>
-                    <EditorImg src={image.text} alt="" />
-                  </ParallaxGallery>
-                  // <SwiperSlide key={index}>
-                  //   <EditorImg src={image.text} alt="" />
-                  // </SwiperSlide>
-                );
-              })}
-            </div>
+            </Swiper>
+            {/* <ParallaxBox>
+              <Parallax1
+                src={animationBgimg}
+                alt="animationBgimg"
+                style={{ transform: `translateX(${offsetY * 0.2}px)` }}
+              />
+              <Parallax2
+                src={animationBgimg}
+                alt="animationBgimg"
+                style={{ transform: `translateX(${offsetY * 0.3}px)` }}
+              />
+              <Parallax3
+                src={animationBgimg}
+                alt="animationBgimg"
+                style={{ transform: `translateX(${offsetY * 0.4}px)` }}
+              />
+            </ParallaxBox> */}
+            {/* {cards.map((image, index) => {
+              return (
+                <div key={index}>
+                  <img src={image.text} alt="" />
+                </div>
+                // <SwiperSlide key={index}>
+                //   <EditorImg src={image.text} alt="" />
+                // </SwiperSlide>
+              );
+            })} */}
+            {/* <Container>
+              <Wrapper>
+                <Slide>
+                  <div>
+                    <h1>Hello World</h1>
+                    <h3>Hello Cat</h3>
+                  </div>
+                </Slide>
+                <Slide>
+                  <div>456</div>
+                </Slide>
+                <Slide></Slide>
+              </Wrapper>
+            </Container> */}
           </EditorAlbum>
-          {/* <React.Fragment>
+          <React.Fragment>
             <div
               style={{
                 // border: "1px solid #969696",
@@ -284,9 +411,14 @@ const EditBgFrame = () => {
             >
               <div dangerouslySetInnerHTML={{ __html: message }}></div>
             </div>
-          </React.Fragment> */}
+          </React.Fragment>
         </EditorBgBoxes>
       </EditorBgContainer>
+      {/* <Container>
+        <Wrapper>
+          <Slide></Slide>
+        </Wrapper>
+      </Container> */}
       <EditBgFrameBorderButton>
         <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
         <EditBgFrameButton onClick={() => finish()}>Finish</EditBgFrameButton>

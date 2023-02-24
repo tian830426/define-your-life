@@ -41,31 +41,26 @@ const Card = styled.div`
   height: 400px;
   transform-style: preserve-3d;
   transform: perspective(2000px);
-  background-color: white;
+  background: #fff;
   box-shadow: inset 300px 0 50px rgba(0, 0, 0, 0.5);
   transition: 1s;
-
   &:hover {
-    transform: rotateY(-160deg);
     transform: perspective(2000px);
-    /* ImgBox{
-      box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
-    } */
+    box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
   }
 `;
 
 const ImgBox = styled.div`
+  position: relative;
   width: 100%;
   height: 100%;
-  border: 1px solid black;
-  z-index: 1;
-
+  border: 1px solid #000;
   transform-origin: left;
+  z-index: 1;
   transition: 2s;
-  transform: rotateY(-160deg);
 
-  &:hover {
-    box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.5);
+  ${Card}:hover & {
+    transform: rotateY(-160deg);
   }
 `;
 
@@ -96,7 +91,6 @@ function PlayAlbumPage(props) {
                 alt="animationBgimg"
               ></AnimationBgimg>
             </ImgBox>
-
             <TextWord>
               <h2>Lorem ipsum dolor sit amet consectetur </h2>
               <p>
