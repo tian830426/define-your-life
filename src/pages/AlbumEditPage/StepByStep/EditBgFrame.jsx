@@ -38,6 +38,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 import animationBgimg from "../../../assets/toy.jpg";
+import layoutLined from "../../../assets/iconmonstr-layout-lined.svg";
+
+import paintBrush from "../../../assets/iconmonstr-paintbrush-7.svg";
+
+import colorFan from "../../../assets/iconmonstr-color-fan-2.svg";
 
 const EditorBgContainer = styled.div`
   width: 100%;
@@ -46,6 +51,8 @@ const EditorBgContainer = styled.div`
 `;
 
 const EditorBgTitle = styled.div`
+  display: flex;
+  justify-content: center;
   margin: 40px auto;
   padding: 0 50px;
   line-height: 70px;
@@ -53,9 +60,22 @@ const EditorBgTitle = styled.div`
   color: gray;
   h2 {
     font-size: 50px;
-    /* color: transparent; */
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
+  }
+`;
+
+const EditorBgIconList = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 0 20px;
+    color: gray;
   }
 `;
 
@@ -71,10 +91,7 @@ const EditorImg = styled.img`
   align-items: center;
   width: 300px;
   height: 300px;
-  /* width: 100%; */
   margin-top: 20px;
-  /* height: 70%;  */
-  /* width: 50%px; */
   height: 380px;
   object-fit: cover;
 `;
@@ -335,6 +352,11 @@ const EditBgFrame = () => {
       <EditorBgContainer>
         <EditorBgTitle>
           <h2>Preview</h2>
+          <EditorBgIconList>
+            <img src={layoutLined} />
+            <img src={paintBrush}></img>
+            <img src={colorFan}></img>
+          </EditorBgIconList>
         </EditorBgTitle>
         <EditorBgBoxes>
           <EditorAlbum>

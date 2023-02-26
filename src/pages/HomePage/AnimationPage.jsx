@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import animationBgimg from "../../assets/toy.jpg";
 import { NavbarTitleStyle } from "../../components/NavbarTitleStyle";
@@ -27,6 +27,12 @@ const AnimationBgimg = styled.img`
 `;
 
 function AnimationPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/home");
+    }, 7000);
+  }, [navigate]);
   return (
     <div>
       <AnimationCenter>

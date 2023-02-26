@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import UserAuthProvider from "./pages/AuthPage/UserAuthProvider";
 
 const App = () => {
+  
   return (
     <UserAuthProvider>
       <BrowserRouter>

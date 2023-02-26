@@ -3,8 +3,8 @@ import styled from "styled-components";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
 import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
-import MoveInWidthwise from "./MoveInWidthwise";
 
+import MoveInWidthwise from "./MoveInWidthwise";
 import image1 from "../../assets/toy.jpg";
 import image2 from "../../assets/mount.jpeg";
 import image3 from "../../assets/musicPeople.JPG";
@@ -30,6 +30,7 @@ const TestComponent = styled.div`
 
 const TestItem = styled.div`
   position: relative;
+  width:100vw;
   height: 100vh;
   flex: 0 0 10%;
   background: rgb(221, 214, 201);
@@ -183,7 +184,7 @@ function HomePage() {
           </PageContainer>
         </AlbumContainer>
       </BackgroundLayout>
-      <FooterLayout />
+      {/* <FooterLayout /> */}
     </>
   );
 }

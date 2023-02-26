@@ -60,7 +60,7 @@ function NotFound() {
       navigate("/");
     }, 3000);
   }, [navigate]);
-  
+
   return (
     <>
       <NavbarLayout />

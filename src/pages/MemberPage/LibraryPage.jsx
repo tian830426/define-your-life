@@ -34,6 +34,7 @@ import {
 } from "firebase/storage";
 import { v4 } from "uuid";
 
+import trashCan from "../../assets/iconmonstr-trash-can-lined.svg";
 const LibraryContainer = styled.div`
   max-width: 1200px;
   width: 85%;
@@ -66,9 +67,32 @@ const LibraryCard = styled.div`
   transition: 1s;
   border-radius: 5px;
   margin: 20px 0;
+  box-shadow: rgba(0, 0, 0, 1) 5px 10px 20px;
   &:hover {
     transform: perspective(2000px);
     box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.25);
+  }
+
+  &::after {
+    content: "";
+    background-color: #afafaf;
+    position: absolute;
+    top: 8px;
+    right: -15px;
+    height: 100%;
+    width: 15px;
+    transform: skewY(45deg);
+  }
+
+  &::before {
+    content: "";
+    background-color: #9c9c9c;
+    position: absolute;
+    left: 8px;
+    bottom: -15px;
+    height: 15px;
+    width: 100%;
+    transform: skewX(45deg);
   }
 `;
 
@@ -86,6 +110,32 @@ const ImgBox = styled.div`
   }
 `;
 
+const TranshCanBox = styled.div`
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  margin: 8px;
+  top: 0;
+  right: 0;
+  background: #dddad9;
+  display: flex;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.5;
+  color: white;
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const TranshCanIcon = styled.img`
+  padding: 5px;
+  margin: auto;
+  color: white;
+  svg {
+  }
+`;
+
 const LibraryImage = styled.img`
   width: 300px;
   height: 350px;
@@ -93,11 +143,14 @@ const LibraryImage = styled.img`
 `;
 
 const LibraryInfo = styled.div`
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0%;
   left: 0%;
   /* transform: translate(-50%, -50%); */
   padding: 20px;
+  overflow: auto;
 `;
 
 const LibraryInfoName = styled.h2`
@@ -167,6 +220,18 @@ function LibraryPage() {
     return "loading";
   }
 
+  const deleteAlbum = async (albumId) => {
+    if (currentUser != undefined) {
+      try {
+        await deleteDoc(doc(db, "albums", albumId));
+        await deleteDoc(doc(db, "users", currentUser.email, "album", albumId));
+        console.log("Album deleted successfully.");
+      } catch (error) {
+        console.error("Error deleting album: ", error);
+      }
+    }
+  };
+
   return (
     <>
       <NavbarLayout />
@@ -182,7 +247,7 @@ function LibraryPage() {
                 }}
               >
                 <ImgBox>
-                  <LibraryImage src={album.UrlArray[0]} />
+                  <LibraryImage src={album.UrlArray[0]} alt="" />
                 </ImgBox>
                 <LibraryInfo>
                   <LibraryInfoName>{album.Name}</LibraryInfoName>
@@ -192,6 +257,15 @@ function LibraryPage() {
                   </LibraryInfoDescription>
                   <LibraryInfoDate>{album.Date}</LibraryInfoDate>
                 </LibraryInfo>
+                <TranshCanBox>
+                  <TranshCanIcon
+                    src={trashCan}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      deleteAlbum(album.id);
+                    }}
+                  ></TranshCanIcon>
+                </TranshCanBox>
               </LibraryCard>
             ))}
           </LibraryGrid>

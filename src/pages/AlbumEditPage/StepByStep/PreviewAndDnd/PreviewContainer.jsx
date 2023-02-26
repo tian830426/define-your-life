@@ -49,13 +49,10 @@ const PreviewLabel = styled.label`
   align-items: center;
   min-width: 280px;
   height: 280px;
-  /* padding: 20px; */
   margin: 0 40px 40px 20px;
   opacity: 0.7;
   border: 5px dashed gray;
   border-radius: 12px;
-  /* background: rgba(0, 0, 0, 0.1); */
-  /* box-shadow: rgb(104, 142, 129) 2px 2px 2px 4px; */
   color: gray;
   cursor: pointer;
   img {
@@ -93,46 +90,61 @@ const PreviewAlbumSwiper = styled.div`
   flex-direction: row;
   align-items: center;
   margin: auto;
-  overflow-y: auto; 
-  overflow-x: scroll;
-  /* overflow-y: hidden; */
+  /* overflow-y: auto;
+  overflow-x: scroll; */
+  overflow-y: hidden;
 `;
 
 const PreviewImages = styled.div`
+  position: relative;
   margin: 20px 20px;
   /* margin-bottom: 50px; */
   /* box-shadow: 0px 1px 2px 0px; */
-  position: relative;
+  
   /* outline: 2px solid rgb(104, 142, 129); */
   background: white;
   padding: 20px 20px 60px 20px;
   border-radius: 12px;
 
+  /* overflow: hidden;  */
   img {
     width: 280px;
     height: 280px;
     object-fit: cover;
     border-radius: 12px;
+    transition: all 0.2s linear;
+    /* &:active {
+      transform: scale(0.8);
+      transition: all 0.2s linear;
+    } */
+    /* position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
   }
+`;
 
-  button {
-    border-radius: 50%;
-    position: absolute;
-    background-color: transparent;
-    top: -20px;
-    right: -20px;
-    cursor: pointer;
-    font-size: 20px;
-    svg {
-      width: 30px;
-      height: 30px;
-      color: rgb(165, 165, 165);
-      opacity: 0.5;
-      &:hover {
-        width: 32px;
-        height: 32px;
-        opacity: 1;
-      }
+const PreviewImageDeleteIcon = styled.button`
+  border-radius: 50%;
+  position: absolute;
+  background-color: transparent;
+  top: -20px;
+  right: -20px;
+  cursor: pointer;
+  font-size: 20px;
+  svg {
+    width: 30px;
+    height: 30px;
+    color: rgb(165, 165, 165);
+    opacity: 0.5;
+    &:hover {
+      width: 32px;
+      height: 32px;
+      opacity: 1;
     }
   }
 `;
@@ -171,6 +183,52 @@ const PreviewButton = styled(Button)`
   }
 `;
 
+const ModalContainer = styled.div`
+  /* position: relative; */
+  /* display: ${(props) => (props.open ? "block" : "none")};
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000; */
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ModalPreview = styled.div`
+  img {
+    width: 50vw;
+    height: 40vw;
+    padding: 20px;
+    background-color: white;
+    object-fit: cover;
+  }
+  button {
+    border-radius: 50%;
+    position: absolute;
+    background-color: transparent;
+    top: -20px;
+    right: -20px;
+    cursor: pointer;
+    font-size: 20px;
+    svg {
+      width: 30px;
+      height: 30px;
+      color: rgb(165, 165, 165);
+      opacity: 0.5;
+      &:hover {
+        width: 32px;
+        height: 32px;
+        opacity: 1;
+      }
+    }
+  }
+`;
+
 const PreviewContainer = (props) => {
   const {
     prev,
@@ -188,7 +246,12 @@ const PreviewContainer = (props) => {
 
   // 上傳照片
   const [files, setFiles] = useState([]);
-  const [show, setShow] = useState(true);
+  // const [show, setShow] = useState(fale);
+  const [isPreviewing, setIsPreviewing] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  // 點擊放大
+
   // const [cards, setCards] = useState([]);
 
   // const [imageUrls, setImageUrls] = useState([]);
@@ -249,6 +312,14 @@ const PreviewContainer = (props) => {
       />
     );
   }, []);
+  const handleImageClick = (e) => {
+    setSelectedImage(e.target.src);
+    setIsPreviewing(true);
+  };
+
+  const handlePreviewClose = () => {
+    setIsPreviewing(false);
+  };
 
   return (
     <>
@@ -261,18 +332,19 @@ const PreviewContainer = (props) => {
           <PreviewAlbumSwiper>
             {cards.map((card, index) => {
               return (
-                <PreviewImages key={card}>
+                <PreviewImages key={card} onClick={handleImageClick}>
                   {renderCard(cards[index], index)}
                   {/* <img src={image} alt="upload images" /> */}
 
-                  <button
-                    onClick={() => {
+                  {/* <p>{index + 1}</p> */}
+                  <PreviewImageDeleteIcon
+                    onClick={(event) => {
+                      event.stopPropagation();
                       setCards(cards.filter((e) => e !== card));
                     }}
                   >
                     <TiDeleteOutline />
-                  </button>
-                  {/* <p>{index + 1}</p> */}
+                  </PreviewImageDeleteIcon>
                 </PreviewImages>
               );
             })}
@@ -289,6 +361,17 @@ const PreviewContainer = (props) => {
             </PreviewLabel>
           </PreviewAlbumSwiper>
         </PreviewAlbum>
+        <ModalContainer>
+          {isPreviewing && (
+            <ModalPreview>
+              <img src={selectedImage} alt="preview" />
+              <button onClick={handlePreviewClose}>
+                {" "}
+                <TiDeleteOutline />
+              </button>
+            </ModalPreview>
+          )}
+        </ModalContainer>
       </PreviewBoxes>
       <PreviewBorderButton>
         <PreviewButton onClick={() => prev()}>Prev</PreviewButton>

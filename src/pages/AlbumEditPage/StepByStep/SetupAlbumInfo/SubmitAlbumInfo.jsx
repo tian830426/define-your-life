@@ -28,13 +28,17 @@ const SubmitTitle = styled.div`
   }
 `;
 
-const SubmitInput = styled.div``;
+const SubmitInput = styled.div`
+margin: auto;
+`;
 
 const SubmitForm = styled.form`
-  margin: auto;
+  width:650px;
+  margin:0 auto;
   font-family: "Courier New", Courier, monospace;
 
   label {
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +48,7 @@ const SubmitForm = styled.form`
     font-weight: 700;
     letter-spacing: 1.5px;
     input {
+      width:100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -130,7 +135,7 @@ function SubmitAlbumInfo(props) {
             <SubmitInput>
               <SubmitForm onSubmit={submit}>
                 <label htmlFor="">
-                  Editor :
+                  Editor:
                   <input
                     type="text"
                     value={editor}
@@ -139,7 +144,7 @@ function SubmitAlbumInfo(props) {
                   />
                 </label>{" "}
                 <label htmlFor="">
-                  Album Name :
+                  Album Name:
                   <input
                     type="text"
                     value={name}
@@ -148,12 +153,12 @@ function SubmitAlbumInfo(props) {
                   />
                 </label>{" "}
                 <label htmlFor="">
-                  Date :
+                  Date:
                   <input type="date" value={date} onChange={handleDate} />
                 </label>{" "}
                 <label htmlFor="">
                   {" "}
-                  Description :
+                  Description:
                   <input
                     type="text"
                     value={description}
