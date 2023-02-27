@@ -27,10 +27,13 @@ import AlbumTemplateForThree, {
 
 import AlbumTemplateForFour, { ImageFull } from "./AlbumTemplateForFour";
 
+import CustomCursor from "../../components/CustomCursor";
+
 const ButtonFlex = styled.div`
+  max-width: 1200px;
   display: flex;
   padding-bottom: 50px;
-  flex-direction: space-between;
+  flex-direction: center;
 `;
 
 const CopyBox = styled.div`
@@ -45,9 +48,9 @@ const CopeAlbumUrl = styled.button`
   outline: 1.5px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
   margin: 15px auto;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  text-align: center;
+  text-align: center; */
   line-height: 30px;
   padding: auto 15px;
   font-size: 1rem;
@@ -59,8 +62,6 @@ const CopeAlbumUrl = styled.button`
   }
 `;
 const CopiedAlbumUrl = styled.span`
-  width: 100%;
-  height: 20px;
   position: absolute;
   top: 0;
   left: 0;
@@ -76,9 +77,9 @@ const BackToPrevious = styled.button`
   outline: 1.5px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
   margin: 15px auto;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  text-align: center;
+  text-align: center; */
   line-height: 30px;
   padding: auto 15px;
   font-size: 1rem;
@@ -89,14 +90,19 @@ const BackToPrevious = styled.button`
   }
 `;
 
-const Heading = styled.h1`
-  width: 100vw;
-  height: calc(100vh - 120px);
-  background-color: white;
+const Heading = styled.div`
+  margin: auto;
+  max-width: 1200px;
   text-align: center;
   line-height: calc(100vh - 120px);
-  font-size: 60px;
-  margin: auto;
+  h1 {
+    width: 100vw;
+    height: calc(100vh - 120px);
+    background-color: #f7f4d7;
+    margin-bottom: 50px;
+    font-size: 60px;
+    margin: auto;
+  }
 
   p {
     font-size: 16px;
@@ -113,19 +119,16 @@ const PageContainer = styled.div`
 
 const TestComponent = styled.div`
   display: flex;
+  /* width: ${(props) => props.itemCount * 100}vw; */
   width: 1000vw;
-  background: rgb(221, 214, 201);
+  background: rgb(215, 214, 212);
 `;
-
-// const TestList = styled.div`
-//   display: flex;
-// `;
 
 const TestItem = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  width: 50vw;
+  width: 100vw;
   height: 100vh;
   flex: 0 0 10%;
   /* background: rgb(221, 214, 201); */
@@ -168,6 +171,9 @@ function PlayAlbumPage(props) {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       console.log("Link copied to clipboard!");
+      setTimeout(() => {
+        setCopied(false);
+      }, 3000); // 设置 3 秒钟的定时器
     } catch (error) {
       console.error("Failed to copy link: ", error);
     }
@@ -182,6 +188,7 @@ function PlayAlbumPage(props) {
       {/* <NavbarLayout /> */}
       {/* <BackgroundLayout> */}
       <AlbumContainer>
+        <CustomCursor />
         <PageContainer>
           <Heading>
             <h1>Define Your Life</h1>
