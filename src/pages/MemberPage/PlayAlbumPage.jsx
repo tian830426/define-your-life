@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { AuthContext } from "../AuthPage/UserAuthProvider";
 import {
   onSnapshot,
@@ -15,6 +15,58 @@ import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 import animationBgimg from "../../assets/toy.jpg";
 import MoveInWidthwise from "../../pages/HomePage/MoveInWidthwise";
+import AlbumTemplateForOne, { ImageCenter } from "./AlbumTemplateForOne ";
+import AlbumTemplateForTwo, {
+  ImageLeftUp,
+  ImageRightDown,
+} from "./AlbumTemplateForTwo";
+import AlbumTemplateForThree, {
+  ImageLeftDown,
+  ImageRightUp,
+} from "./AlbumTemplateForThree";
+
+import AlbumTemplateForFour, { ImageFull } from "./AlbumTemplateForFour";
+
+const ButtonFlex = styled.div`
+  display: flex;
+  padding-bottom: 50px;
+  flex-direction: space-between;
+`;
+
+const CopyBox = styled.div`
+  position: relative;
+`;
+
+const CopeAlbumUrl = styled.button`
+  width: 120px;
+  height: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: 1.5px solid rgb(104, 142, 129);
+  color: rgb(104, 142, 129);
+  margin: 15px auto;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  line-height: 30px;
+  padding: auto 15px;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`;
+const CopiedAlbumUrl = styled.span`
+  width: 100%;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: perspective;
+  background: rgba(255, 255, 255, 0.1);
+`;
 
 const BackToPrevious = styled.button`
   width: 120px;
@@ -38,11 +90,21 @@ const BackToPrevious = styled.button`
 `;
 
 const Heading = styled.h1`
+  width: 100vw;
+  height: calc(100vh - 120px);
+  background-color: white;
   text-align: center;
+  line-height: calc(100vh - 120px);
+  font-size: 60px;
+  margin: auto;
+
+  p {
+    font-size: 16px;
+  }
 `;
 
 const AlbumContainer = styled.div`
-  margin-top: 100px;
+  /* margin-top: 100px; */
 `;
 
 const PageContainer = styled.div`
@@ -52,126 +114,28 @@ const PageContainer = styled.div`
 const TestComponent = styled.div`
   display: flex;
   width: 1000vw;
-`;
-
-const TestList = styled.div`
-  display: flex;
-`;
-
-const TestItem = styled.div`
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  flex: 0 0 10%;
   background: rgb(221, 214, 201);
 `;
 
-const Image1 = styled.div`
-  width: 70vw;
-  height: 70vh;
-  background: #ccacac;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  object-fit: cover;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
-
-const Image2 = styled.div`
-  width: 400px;
-  height: 600px;
-  background: #774b4b;
-
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  position: absolute;
-  top: 15%;
-  left: 20%;
-  /* transform: translate(-50%, -50%); */
-`;
-
-const Image3 = styled.div`
-  width: 750px;
-  height: 450px;
-  background: #633333;
-
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  object-fit: cover;
-  position: absolute;
-  top: 40%;
-  left: 45%;
-  /* transform: translate(-50%, -50%); */
-`;
-
-// const Image4 = styled.div`
-//   width: 70vw;
-//   height: 100vh;
-//   background: #357878;
-
-//   background-size: cover;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   object-fit: cover;
-//   position: absolute;
-//   top: 50%;
-//   left: 30%;
-//   transform: translate(0, -50%);
+// const TestList = styled.div`
+//   display: flex;
 // `;
 
-// const Image5 = styled.div`
-//   width: 800px;
-//   height: 500px;
-//   background: #647a7c;
-//   background-size: cover;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   object-fit: cover;
-//   position: absolute;
-//   top: 35%;
-//   left: 25%;
-//   /* transform: translate(-50%, -50%); */
-// `;
-
-// const Image6 = styled.div`
-//   width: 650px;
-//   height: 400px;
-//   background: #867f33;
-
-//   background-size: cover;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-//   -webkit-background-size: cover;
-//   -moz-background-size: cover;
-//   object-fit: cover;
-//   position: absolute;
-//   top: 20%;
-//   left: 60%;
-//   /* transform: translate(-50%, -50%); */
-// `;
-
-// const Image = styled.img`
-//     ${({ style }) => style};
-//   `;
+const TestItem = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 50vw;
+  height: 100vh;
+  flex: 0 0 10%;
+  /* background: rgb(221, 214, 201); */
+`;
 
 function PlayAlbumPage(props) {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
+  const [copied, setCopied] = useState(false);
+
   const currentUrl = window.location.href;
   const userID = currentUrl.match(/([^/]+)$/)[1];
   const navigate = useNavigate();
@@ -179,128 +143,140 @@ function PlayAlbumPage(props) {
   // const [userID, setUserID] = useState(null);
   const [albums, setAlbums] = useState([]);
 
-  useEffect(
-    () => {
-      const q = query(collection(db, "albums"));
-      console.log(q);
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        let albumsArr = [];
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id);
-          if (doc.id == userID) {
-            albumsArr.push({ ...doc.data(), id: doc.id });
-          }
-        });
-        console.log(albumsArr);
-        const UrlArrayLen = albumsArr[0].UrlArray;
-        console.log(UrlArrayLen);
-        console.log(albumsArr);
-        setAlbums(albumsArr);
+  useEffect(() => {
+    const q = query(collection(db, "albums"));
+    console.log(q);
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let albumsArr = [];
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id);
+        if (doc.id == userID) {
+          albumsArr.push({ ...doc.data(), id: doc.id });
+        }
       });
+      console.log(albumsArr);
+      const UrlArrayLen = albumsArr[0].UrlArray;
+      console.log(UrlArrayLen);
+      console.log(albumsArr);
+      setAlbums(albumsArr);
+    });
+    return () => unsubscribe();
+  }, [currentUser]);
 
-      return () => unsubscribe();
-    },
-    // }
-    [currentUser]
-  );
+  const handleCopyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      console.log("Link copied to clipboard!");
+    } catch (error) {
+      console.error("Failed to copy link: ", error);
+    }
+  };
 
-  // const styles = [
-  //   { width: "500px", height: "500px", borderRadius: "50%" },
-  //   { width: "400px", height: "600px", transform: "rotate(45deg)" },
-  //   { width: "600px", height: "400px", border: "5px solid red" },
-  //   {
-  //     width: "700px",
-  //     height: "300px",
-  //     boxShadow: "0px 0px 10px 5px rgba(0,0,0,0.5)",
-  //   },
-  //   {
-  //     width: "300px",
-  //     height: "700px",
-  //     background: "linear-gradient(to right, red, yellow)",
-  //   },
-  // ];
-  // return styles[Math.floor(Math.random() * styles.length)];
-
-  // const RandomImage = ({ url }) => {
-  //   const style = getRandomStyle();
-  //   return <Image src={url} style={style} />;
-  // };
-
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged((user) => {
-  //     setCurrentUser(user);
-  //   });
-  //   return unsubscribe;
-  // }, []);
+  const handleMouseLeave = () => {
+    setCopied(false);
+  };
 
   return (
     <>
-      <NavbarLayout />
-      <BackgroundLayout>
-        <AlbumContainer>
-          <PageContainer>
-            <Heading>↓↓↓</Heading>
-          </PageContainer>
-          <MoveInWidthwise
-            displayed={
-              <>
-                <TestComponent>
-                  {albums.map((album) => (
-                    <TestList key={album.id}>
-                      {album.UrlArray.map((url) => (
-                        // <RandomImage key={url} url={url} />
-                        <TestItem>
-                          <img
-                            key={url}
-                            src={url}
-                            style={{ width: "50%", height: "50%" }}
-                          />
-                        </TestItem>
-                      ))}
-                    </TestList>
-                  ))}
-                </TestComponent>
-              </>
+      {/* <NavbarLayout /> */}
+      {/* <BackgroundLayout> */}
+      <AlbumContainer>
+        <PageContainer>
+          <Heading>
+            <h1>Define Your Life</h1>
+            <p>
+              Define Your Life
+              是一個相簿編輯器，主要提供使用者預覽及上傳照片，並能夠對預覽照片進行拖拉的功能，來排列照片順序，並儲存拖拉排序後的照片且搭配文字編輯器，能夠簡易對相簿進行描述，後續並會給予相簿背景顏色框架及儲存相簿及連結功能。
+            </p>
+          </Heading>
+        </PageContainer>
+        <MoveInWidthwise
+          displayed={
+            <TestComponent>
+              {albums.map((album) => {
+                const photoCount = album.UrlArray.length;
 
-              /* <TestItem>
-                  <Image6>123</Image6>
-                </TestItem>
-                <TestItem>
-                  <Image5>123</Image5>
-                </TestItem>
-                <TestItem>
-                  <Image4>123</Image4>
-                </TestItem>
-                <TestItem>
-                  <Image3>123</Image3>
-                </TestItem>
-                <TestItem>
-                  <Image2>123</Image2>
-                </TestItem> */
-              // </TestComponent>
+                let currentGroup = [];
+                const photoGroups = [];
 
-              // {albums.map((album) => (
-              //   <TestComponent key={album.id}>
-              //     {album.UrlArray.map((url) => (
-              //       <TestItem key={url}>
-              //       <Image3> <img src={url} style={{ width: 300, height: 300 }} /></Image3>
+                // 將照片分組，每組最多兩張照片
+                album.UrlArray.forEach((url, index) => {
+                  currentGroup.push(url);
+                  if (currentGroup.length === 2 || index === photoCount - 1) {
+                    photoGroups.push(currentGroup);
+                    currentGroup = [];
+                  }
+                });
 
-              //       </TestItem>
-              //     ))}
-              //   </TestComponent>
-              // ))}
-
-              // <TestComponent>
-              //   <TestItem></TestItem>
-              // </TestComponent>
-            }
-          />
-          <PageContainer>
-            <Heading>↑↑↑</Heading>
-          </PageContainer>
-        </AlbumContainer>
-        <>
-          {/* {albums.map((album) => (
+                // 渲染每個照片組
+                let currentIndex = 0;
+                return photoGroups.map((group) => {
+                  let layout;
+                  if (currentIndex % 4 === 0) {
+                    layout = (
+                      <TestItem key={`${album.id}-${currentIndex}`}>
+                        <ImageCenter>
+                          <img src={group[0]} key={group[0]} />
+                        </ImageCenter>
+                      </TestItem>
+                    );
+                    currentIndex += 1;
+                  } else if (currentIndex % 4 === 1) {
+                    layout = (
+                      <TestItem key={`${album.id}-${currentIndex}`}>
+                        <ImageLeftUp>
+                          <img src={group[0]} key={group[0]} />
+                        </ImageLeftUp>
+                        {group.length > 1 && (
+                          <ImageRightDown>
+                            <img src={group[1]} key={group[1]} />
+                          </ImageRightDown>
+                        )}
+                        {group.length === 1 && <ImageCenter />}
+                      </TestItem>
+                    );
+                    currentIndex += 1;
+                  } else if (currentIndex % 4 === 2) {
+                    layout = (
+                      <TestItem key={`${album.id}-${currentIndex}`}>
+                        <ImageFull>
+                          <img src={group[0]} key={group[0]} />
+                        </ImageFull>
+                      </TestItem>
+                      // </TestList>
+                    );
+                    currentIndex += 1;
+                  } else if (currentIndex % 4 === 3) {
+                    layout = (
+                      <TestItem key={`${album.id}-${currentIndex}`}>
+                        <ImageLeftDown>
+                          <img src={group[0]} key={group[0]} />
+                        </ImageLeftDown>
+                        {group.length > 1 && (
+                          <ImageRightUp>
+                            <img src={group[1]} key={group[1]} />
+                          </ImageRightUp>
+                        )}
+                        {group.length === 1 && <ImageCenter />}
+                      </TestItem>
+                    );
+                    currentIndex += 1;
+                  }
+                  return layout;
+                });
+              })}
+            </TestComponent>
+          }
+        />
+        <PageContainer>
+          <Heading>
+            <h1>Story</h1>
+          </Heading>
+        </PageContainer>
+      </AlbumContainer>
+      <>
+        {/* {albums.map((album) => (
             <TestComponent key={album.id}>
               {album.UrlArray.map((url) => (
                 <TestItem key={url}>
@@ -309,9 +285,19 @@ function PlayAlbumPage(props) {
               ))}
             </TestComponent>
           ))} */}
-        </>
+      </>
+      <ButtonFlex>
+        <CopyBox>
+          <CopeAlbumUrl onClick={handleCopyUrl}>Copy Url</CopeAlbumUrl>
+          {copied && (
+            <CopiedAlbumUrl onMouseLeave={handleMouseLeave}>
+              Copied to clipboard !
+            </CopiedAlbumUrl>
+          )}
+        </CopyBox>
         <BackToPrevious onClick={() => navigate(-1)}>回上一頁</BackToPrevious>
-      </BackgroundLayout>
+      </ButtonFlex>
+      {/* </BackgroundLayout> */}
       <FooterLayout />
     </>
   );

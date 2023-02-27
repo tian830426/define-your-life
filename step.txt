@@ -629,3 +629,85 @@ export default StepMenu;
 
 
 
+     <TestComponent>
+                {albums.map((album) => {
+                  const photoCount = album.UrlArray.length;
+                  const photoArrays =[];
+                  let i = 0;
+                  if (photoCount === 1) {
+                    return (
+                      <TestList key={album.id}>
+                        <TestItem>
+                          <ImageCenter>
+                            <img
+                              key={album.UrlArray[0]}
+                              src={album.UrlArray[0]}
+                            />
+                          </ImageCenter>
+                        </TestItem>
+                      </TestList>
+                    );
+                  } else if (photoCount === 2) {
+                    return (
+                      <TestList key={album.id}>
+                        {album.UrlArray.map((url, index) => (
+                          <TestItem key={url}>
+                            {index === 0 ? (
+                              <ImageLeft>
+                                <img
+                                  key={album.UrlArray[0]}
+                                  src={album.UrlArray[0]}
+                                />
+                              </ImageLeft>
+                            ) : (
+                              <ImageRight>
+                                <img
+                                  key={album.UrlArray[1]}
+                                  src={album.UrlArray[1]}
+                                />
+                              </ImageRight>
+                            )}
+                          </TestItem>
+                        ))}
+                      </TestList>
+                    );
+                  } else {
+                    // const shuffledUrls = album.UrlArray.sort(
+                    //   () => Math.random() - 0.5 );
+
+                    const shuffledUrls = shuffleArray(album.UrlArray);
+                    const firstList = shuffledUrls.slice(0, 2);
+                    const secondList = shuffledUrls.slice(2);
+                    return (
+                      <>
+                        <TestList key={`${album.id}-1`}>
+                          {firstList.map((url) => (
+                            <TestItem key={url}>
+                              <img src={url} style={{ width: "100%" }} />
+                            </TestItem>
+                          ))}
+                        </TestList>
+                        <TestList key={`${album.id}-2`}>
+                          {secondList.map((url) => (
+                            <TestItem key={url}>
+                              <img src={url} style={{ width: "100%" }} />
+                            </TestItem>
+                          ))}
+                        </TestList>
+                      </>
+                      // <TestList key={album.id}>
+                      //   {shuffledUrls.map((url) => (
+                      //     <TestItem key={url}>
+                      //       <ImageCenter>
+                      //         <img
+                      //           src={url}
+                      //           style={{ width: "500px", height: "500px" }}
+                      //         />
+                      //       </ImageCenter>
+                      //     </TestItem>
+                      //   ))}
+                      // </TestList>
+                    );
+                  }
+                })}
+              </TestComponent>

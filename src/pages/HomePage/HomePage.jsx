@@ -143,38 +143,38 @@ function HomePage() {
             displayed={
               <TestComponent>
                 <TestItem>
-                  <Image1>123</Image1>
+                  <Image1></Image1>
                 </TestItem>
                 <TestItem>
-                  <Image2>456</Image2>
-                  <Image3>789</Image3>
+                  <Image2></Image2>
+                  <Image3></Image3>
                 </TestItem>
                 <TestItem>
-                  <Image1>789</Image1>
+                  <Image1></Image1>
                 </TestItem>
                 <TestItem>
-                  <Image5>456</Image5>
-                  <Image6>123</Image6>
+                  <Image5></Image5>
+                  <Image6></Image6>
                 </TestItem>
                 <TestItem>
-                  <Image4>123</Image4>
+                  <Image4></Image4>
                 </TestItem>
                 <TestItem>
-                  <Image1>123</Image1>
+                  <Image1></Image1>
                 </TestItem>
                 <TestItem>
-                  <Image2>456</Image2>
-                  <Image3>789</Image3>
+                  <Image2></Image2>
+                  <Image3></Image3>
                 </TestItem>
                 <TestItem>
-                  <Image1>789</Image1>
+                  <Image1></Image1>
                 </TestItem>
                 <TestItem>
-                  <Image5>456</Image5>
-                  <Image6>123</Image6>
+                  <Image5></Image5>
+                  <Image6></Image6>
                 </TestItem>
                 <TestItem>
-                  <Image4>123</Image4>
+                  <Image4></Image4>
                 </TestItem>
               </TestComponent>
             }
@@ -190,3 +190,94 @@ function HomePage() {
 }
 
 export default HomePage;
+
+
+// import React from "react";
+// import styled from "styled-components";
+
+// // 定義三種不同的版型
+// const CenterLayout = [1, 1, 1, 1, 1];
+// const OverlappingLayout = [[1, 1], [1, 1], [1, 1]];
+// const MixLayout = [[1], [2, 3], [4], [5, 6]];
+
+// // 根據版型順序陣列選擇版型
+// const getLayout = (photoCount) => {
+//   switch (photoCount) {
+//     case 1:
+//       return CenterLayout;
+//     case 2:
+//       return OverlappingLayout;
+//     default:
+//       const index = photoCount - 3;
+//       if (index < MixLayout.length) {
+//         return MixLayout[index];
+//       }
+//       return CenterLayout;
+//   }
+// };
+
+// const shuffleArray = (array) => {
+//   // 洗牌算法
+//   // ...
+// };
+
+// const HomePage = ({ albums }) => {
+//   const ImageCenter = styled.div`
+//     text-align: center;
+//     margin: auto;
+//   `;
+
+//   const ImageLeft = styled.div`
+//     float: left;
+//     width: 50%;
+//   `;
+
+//   const ImageRight = styled.div`
+//     float: right;
+//     width: 50%;
+//   `;
+
+//   const TestList = styled.ul`
+//     list-style: none;
+//     padding: 0;
+//     margin: 0;
+//   `;
+
+//   const TestItem = styled.li`
+//     display: inline-block;
+//     width: 50%;
+//     box-sizing: border-box;
+//     padding: 5px;
+//     margin: 0;
+//   `;
+
+//   return (
+//     <div>
+//       {albums.map((album) => {
+//         const photoCount = album.UrlArray.length;
+//         const layout = getLayout(photoCount);
+//         let index = 0;
+//         return layout.map((row, i) => {
+//           const images = row.map(() => {
+//             const url = album.UrlArray[index];
+//             index++;
+//             return (
+//               <TestItem key={url}>
+//                 <ImageCenter>
+//                   <img src={url} style={{ width: "100%" }} />
+//                 </ImageCenter>
+//               </TestItem>
+//             );
+//           });
+//           return (
+//             <TestList key={`${album.id}-${i}`}>
+//               {images}
+//             </TestList>
+//           );
+//         });
+//       })}
+//     </div>
+//   );
+// };
+
+// export default HomePage;

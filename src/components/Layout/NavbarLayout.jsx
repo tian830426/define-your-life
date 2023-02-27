@@ -31,11 +31,12 @@ const NavbarUsername = styled.div`
     letter-spacing: 1px;
     cursor: pointer;
     position: relative;
+    opacity: 0.8;
     &:hover {
       font-size: 30px;
-      opacity: 0.8;
+      opacity: 1;
       cursor: pointer;
-      color: #9c9c9c;
+      color: gray;
       /* width: 100px;
       height: 10px;
       background: #e7b68b;
