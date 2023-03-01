@@ -35,6 +35,7 @@ import {
 import { v4 } from "uuid";
 
 import trashCan from "../../assets/iconmonstr-trash-can-lined.svg";
+import ColorPicker from "../../components/ColorFanBlock";
 const LibraryContainer = styled.div`
   max-width: 1200px;
   width: 85%;
@@ -67,7 +68,7 @@ const LibraryCard = styled.div`
   transition: 1s;
   border-radius: 5px;
   margin: 20px 0;
-  box-shadow: rgba(0, 0, 0, 1) 5px 10px 20px;
+  /* box-shadow: rgba(0, 0, 0, 1) 5px 10px 20px; */
   &:hover {
     transform: perspective(2000px);
     box-shadow: inset 20px 0 50px rgba(0, 0, 0, 0.25);
@@ -235,6 +236,7 @@ function LibraryPage() {
   return (
     <>
       <NavbarLayout />
+      {/* <ColorPicker /> */}
       <BackgroundLayout>
         <LibraryContainer>
           <LibraryGrid>

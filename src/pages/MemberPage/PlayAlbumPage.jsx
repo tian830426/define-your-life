@@ -15,6 +15,7 @@ import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 import animationBgimg from "../../assets/toy.jpg";
 import MoveInWidthwise from "../../pages/HomePage/MoveInWidthwise";
+
 import AlbumTemplateForOne, { ImageCenter } from "./AlbumTemplateForOne ";
 import AlbumTemplateForTwo, {
   ImageLeftUp,
@@ -30,14 +31,16 @@ import AlbumTemplateForFour, { ImageFull } from "./AlbumTemplateForFour";
 import CustomCursor from "../../components/CustomCursor";
 
 const ButtonFlex = styled.div`
-  max-width: 1200px;
+  /* max-width: 1200px; */
   display: flex;
   padding-bottom: 50px;
-  flex-direction: center;
+  justify-content: center;
 `;
 
 const CopyBox = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  /* position: relative; */
 `;
 
 const CopeAlbumUrl = styled.button`
@@ -47,7 +50,7 @@ const CopeAlbumUrl = styled.button`
   background: rgba(255, 255, 255, 0.1);
   outline: 1.5px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
-  margin: 15px auto;
+  margin: 15px 15px;
   /* display: flex;
   justify-content: center;
   text-align: center; */
@@ -63,10 +66,11 @@ const CopeAlbumUrl = styled.button`
 `;
 const CopiedAlbumUrl = styled.span`
   position: absolute;
-  top: 0;
-  left: 0;
-  color: perspective;
+  top: -20px;
+  left: 40px;
+  /* color: perspective; */
   background: rgba(255, 255, 255, 0.1);
+  z-index: 999;
 `;
 
 const BackToPrevious = styled.button`
@@ -76,7 +80,7 @@ const BackToPrevious = styled.button`
   background: rgba(255, 255, 255, 0.1);
   outline: 1.5px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
-  margin: 15px auto;
+  margin: 15px 15px;
   /* display: flex;
   justify-content: center;
   text-align: center; */
@@ -90,31 +94,33 @@ const BackToPrevious = styled.button`
   }
 `;
 
-const Heading = styled.div`
-  margin: auto;
-  max-width: 1200px;
-  text-align: center;
-  line-height: calc(100vh - 120px);
-  h1 {
-    width: 100vw;
-    height: calc(100vh - 120px);
-    background-color: #f7f4d7;
-    margin-bottom: 50px;
-    font-size: 60px;
-    margin: auto;
-  }
-
-  p {
-    font-size: 16px;
-  }
-`;
-
 const AlbumContainer = styled.div`
   /* margin-top: 100px; */
 `;
 
 const PageContainer = styled.div`
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e3e1d6;
+`;
+
+const Heading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 1200px;
+  h1 {
+    margin: 30px 0;
+    font-size: 80px;
+  }
+  p {
+    color:gray;
+    font-size: 60px;
+  }
 `;
 
 const TestComponent = styled.div`
@@ -138,6 +144,7 @@ function PlayAlbumPage(props) {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   const [copied, setCopied] = useState(false);
+  // const testComponentRef = useRef(null);
 
   const currentUrl = window.location.href;
   const userID = currentUrl.match(/([^/]+)$/)[1];
@@ -159,12 +166,23 @@ function PlayAlbumPage(props) {
       });
       console.log(albumsArr);
       const UrlArrayLen = albumsArr[0].UrlArray;
-      console.log(UrlArrayLen);
-      console.log(albumsArr);
+      // console.log(UrlArrayLen);
+      console.log(albumsArr[0].Name);
+      // console.log(albumsArr)
       setAlbums(albumsArr);
     });
     return () => unsubscribe();
   }, [currentUser]);
+
+  // useEffect(() => {
+  //   if (testComponentRef.current) {
+  //     const testItems =
+  //       testComponentRef.current.querySelectorAll(":scope > div"); // Get all direct child divs of TestComponent
+  //     const itemCount = testItems.length;
+  //     const newWidth = itemCount * 100 + "vw"; // Calculate the new width
+  //     testComponentRef.current.style.width = newWidth; // Set the new width
+  //   }
+  // });
 
   const handleCopyUrl = async () => {
     try {
@@ -182,6 +200,12 @@ function PlayAlbumPage(props) {
   const handleMouseLeave = () => {
     setCopied(false);
   };
+  console.log("123");
+  // console.log(albums);
+  // console.log(albums[0]);
+  // console.log(name);
+  // console.log(albums[0].Name)
+  // console.log(albums[0].name)
 
   return (
     <>
@@ -193,16 +217,24 @@ function PlayAlbumPage(props) {
           <Heading>
             <h1>Define Your Life</h1>
             <p>
-              Define Your Life
-              是一個相簿編輯器，主要提供使用者預覽及上傳照片，並能夠對預覽照片進行拖拉的功能，來排列照片順序，並儲存拖拉排序後的照片且搭配文字編輯器，能夠簡易對相簿進行描述，後續並會給予相簿背景顏色框架及儲存相簿及連結功能。
+              {albums.map((album) => {
+                console.log(album);
+                console.log(album.Name);
+                return album.Name;
+              })}
             </p>
+            {/* <p>{albums[0].name}</p> */}
           </Heading>
         </PageContainer>
         <MoveInWidthwise
           displayed={
+            // ref={testComponentRef}
             <TestComponent>
               {albums.map((album) => {
                 const photoCount = album.UrlArray.length;
+                console.log(albums);
+                console.log(album.id);
+                // console.log(url);
 
                 let currentGroup = [];
                 const photoGroups = [];
@@ -210,10 +242,36 @@ function PlayAlbumPage(props) {
                 // 將照片分組，每組最多兩張照片
                 album.UrlArray.forEach((url, index) => {
                   currentGroup.push(url);
-                  if (currentGroup.length === 2 || index === photoCount - 1) {
+                  console.log(url);
+                  if (
+                    currentGroup.length === 1 &&
+                    photoGroups.length % 4 === 0
+                  ) {
+                    photoGroups.push(currentGroup);
+                    currentGroup = [];
+                  } else if (
+                    currentGroup.length === 2 &&
+                    photoGroups.length % 4 === 1
+                  ) {
+                    photoGroups.push(currentGroup);
+                    currentGroup = [];
+                  } else if (
+                    currentGroup.length === 1 &&
+                    photoGroups.length % 4 === 2
+                  ) {
+                    photoGroups.push(currentGroup);
+                    currentGroup = [];
+                  } else if (
+                    currentGroup.length === 2 &&
+                    photoGroups.length % 4 === 3
+                  ) {
                     photoGroups.push(currentGroup);
                     currentGroup = [];
                   }
+                  // (currentGroup.length === 2 || index === photoCount - 1) {
+                  //   photoGroups.push(currentGroup);
+                  //   currentGroup = [];
+                  // }
                 });
 
                 // 渲染每個照片組
@@ -251,7 +309,6 @@ function PlayAlbumPage(props) {
                           <img src={group[0]} key={group[0]} />
                         </ImageFull>
                       </TestItem>
-                      // </TestList>
                     );
                     currentIndex += 1;
                   } else if (currentIndex % 4 === 3) {
@@ -295,15 +352,18 @@ function PlayAlbumPage(props) {
       </>
       <ButtonFlex>
         <CopyBox>
-          <CopeAlbumUrl onClick={handleCopyUrl}>Copy Url</CopeAlbumUrl>
-          {copied && (
-            <CopiedAlbumUrl onMouseLeave={handleMouseLeave}>
-              Copied to clipboard !
-            </CopiedAlbumUrl>
-          )}
+          <div>
+            <CopeAlbumUrl onClick={handleCopyUrl}>Copy Url</CopeAlbumUrl>
+            {copied && (
+              <CopiedAlbumUrl onMouseLeave={handleMouseLeave}>
+                Copied to clipboard !
+              </CopiedAlbumUrl>
+            )}
+          </div>
+          <BackToPrevious onClick={() => navigate(-1)}>Prev</BackToPrevious>
         </CopyBox>
-        <BackToPrevious onClick={() => navigate(-1)}>回上一頁</BackToPrevious>
       </ButtonFlex>
+
       {/* </BackgroundLayout> */}
       <FooterLayout />
     </>

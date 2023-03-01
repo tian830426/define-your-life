@@ -56,8 +56,6 @@ const EditorNote = styled.div`
   /* background-color: */
 `;
 
-
-
 const EditWordBorderButton = styled.div`
   display: flex;
   justify-content: center;
@@ -98,30 +96,6 @@ const EditWord = () => {
   return (
     <>
       <EditorContainer>
-        {/* <EditorBoxes> */}
-        {/* <EditorAlbum>
-          <Swiper
-            effect="fade"
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation
-            //  pagination={{ clickable: true}}
-            scrollbar={{ draggable: true }}
-            //  onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log("slide change")}
-          >
-            {cards.map((image, index) => {
-              // console.log(cards);
-              // console.log(image);
-              return (
-                <SwiperSlide key={index}>
-                  <EditorImg src={image.text} alt="" />
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
-        </EditorAlbum> */}
         <EditorTitele>
           <h2>Add Text To Your Album</h2>
         </EditorTitele>

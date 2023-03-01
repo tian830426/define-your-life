@@ -32,6 +32,7 @@ function CustomCursor() {
         left: "4%",
         fontSize: 24,
         fontWeight: 700,
+        letterSpacing: "2px",
         color: isHovering ? "gray" : "white",
         pointerEvents: "none",
         transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)`,

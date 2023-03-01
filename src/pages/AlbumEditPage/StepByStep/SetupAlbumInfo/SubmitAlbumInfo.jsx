@@ -9,8 +9,6 @@ import { StepContext } from "../StepByStep";
 import ConfirmAlbumInfo from "./ConfirmAlbumInfo";
 
 const SubmitBoxes = styled.div`
-  /* width: 90%;
-  height: 90%; */
   display: flex;
   flex-direction: column;
 `;
@@ -28,51 +26,72 @@ const SubmitTitle = styled.div`
   }
 `;
 
-const SubmitInput = styled.div`
-margin: auto;
+const SubmitInputContainer = styled.div`
+  margin: auto;
 `;
 
 const SubmitForm = styled.form`
-  width:650px;
-  margin:0 auto;
+  width: 500px;
+  margin: 0 auto;
+  /* background-color: rgba(255, 255, 255, 0.7); */
   font-family: "Courier New", Courier, monospace;
-
-  label {
-    width:100%;
+  /* border-radius: 20px; */
+  span {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px auto;
-    color: gray;
-    font-size: 22px;
+    padding: 10px auto;
+    color: #de6666;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: 1.5px;
-    input {
-      width:100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-left: 10px;
-      padding: 0 10px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      outline: 1.5px solid gray;
-      font-size: 22px;
+    margin-top: 10px;
+  }
+`;
+const SubmitInputBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 35px auto;
+`;
+const SubmitTag = styled.div`
+  display: flex;
+  color: gray;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  padding: 10x 10px;
 
-      &:active {
-        color: white;
-      }
+  input {
+    width: 80%;
+    /* display: flex;
+      justify-content: center;
+      align-items: center; */
+    margin-left: 15px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    outline: 1.5px solid gray;
+    font-size: 24px;
+
+    &:active {
+      color: white;
     }
   }
 `;
 
+const SubmitLabel = styled.div`
+  margin: 0;
+  min-width: 150px;
+  display: flex;
+  align-items: center;
+`;
+
 const SubmitButton = styled(Button)`
   margin: 60px auto;
-  font-size: 20px;
+  font-size: 22px;
   background: rgba(255, 255, 255, 0.1);
   outline: 2.5px solid gray;
   color: gray;
-
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 1.5px;
   &:hover {
     background: gray;
   }
@@ -81,9 +100,9 @@ const SubmitButton = styled(Button)`
 const SubmitUl = styled.div``;
 
 function SubmitAlbumInfo(props) {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const { currentUser } = useContext(AuthContext);
-
+  const [errors, setErrors] = useState({});
   const {
     editor,
     setEditor,
@@ -108,75 +127,89 @@ function SubmitAlbumInfo(props) {
     setDescription(event.target.value);
   };
 
-  const submit = async (e) => {
-    e.preventDefault(e);
-    if (editor === "" || name === "" || date === "" || description === "") {
-      return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let formErrors = {};
+
+    if (!editor) {
+      formErrors.editor = "Please enter the editor's name";
     }
-    try {
-      setEditor(editor);
-      setName(name);
-      setDate(date);
-      setDescription(description);
-      setShow(false);
-    } catch (error) {
-      console.error("Error adding document: ", error);
+    if (!name) {
+      formErrors.name = "Please enter the album name";
+    }
+    if (!date) {
+      formErrors.date = "Please enter the date in the format: year/month/day";
+    }
+    if (!description) {
+      formErrors.description = "Please enter the description";
+    }
+
+    setErrors(formErrors);
+
+    if (Object.keys(formErrors).length === 0) {
+      setShow(true);
     }
   };
 
   return (
     <>
       <SubmitBoxes>
-        {show ? (
+        {show ? null : (
           <>
             <SubmitTitle>
               <h2>Let's try to make special album by yourself !</h2>
             </SubmitTitle>
-            <SubmitInput>
-              <SubmitForm onSubmit={submit}>
-                <label htmlFor="">
-                  Editor:
-                  <input
-                    type="text"
-                    value={editor}
-                    onChange={handleEditor}
-                    required
-                  />
-                </label>{" "}
-                <label htmlFor="">
-                  Album Name:
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={handleName}
-                    required
-                  />
-                </label>{" "}
-                <label htmlFor="">
-                  Date:
-                  <input type="date" value={date} onChange={handleDate} />
-                </label>{" "}
-                <label htmlFor="">
-                  {" "}
-                  Description:
-                  <input
-                    type="text"
-                    value={description}
-                    onChange={handleDescription}
-                    required
-                  />
-                </label>
-                <SubmitButton>Submit</SubmitButton>
-              </SubmitForm>
-            </SubmitInput>
-          </>
-        ) : null}
+            <SubmitInputContainer>
+              <SubmitForm onSubmit={handleSubmit}>
+                <SubmitInputBlock>
+                  <SubmitTag>
+                    <SubmitLabel>Editor:</SubmitLabel>
+                    <input type="text" value={editor} onChange={handleEditor} />
+                  </SubmitTag>
+                  {errors.editor ? <span>{errors.editor}</span> : null}
+                </SubmitInputBlock>
 
-        {show ? null : (
+                <SubmitInputBlock>
+                  <SubmitTag>
+                    <SubmitLabel> Album Name:</SubmitLabel>
+                    <input type="text" value={name} onChange={handleName} />
+                  </SubmitTag>
+                  {errors.name ? <span>{errors.name}</span> : null}
+                </SubmitInputBlock>
+
+                <SubmitInputBlock>
+                  <SubmitTag>
+                    <SubmitLabel> Date:</SubmitLabel>
+                    <input type="date" value={date} onChange={handleDate} />
+                  </SubmitTag>
+                  {errors.date ? <span>{errors.date}</span> : null}
+                </SubmitInputBlock>
+                <SubmitInputBlock>
+                  <SubmitTag>
+                    <SubmitLabel>Description:</SubmitLabel>
+                    <input
+                      type="text"
+                      value={description}
+                      onChange={handleDescription}
+                    />
+                  </SubmitTag>
+                  {errors.description ? (
+                    <span>{errors.description}</span>
+                  ) : null}
+                </SubmitInputBlock>
+
+                <SubmitButton type="submit">Submit</SubmitButton>
+              </SubmitForm>
+            </SubmitInputContainer>
+          </>
+        )}
+
+        {show ? (
           <SubmitUl>
             <ConfirmAlbumInfo />
           </SubmitUl>
-        )}
+        ) : null}
       </SubmitBoxes>
     </>
   );

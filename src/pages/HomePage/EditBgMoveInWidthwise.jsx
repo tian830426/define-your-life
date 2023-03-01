@@ -2,21 +2,27 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: ${(props) => props.containerHeight};
+  width: 85vw;
+  height: 70vh;
+  /* height: ${(props) => props.containerHeight}; */
   overflow: hidden;
   position: relative;
 `;
 
 const DisplayedWrapper = styled.div`
   display: inline-block;
-  height: 100%;
+  height: 70%;
   transform: ${(props) => props.transform};
   position: ${(props) =>
-    props.progress <= 100 ? (props.progress >= 0 ? "fixed" : "static") : "absolute"};
+    props.progress <= 100
+      ? props.progress >= 0
+        ? "fixed"
+        : "static"
+      : "absolute"};
   bottom: 0;
 `;
 
-const MoveInWidthwise = ({ displayed, height }) => {
+const EditBgMoveInWidthwise = ({ displayed, height }) => {
   const displayedWrapper = useRef(null);
   const container = useRef(null);
   const [containerHeight, setContainerHeight] = useState("0px");
@@ -66,16 +72,22 @@ const MoveInWidthwise = ({ displayed, height }) => {
     progress >= 0
       ? progress > 100
         ? `translateX(-${(100 * (wrapperWidth - innerWidth)) / wrapperWidth}%)`
-        : `translateX(-${(progress * (wrapperWidth - innerWidth)) / wrapperWidth}%)`
+        : `translateX(-${
+            (progress * (wrapperWidth - innerWidth)) / wrapperWidth
+          }%)`
       : "translateX(0%)";
 
   return (
-    <Container containerHeight={containerHeight} ref={container}>
-      <DisplayedWrapper transform={transform} progress={progress} ref={displayedWrapper}>
+    <Container ref={container}>
+      <DisplayedWrapper
+        transform={transform}
+        progress={progress}
+        ref={displayedWrapper}
+      >
         {displayed}
       </DisplayedWrapper>
     </Container>
   );
 };
 
-export default MoveInWidthwise;
+export default EditBgMoveInWidthwise;

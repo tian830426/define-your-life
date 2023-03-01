@@ -8,12 +8,12 @@ const ImageLeftDown = styled.div`
   -webkit-background-size: cover;
   -moz-background-size: cover;
   position: absolute;
-  top: 25%;
-  left: 45%;
-  /* transform: translate(-50%, -50%); */
+  top: 5%;
+  left: 55%;
   img {
-    width: 600px;
-    height: 600px;
+    width: 40vw;
+    height: 45vh;
+    object-fit: cover;
   }
 `;
 
@@ -26,13 +26,55 @@ const ImageRightUp = styled.div`
   object-fit: cover;
   position: absolute;
 
-  top: 45%;
+  top: 40%;
   left: 20%;
   img {
-    width: 600px;
-    height: 600px;
+    width: 40vw;
+    height: 45vh;
+    object-fit: cover;
   }
-  /* transform: translate(-50%, -50%); */
+`;
+
+const EditBgImageLeftDown = styled.div`
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  position: absolute;
+  top: 5%;
+  left: 55%;
+  width: 40%;
+  height: 45%;
+  display: flex;
+  justify-content: end;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+const EditBgImageRightUp = styled.div`
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  object-fit: cover;
+  position: absolute;
+  width: 40%;
+  height: 45%;
+  display: flex;
+  align-items: end;
+  top: 40%;
+  left: 20%;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 
 const AlbumTemplateForThree = () => {
@@ -40,9 +82,11 @@ const AlbumTemplateForThree = () => {
     <>
       <ImageLeftDown></ImageLeftDown>
       <ImageRightUp></ImageRightUp>
+      <EditBgImageLeftDown></EditBgImageLeftDown>
+      <EditBgImageRightUp></EditBgImageRightUp>
     </>
   );
 };
 
 export default AlbumTemplateForThree;
-export { ImageLeftDown, ImageRightUp };
+export { ImageLeftDown, ImageRightUp, EditBgImageLeftDown, EditBgImageRightUp };

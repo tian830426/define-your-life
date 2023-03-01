@@ -67,8 +67,8 @@ function NotFound() {
       <BackgroundLayout>
         <NotFoundTitle>
           <NotFound404>404 Not Found</NotFound404>
-          <NotFoundLink to="/">回到首頁</NotFoundLink>
-          <BackToPrevious onClick={() => navigate(-1)}>回上一頁</BackToPrevious>
+          <NotFoundLink to="/">Home</NotFoundLink>
+          <BackToPrevious onClick={() => navigate(-1)}>Prev</BackToPrevious>
         </NotFoundTitle>
       </BackgroundLayout>
       <FooterLayout />

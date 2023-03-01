@@ -100,13 +100,12 @@ const PreviewImages = styled.div`
   margin: 20px 20px;
   /* margin-bottom: 50px; */
   /* box-shadow: 0px 1px 2px 0px; */
-  
+
   /* outline: 2px solid rgb(104, 142, 129); */
   background: white;
   padding: 20px 20px 60px 20px;
   border-radius: 12px;
-
-  /* overflow: hidden;  */
+  /* overflow: auto; */
   img {
     width: 280px;
     height: 280px;

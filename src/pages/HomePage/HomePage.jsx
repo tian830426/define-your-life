@@ -4,41 +4,36 @@ import NavbarLayout from "../../components/Layout/NavbarLayout";
 import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 
-import MoveInWidthwise from "./MoveInWidthwise";
+// import MoveInWidthwise from "./MoveInWidthwise";
+import MoveIn from "./MoveIn";
 import image1 from "../../assets/toy.jpg";
 import image2 from "../../assets/mount.jpeg";
 import image3 from "../../assets/musicPeople.JPG";
 import image4 from "../../assets/cryPeople.JPG";
 import image5 from "../../assets/mount.jpeg";
 
-const Heading = styled.h1`
-  text-align: center;
+const Scroller = styled(MoveIn)`
+  width: 900px;
+  height: 600px;
+  border: 5px solid black;
 `;
-
-const AlbumContainer = styled.div`
-  margin-top: 100px;
-`;
-
-const PageContainer = styled.div`
-  height: 100vh;
-`;
-
-const TestComponent = styled.div`
-  display: flex;
-  width: 1000vw;
-`;
+// const TestComponent = styled.div`
+//   display: flex;
+//   width: 1000px;
+//   height: 700px;
+// `;
 
 const TestItem = styled.div`
   position: relative;
-  width:100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   flex: 0 0 10%;
   background: rgb(221, 214, 201);
 `;
 
 const Image1 = styled.div`
-  width: 70vw;
-  height: 70vh;
+  width: 70%;
+  height: 70%;
   background-image: url(${image1});
   background-size: cover;
   background-position: center center;
@@ -84,8 +79,8 @@ const Image3 = styled.div`
 `;
 
 const Image4 = styled.div`
-  width: 70vw;
-  height: 100vh;
+  width: 70%;
+  height: 100%;
   background-image: url(${image4});
   background-size: cover;
   background-position: center center;
@@ -135,62 +130,49 @@ function HomePage() {
     <>
       <NavbarLayout />
       <BackgroundLayout>
-        <AlbumContainer>
-          <PageContainer>
-            <Heading>↓↓↓</Heading>
-          </PageContainer>
-          <MoveInWidthwise
-            displayed={
-              <TestComponent>
-                <TestItem>
-                  <Image1></Image1>
-                </TestItem>
-                <TestItem>
-                  <Image2></Image2>
-                  <Image3></Image3>
-                </TestItem>
-                <TestItem>
-                  <Image1></Image1>
-                </TestItem>
-                <TestItem>
-                  <Image5></Image5>
-                  <Image6></Image6>
-                </TestItem>
-                <TestItem>
-                  <Image4></Image4>
-                </TestItem>
-                <TestItem>
-                  <Image1></Image1>
-                </TestItem>
-                <TestItem>
-                  <Image2></Image2>
-                  <Image3></Image3>
-                </TestItem>
-                <TestItem>
-                  <Image1></Image1>
-                </TestItem>
-                <TestItem>
-                  <Image5></Image5>
-                  <Image6></Image6>
-                </TestItem>
-                <TestItem>
-                  <Image4></Image4>
-                </TestItem>
-              </TestComponent>
-            }
-          />
-          <PageContainer>
-            <Heading>↑↑↑</Heading>
-          </PageContainer>
-        </AlbumContainer>
+        <Scroller>
+          <TestItem>
+            <Image1></Image1>
+          </TestItem>
+          <TestItem>
+            <Image2></Image2>
+            <Image3></Image3>
+          </TestItem>
+          <TestItem>
+            <Image1></Image1>
+          </TestItem>
+          <TestItem>
+            <Image5></Image5>
+            <Image6></Image6>
+          </TestItem>
+          <TestItem>
+            <Image4></Image4>
+          </TestItem>
+          <TestItem>
+            <Image1></Image1>
+          </TestItem>
+          <TestItem>
+            <Image2></Image2>
+            <Image3></Image3>
+          </TestItem>
+          <TestItem>
+            <Image1></Image1>
+          </TestItem>
+          <TestItem>
+            <Image5></Image5>
+            <Image6></Image6>
+          </TestItem>
+          <TestItem>
+            <Image4></Image4>
+          </TestItem>
+        </Scroller>
       </BackgroundLayout>
-      {/* <FooterLayout /> */}
+      <FooterLayout />
     </>
   );
 }
 
 export default HomePage;
-
 
 // import React from "react";
 // import styled from "styled-components";

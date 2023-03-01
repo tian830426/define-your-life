@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const Button = styled.button`
-  width: 120px;
-  height: 30px;
-  border-radius: 12px;
+  width: 130px;
+  height: 40px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.1);
   outline: 2px solid rgb(104, 142, 129);
   color: rgb(104, 142, 129);
@@ -11,9 +11,9 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   text-align: center;
-  line-height: 30px;
+  line-height: 40px;
   padding: auto 15px;
-  font-size: 1rem;
+  font-size: 22px;
   cursor: pointer;
 
   &:hover {

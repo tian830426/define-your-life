@@ -44,10 +44,41 @@ import paintBrush from "../../../assets/iconmonstr-paintbrush-7.svg";
 
 import colorFan from "../../../assets/iconmonstr-color-fan-2.svg";
 
+import EditBgMoveInWidthwise from "../../HomePage/EditBgMoveInWidthwise";
+import MultiChildScroller from "../../HomePage/MultiChildScroller";
+import AlbumTemplateForOne, {
+  EditBgImageCenter,
+} from "../../MemberPage/AlbumTemplateForOne ";
+import AlbumTemplateForTwo, {
+  EditBgImageLeftUp,
+  EditBgImageRightDown,
+} from "../../MemberPage/AlbumTemplateForTwo";
+import AlbumTemplateForThree, {
+  EditBgImageLeftDown,
+  EditBgImageRightUp,
+} from "../../MemberPage/AlbumTemplateForThree";
+
+import AlbumTemplateForFour, {
+  EditBgImageFull,
+} from "../../MemberPage/AlbumTemplateForFour";
+
+import CustomCursor from "../../../components/CustomCursor";
+
+import ColorFanBlock, { ColorPicker } from "../../../components/ColorFanBlock";
+
+const Scroller = styled(MultiChildScroller)`
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  /* border: 5px solid black; */
+`;
+
 const EditorBgContainer = styled.div`
   width: 100%;
   height: 90%;
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const EditorBgTitle = styled.div`
@@ -58,6 +89,7 @@ const EditorBgTitle = styled.div`
   line-height: 70px;
   text-align: center;
   color: gray;
+
   h2 {
     font-size: 50px;
     -webkit-text-stroke: 1.5px gray;
@@ -81,20 +113,20 @@ const EditorBgIconList = styled.div`
 
 const EditorBgBoxes = styled.div`
   width: 100%;
-  height: 85%;
-  display: flex;
+  height: 100%;
+  /* display: flex; */
 `;
 
-const EditorImg = styled.img`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-  margin-top: 20px;
-  height: 380px;
-  object-fit: cover;
-`;
+// const EditorImg = styled.img`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 300px;
+//   height: 300px;
+//   margin-top: 20px;
+//   height: 380px;
+//   object-fit: cover;
+// `;
 
 const EditorAlbum = styled.div`
   width: 100%;
@@ -108,12 +140,11 @@ const EditBgFrameBorderButton = styled.div`
 
 const EditBgFrameButton = styled(Button)`
   display: flex;
-  margin: 60px 20px;
+  margin: 0px 20px;
   font-size: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(173, 161, 132, 0.1);
   outline: 2.5px solid gray;
   color: gray;
-
   &:hover {
     background: gray;
   }
@@ -152,69 +183,75 @@ const Container = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
 `;
+const Heading = styled.div`
+  margin: auto;
+  /* margin-bottom: 50px; */
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background-color: #d7d1b6;
+  div {
+    max-width: 1200px;
+    font-size: 80px;
+    margin: auto;
+  }
+`;
 
-const Wrapper = styled.div`
+const AlbumContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  /* margin-top: 100px; */
+`;
+
+const PageContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  /* height: 100vh; */
+`;
+
+// const TestComponent = styled.div`
+//   display: flex;
+//   /* width: ${(props) => props.itemCount * 100}vw; */
+//   width: 1000vw;
+//   height: 100%;
+//   background: rgb(215, 214, 212);
+// `;
+
+const TestItem = styled.div`
+  position: relative;
   display: flex;
-  width: 200vw;
-  transform: rotate(90deg) translateY(-100vh);
-  transform-origin: top left;
-  background: lightblue;
+  justify-content: center;
+  align-items:center;
+  width: 100%;
+  height: 100%;
+  /* flex: 0 0 10%; */
 `;
 
-const Slide = styled.div`
-  /* height: 100vh;
-  width: 100vw; */
-
-  :nth-child(1) {
-    /* height: 100vh;
-    width: 100vw; */
-    div {
-      height: 100vh;
-      width: 50vw;
-      background: white;
-      h1 {
-        margin: auto;
-        text-align: center;
-      }
-      h3 {
-        text-align: center;
-      }
-    }
-    div {
-      height: 50vw;
-      width: 100vh;
-      background: rgb(221, 214, 201);
-    }
-  }
-
-  :nth-child(2) {
-    background: lightyellow;
-    img {
-      width: 400px;
-      height: 400px;
-    }
-  }
-
-  :nth-child(3) {
-    background: lightblue;
-    img {
-      width: 300px;
-      height: 300px;
-    }
-  }
-
-  :nth-child(4) {
-    background: lightyellow;
-    img {
-      width: 400px;
-      height: 400px;
-    }
-  }
-`;
+// const EditBgImageCenter = styled(ImageCenter)`
+//   background-size: cover;
+//   background-position: center center;
+//   background-repeat: no-repeat;
+//   -webkit-background-size: cover;
+//   -moz-background-size: cover;
+//   object-fit: cover;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   img {
+//     /* width: 50vw;
+//     height: 65vh; */
+//     width: 600x;
+//     height: 600px;
+//     object-fit: cover;
+//   }
+// `;
 
 const EditBgFrame = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
+  const [color, setColor] = useState("#FFFFFF");
+  const [show, setShow] = useState(false);
 
   const {
     prev,
@@ -336,6 +373,10 @@ const EditBgFrame = () => {
     setMessage(event.target.value);
   };
 
+  const handleColorFanBlock = () => {
+    setShow(!show);
+  };
+
   // const handleScroll = () => {
   //   setScrollPosition(window.scrollY);
   // };
@@ -347,81 +388,120 @@ const EditBgFrame = () => {
   //   };
   // }, []);
 
+  let currentGroup = [];
+  const photoGroups = [];
+
+  cards.forEach((album, index) => {
+    currentGroup.push(album);
+    if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
+      photoGroups.push(currentGroup);
+      currentGroup = [];
+    } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
+      photoGroups.push(currentGroup);
+      currentGroup = [];
+    } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
+      photoGroups.push(currentGroup);
+      currentGroup = [];
+    } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+      photoGroups.push(currentGroup);
+      currentGroup = [];
+    }
+  });
+  let currentIndex = 0;
+
   return (
     <>
       <EditorBgContainer>
         <EditorBgTitle>
-          <h2>Preview</h2>
+          <h2>Palette and Layout</h2>
           <EditorBgIconList>
             <img src={layoutLined} />
             <img src={paintBrush}></img>
-            <img src={colorFan}></img>
+            <img src={colorFan} onClick={handleColorFanBlock}></img>
+            <div>
+              <input
+                type="color"
+                value={color}
+                onChange={(event) => setColor(event.target.value)}
+              ></input>{" "}
+            </div>
+            {show && <ColorFanBlock />}
           </EditorBgIconList>
         </EditorBgTitle>
-        <EditorBgBoxes>
-          <EditorAlbum>
-            {/* <Swiper
-              effect="fade"
-              modules={[Navigation, Pagination, Scrollbar, A11y]}
-              spaceBetween={0}
-              slidesPerView={10}
-              navigation
-              //  pagination={{ clickable: true}}
-              scrollbar={{ draggable: true }}
-              //  onSwiper={(swiper) => console.log(swiper)}
-              onSlideChange={() => console.log("slide change")}
-            >
-              {cards.map((image, index) => {
-                return (
-                  <SwiperSlide key={index}>
-                    <EditorImg src={image.text} alt="" />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper> */}
-            {/* <ParallaxBox>
-              <Parallax1
-                src={animationBgimg}
-                alt="animationBgimg"
-                style={{ transform: `translateX(${offsetY * 0.2}px)` }}
-              />
-              <Parallax2
-                src={animationBgimg}
-                alt="animationBgimg"
-                style={{ transform: `translateX(${offsetY * 0.3}px)` }}
-              />
-              <Parallax3
-                src={animationBgimg}
-                alt="animationBgimg"
-                style={{ transform: `translateX(${offsetY * 0.4}px)` }}
-              />
-            </ParallaxBox> */}
-            {cards.map((image, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <EditorImg src={image.text} alt="" />
-                </SwiperSlide>
-                // <SwiperSlide key={index}>
-                //   <EditorImg src={image.text} alt="" />
-                // </SwiperSlide>
+        {/* <EditorBgBoxes> */}
+        {/* <EditorAlbum> */}
+        <CustomCursor />
+        {/* <PageContainer>
+              <Heading>
+                <div>Define Your Life</div>
+                <div>12345</div>
+              </Heading>
+            </PageContainer> */}
+        <Scroller>
+          {photoGroups.map((group) => {
+            let layout;
+            if (currentIndex % 4 === 0) {
+              layout = (
+                <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <EditBgImageCenter>
+                    <img src={group[0].text} key={group[0]} />
+                  </EditBgImageCenter>
+                </TestItem>
               );
-            })}
-            {/* <Container>
-              <Wrapper>
-                <Slide>
-                  <div>
-                    <h1>Hello World</h1>
-                    <h3>Hello Cat</h3>
-                  </div>
-                </Slide>
-                <Slide>
-                  <div>456</div>
-                </Slide>
-                <Slide></Slide>
-              </Wrapper>
-            </Container> */}
-          </EditorAlbum>
-          <React.Fragment>
+
+              currentIndex += 1;
+            } else if (currentIndex % 4 === 1) {
+              layout = (
+                <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <EditBgImageLeftUp>
+                    <img src={group[0].text} key={group[0]} />
+                  </EditBgImageLeftUp>
+                  {group.length > 1 && (
+                    <EditBgImageRightDown>
+                      <img src={group[1].text} key={group[1]} />
+                    </EditBgImageRightDown>
+                  )}
+                  {group.length === 1 && <EditBgImageCenter />}
+                </TestItem>
+              );
+              currentIndex += 1;
+            } else if (currentIndex % 4 === 2) {
+              layout = (
+                <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <EditBgImageFull>
+                    <img src={group[0].text} key={group[0]} />
+                  </EditBgImageFull>
+                </TestItem>
+              );
+              currentIndex += 1;
+            } else if (currentIndex % 4 === 3) {
+              layout = (
+                <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <EditBgImageLeftDown>
+                    <img src={group[0].text} key={group[0]} />
+                  </EditBgImageLeftDown>
+                  {group.length > 1 && (
+                    <EditBgImageRightUp>
+                      <img src={group[1].text} key={group[1]} />
+                    </EditBgImageRightUp>
+                  )}
+                  {group.length === 1 && <EditBgImageCenter />}
+                </TestItem>
+              );
+              currentIndex += 1;
+            }
+            return layout;
+          })}
+          {/* </TestComponent> */}
+        </Scroller>
+        {/* <PageContainer>
+              <Heading>
+                <h1>Story</h1>
+              </Heading>
+            </PageContainer> */}
+        {/* </EditorAlbum> */}
+
+        {/* <React.Fragment>
             <div
               style={{
                 // border: "1px solid #969696",
@@ -433,14 +513,9 @@ const EditBgFrame = () => {
             >
               <div dangerouslySetInnerHTML={{ __html: message }}></div>
             </div>
-          </React.Fragment>
-        </EditorBgBoxes>
+          </React.Fragment> */}
+        {/* </EditorBgBoxes> */}
       </EditorBgContainer>
-      {/* <Container>
-        <Wrapper>
-          <Slide></Slide>
-        </Wrapper>
-      </Container> */}
       <EditBgFrameBorderButton>
         <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
         <EditBgFrameButton onClick={() => finish()}>Finish</EditBgFrameButton>
@@ -450,3 +525,6 @@ const EditBgFrame = () => {
 };
 
 export default EditBgFrame;
+//  <div key={index}>
+//       <EditorImg src={image.text} alt="" />
+//  </div>
