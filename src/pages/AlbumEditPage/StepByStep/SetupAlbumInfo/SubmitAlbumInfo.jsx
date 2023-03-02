@@ -79,7 +79,7 @@ const SubmitTag = styled.div`
 
 const SubmitLabel = styled.div`
   margin: 0;
-  min-width: 150px;
+  min-width: 160px;
   display: flex;
   align-items: center;
 `;

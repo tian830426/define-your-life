@@ -18,6 +18,12 @@ export const StepContext = React.createContext({
   setEditorState: () => {},
   message: [],
   setMessage: () => {},
+  rawMessage: [],
+  setRawMessage: () => {},
+  color: [],
+  setColor: () => {},
+  backgroundColor: [],
+  setBackgroundColor: () => {},
 });
 
 const StepBoxes = styled.div`
@@ -58,6 +64,8 @@ const StepByStep = () => {
   const [cards, setCards] = useState([]);
   const [message, setMessage] = useState("Try the editor below!");
   const [rawMessage, setRawMessage] = useState("");
+  const [color, setColor] = useState("#d0ded5");
+  const [backgroundColor, setBackgroundColor] = useState("#d0ded5");
 
   // image={imageRef.current}
   return (
@@ -86,6 +94,10 @@ const StepByStep = () => {
           setMessage: setMessage,
           rawMessage: rawMessage,
           setRawMessage: setRawMessage,
+          color: color,
+          setColor: setColor,
+          backgroundColor: backgroundColor,
+          setBackgroundColor: setBackgroundColor,
         }}
       >
         <StepBoxes>

@@ -126,6 +126,8 @@ const Image6 = styled.div`
   /* transform: translate(-50%, -50%); */
 `;
 function HomePage() {
+
+
   return (
     <>
       <NavbarLayout />
@@ -167,6 +169,7 @@ function HomePage() {
           </TestItem>
         </Scroller>
       </BackgroundLayout>
+
       <FooterLayout />
     </>
   );

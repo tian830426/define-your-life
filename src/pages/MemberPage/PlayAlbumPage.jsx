@@ -16,6 +16,11 @@ import FooterLayout from "../../components/Layout/FooterLayout";
 import animationBgimg from "../../assets/toy.jpg";
 import MoveInWidthwise from "../../pages/HomePage/MoveInWidthwise";
 
+import { EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import draftToHtml from "draftjs-to-html";
+import htmlToDraft from "html-to-draftjs";
+
 import AlbumTemplateForOne, { ImageCenter } from "./AlbumTemplateForOne ";
 import AlbumTemplateForTwo, {
   ImageLeftUp,
@@ -57,13 +62,13 @@ const CopeAlbumUrl = styled.button`
   line-height: 30px;
   padding: auto 15px;
   font-size: 1rem;
-
   cursor: pointer;
 
   &:hover {
     opacity: 0.7;
   }
 `;
+
 const CopiedAlbumUrl = styled.span`
   position: absolute;
   top: -20px;
@@ -118,7 +123,7 @@ const Heading = styled.div`
     font-size: 80px;
   }
   p {
-    color:gray;
+    color: gray;
     font-size: 60px;
   }
 `;
@@ -127,7 +132,7 @@ const TestComponent = styled.div`
   display: flex;
   /* width: ${(props) => props.itemCount * 100}vw; */
   width: 1000vw;
-  background: rgb(215, 214, 212);
+  background: ${(props) => props.backgroundColor};
 `;
 
 const TestItem = styled.div`
@@ -218,23 +223,21 @@ function PlayAlbumPage(props) {
             <h1>Define Your Life</h1>
             <p>
               {albums.map((album) => {
-                console.log(album);
-                console.log(album.Name);
                 return album.Name;
               })}
             </p>
-            {/* <p>{albums[0].name}</p> */}
           </Heading>
         </PageContainer>
         <MoveInWidthwise
           displayed={
             // ref={testComponentRef}
-            <TestComponent>
+            <TestComponent
+              backgroundColor={albums.map((album) => album.BackgroundColor)}
+            >
               {albums.map((album) => {
                 const photoCount = album.UrlArray.length;
                 console.log(albums);
                 console.log(album.id);
-                // console.log(url);
 
                 let currentGroup = [];
                 const photoGroups = [];
@@ -336,6 +339,21 @@ function PlayAlbumPage(props) {
         <PageContainer>
           <Heading>
             <h1>Story</h1>
+            <React.Fragment>
+              {albums.map((album) => {
+                return (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: album.Message }}
+                  ></div>
+                );
+              })}
+            </React.Fragment>
+            {/* <p>
+              {" "}
+              {albums.map((album) => {
+                return album.rawMessage;
+              })}
+            </p> */}
           </Heading>
         </PageContainer>
       </AlbumContainer>

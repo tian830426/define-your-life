@@ -8,10 +8,13 @@ const ImageCenter = styled.div`
   -webkit-background-size: cover;
   -moz-background-size: cover;
   object-fit: cover;
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   img {
     width: 50vw;
     height: 65vh;

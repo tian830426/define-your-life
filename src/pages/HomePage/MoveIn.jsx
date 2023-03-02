@@ -9,6 +9,7 @@ const InnerContainer = styled.div`
   display: flex;
   width: ${(props) => `${100 * props.count.length}%`};
   height: 100%;
+  
 `;
 
 const MultiChildScroller = ({ className, children }) => {

@@ -35,7 +35,7 @@ import {
 import { v4 } from "uuid";
 
 import trashCan from "../../assets/iconmonstr-trash-can-lined.svg";
-import ColorPicker from "../../components/ColorFanBlock";
+
 const LibraryContainer = styled.div`
   max-width: 1200px;
   width: 85%;

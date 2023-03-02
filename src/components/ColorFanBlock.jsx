@@ -80,51 +80,51 @@ const ColorBoxes = styled.div`
   width: 100%;
   padding-bottom: 24px;
 `;
-const ColorBlockOne = styled.div`
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgb(255, 255, 255);
-  outline: rgb(173, 173, 173) solid 2px;
-  border-radius: 8px;
-  margin-right: 16px;
-  transition: all 0.1s ease-in 0s;
-  background: #f8c8c8;
-  cursor: pointer;
-`;
+// const ColorBlockOne = styled.div`
+//   width: 32px;
+//   height: 32px;
+//   border: 2px solid rgb(255, 255, 255);
+//   outline: rgb(173, 173, 173) solid 2px;
+//   border-radius: 8px;
+//   margin-right: 16px;
+//   transition: all 0.1s ease-in 0s;
+//   background: #f8c8c8;
+//   cursor: pointer;
+// `;
 
-const ColorBlockTwo = styled.div`
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgb(255, 255, 255);
-  outline: rgb(173, 173, 173) solid 2px;
-  border-radius: 8px;
-  margin-right: 16px;
-  transition: all 0.1s ease-in 0s;
-  background: #fbf8e9;
-  cursor: pointer;
-`;
-const ColorBlockThree = styled.div`
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgb(255, 255, 255);
-  outline: rgb(173, 173, 173) solid 2px;
-  border-radius: 8px;
-  margin-right: 16px;
-  transition: all 0.1s ease-in 0s;
-  background: #cad8b8;
-  cursor: pointer;
-`;
-const ColorBlockFour = styled.div`
-  width: 32px;
-  height: 32px;
-  border: 2px solid rgb(255, 255, 255);
-  outline: rgb(173, 173, 173) solid 2px;
-  border-radius: 8px;
-  margin-right: 16px;
-  transition: all 0.1s ease-in 0s;
-  background: #d7d1e6;
-  cursor: pointer;
-`;
+// const ColorBlockTwo = styled.div`
+//   width: 32px;
+//   height: 32px;
+//   border: 2px solid rgb(255, 255, 255);
+//   outline: rgb(173, 173, 173) solid 2px;
+//   border-radius: 8px;
+//   margin-right: 16px;
+//   transition: all 0.1s ease-in 0s;
+//   background: #fbf8e9;
+//   cursor: pointer;
+// `;
+// const ColorBlockThree = styled.div`
+//   width: 32px;
+//   height: 32px;
+//   border: 2px solid rgb(255, 255, 255);
+//   outline: rgb(173, 173, 173) solid 2px;
+//   border-radius: 8px;
+//   margin-right: 16px;
+//   transition: all 0.1s ease-in 0s;
+//   background: #cad8b8;
+//   cursor: pointer;
+// `;
+// const ColorBlockFour = styled.div`
+//   width: 32px;
+//   height: 32px;
+//   border: 2px solid rgb(255, 255, 255);
+//   outline: rgb(173, 173, 173) solid 2px;
+//   border-radius: 8px;
+//   margin-right: 16px;
+//   transition: all 0.1s ease-in 0s;
+//   background: #d7d1e6;
+//   cursor: pointer;
+// `;
 
 // const ColorBlockFive = styled.div`
 //   width: 32px;
@@ -137,24 +137,44 @@ const ColorBlockFour = styled.div`
 //   cursor: pointer;
 // `;
 
-const ColorFanBlock = () => {
-  return (
-    <>
-      <ColorPicker>
-        <ColorTitle>
-          <h3>Change Background Color</h3>
-        </ColorTitle>
-        <ColorBoxes>
-          <ColorBlockOne></ColorBlockOne>
+// const ColorFanBlock = () => {
+//   return (
+//     <>
+//       <ColorPicker>
+//         <ColorTitle>
+//           <h3>Change Background Color</h3>
+//         </ColorTitle>
+//         <ColorBoxes>
+//           <ColorFanButton
+//             background="red"
+//             onClick={() => handleColorChange("red")}
+//           ></ColorFanButton>
+//           <ColorFanButton
+//             background="green"
+//             onClick={() => handleColorChange("green")}
+//           ></ColorFanButton>
+//           <ColorFanButton
+//             background="blue"
+//             onClick={() => handleColorChange("blue")}
+//           ></ColorFanButton>
+//           <ColorFanButton
+//             background="yellow"
+//             onClick={() => handleColorChange("yellow")}
+//           ></ColorFanButton>
+//         </ColorBoxes>
+//       </ColorPicker>
+//     </>
+//   );
+// };
+
+// export default ColorFanBlock;
+// export { ColorBlockOne, ColorBlockTwo, ColorBlockThree, ColorBlockFour };
+{
+  /* <ColorBlockOne></ColorBlockOne>
           <ColorBlockTwo></ColorBlockTwo>
           <ColorBlockThree></ColorBlockThree>
-          <ColorBlockFour></ColorBlockFour>
-          {/* <ColorBlockFive></ColorBlockFive> */}
-        </ColorBoxes>
-      </ColorPicker>
-    </>
-  );
-};
-
-export default ColorFanBlock;
-// export {ColorPicker,}
+          <ColorBlockFour></ColorBlockFour> */
+}
+{
+  /* <ColorBlockFive></ColorBlockFive> */
+}

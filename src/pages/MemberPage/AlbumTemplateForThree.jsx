@@ -8,8 +8,11 @@ const ImageLeftDown = styled.div`
   -webkit-background-size: cover;
   -moz-background-size: cover;
   position: absolute;
-  top: 5%;
-  left: 55%;
+  top: 15%;
+  right: 12.5%;
+  display: flex;
+  justify-content: end;
+
   img {
     width: 40vw;
     height: 45vh;
@@ -25,9 +28,10 @@ const ImageRightUp = styled.div`
   -moz-background-size: cover;
   object-fit: cover;
   position: absolute;
-
+  display: flex;
+  align-items: end;
   top: 40%;
-  left: 20%;
+  right: 47.5%;
   img {
     width: 40vw;
     height: 45vh;
@@ -42,8 +46,8 @@ const EditBgImageLeftDown = styled.div`
   -webkit-background-size: cover;
   -moz-background-size: cover;
   position: absolute;
-  top: 5%;
-  left: 55%;
+  top: 15%;
+  right: 12.5%;
   width: 40%;
   height: 45%;
   display: flex;
@@ -69,7 +73,7 @@ const EditBgImageRightUp = styled.div`
   display: flex;
   align-items: end;
   top: 40%;
-  left: 20%;
+  right: 47.5%;
   img {
     width: 100%;
     height: 100%;
