@@ -7,7 +7,8 @@ const Bgc = styled.div`
   min-height: calc(100vh - 50px);
   height: 100%; 
   padding-top: 70px;
-  background: rgb(245, 239, 230);
+  background:rgb(239,236,230);
+  /* background: rgb(245, 239, 230); */
   display: flex;
   justify-content: center;
   align-items: center;

@@ -81,7 +81,7 @@ const EditBgImageRightUp = styled.div`
   }
 `;
 
-const AlbumTemplateForThree = () => {
+const ImagePositionLeftDownRightUp = () => {
   return (
     <>
       <ImageLeftDown></ImageLeftDown>
@@ -92,5 +92,5 @@ const AlbumTemplateForThree = () => {
   );
 };
 
-export default AlbumTemplateForThree;
+export default ImagePositionLeftDownRightUp;
 export { ImageLeftDown, ImageRightUp, EditBgImageLeftDown, EditBgImageRightUp };

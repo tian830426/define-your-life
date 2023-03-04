@@ -7,7 +7,7 @@ import BackgroundLayout, {
 } from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 import { AuthContext } from "../AuthPage/UserAuthProvider";
-import { StepContext } from "../../pages/AlbumEditPage/StepByStep/StepByStep";
+import { StepContext } from "../AlbumEditPage/StepByStep/StepByStep";
 
 import mountImg from "../../assets/mount.jpeg";
 // import AlbumForm from "./testAlbumForm";
@@ -176,7 +176,7 @@ const LibraryInfoDate = styled.p`
   padding: 10px 10px;
 `;
 
-function LibraryPage() {
+function AlbumLibraryPage() {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   const { imageUrls, setImageUrls } = useContext(StepContext);
@@ -283,4 +283,4 @@ function LibraryPage() {
   );
 }
 
-export default LibraryPage;
+export default AlbumLibraryPage;

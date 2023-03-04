@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ImageFull = styled.div`
+const ImageCenter = styled.div`
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   object-fit: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   /* position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
   img {
-    width: 70vw;
-    height: 100vw;
+    width: 50vw;
+    height: 65vh;
     object-fit: cover;
   }
 `;
 
-const EditBgImageFull = styled.div`
+const EditBgImageCenter = styled.div`
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   object-fit: cover;
-  width: 70%;
-  height: 100%;
-  display:flex;
-  justify-content:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 65%;
   /* position: absolute;
   top: 50%;
   left: 50%;
@@ -41,14 +45,14 @@ const EditBgImageFull = styled.div`
   }
 `;
 
-const AlbumTemplateForFour = () => {
+const ImagePositionCenter = () => {
   return (
     <>
-      <ImageFull></ImageFull>
-      <EditBgImageFull></EditBgImageFull>
+      <ImageCenter></ImageCenter>
+      <EditBgImageCenter></EditBgImageCenter>
     </>
   );
 };
 
-export default AlbumTemplateForFour;
-export { ImageFull, EditBgImageFull };
+export default ImagePositionCenter;
+export { ImageCenter, EditBgImageCenter };

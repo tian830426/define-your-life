@@ -31,23 +31,16 @@ const StepBoxes = styled.div`
   width: 100%;
   height: 750px;
   border-radius: 25px;
-  background: rgb(246, 239, 230);
-  /* background-color:white; */
-  /* background-color: rgb(248, 248, 232); */
+  background: rgb(239, 236, 230);
+  /* background:white; */
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 70px;
-  /* overflow: auto; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
-  /* box-shadow: 0 0 2px 1px inset; */
-  /* box-shadow: 
-    0 20px 30px 0px rgba(0,0,0,.1),
-    0 4px 4px 0px rgba(0,0,0,.14),
-    0 2px 2px 0px rgba(0,0,0,.3); */
 `;
 
 const StepByStep = () => {
@@ -57,17 +50,17 @@ const StepByStep = () => {
   const [editor, setEditor] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState("limit 50 words");
   const [selectedImages, setSelectedImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [cards, setCards] = useState([]);
   const [message, setMessage] = useState("Try the editor below!");
   const [rawMessage, setRawMessage] = useState("");
+
   const [color, setColor] = useState("#d0ded5");
   const [backgroundColor, setBackgroundColor] = useState("#d0ded5");
 
-  // image={imageRef.current}
   return (
     <>
       <StepContext.Provider
@@ -106,13 +99,13 @@ const StepByStep = () => {
           ) : step === 2 ? (
             <PreviewCenter />
           ) : step === 3 ? (
-            <EditWord />
-          ) : step === 4 ? (
             <EditBgFrame />
+          ) : step === 4 ? (
+            <EditWord />
           ) : step === 5 ? (
             <UploadAlbum />
           ) : (
-            <Finish />
+            step === 6(<Finish />)
           )}
         </StepBoxes>
       </StepContext.Provider>

@@ -6,9 +6,7 @@ import { StepContext } from "../StepByStep";
 
 import SubmitAlbumInfo from "./SubmitAlbumInfo";
 
-const ConfirmAlbumBoxes = styled.div`
-  /* width: 100%; */
-  /* height: 90%; */
+const ConfirmAlbumContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -25,54 +23,45 @@ const ConfirmAlbumTitle = styled.div`
   text-align: center;
   color: gray;
   h2 {
-    /* font-family: "Courier New", Courier, monospace; */
     font-size: 50px;
-    /* color: transparent; */
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
   }
 `;
 
 const ConfirmAlbumForm = styled.div`
-  /* text-align: start; */
-  width: 850px;
+  margin: auto;
+`;
+
+const ConfirmAlbumBoxes = styled.div`
+  width: 800px;
   margin: 0 auto;
-  font-family: "Courier New", Courier, monospace;
 `;
 
 const ConfirmAlbumItems = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
-  margin: 30px auto;
+  margin: 35px auto;
   color: gray;
   font-size: 24px;
   font-weight: 700;
   letter-spacing: 1.5px;
-  /* padding: 0 50px; */
-  opacity: 0.7;
+
   span {
-    color: #b95b5b;
+    border-bottom: 3px solid gray;
+    opacity:0.7;
     margin-left: 15px;
+    font-size: 24px;
   }
 `;
 
 const ConfirmAlbumLabel = styled.div`
   margin: 0;
-  min-width: 150px;
+  min-width: 160px;
   display: flex;
   align-items: center;
 `;
-
-/* margin: 10px auto;
-  padding: 0 15px;
-  display: flex;
-  flex-direction: flex;
-  justify-content: start;
-  align-items: center;
-  color: gray;
-  font-size: 18px;
-  font-family: "Courier New", Courier, monospace; */
 
 const ConfirmAlbumButtonBorder = styled.div`
   display: flex;
@@ -114,29 +103,31 @@ const ConfirmAlbumInfo = () => {
 
   return (
     <>
-      <ConfirmAlbumBoxes>
+      <ConfirmAlbumContainer>
         {show ? (
           <ConfirmAlbumList>
             <ConfirmAlbumTitle>
               <h2>If there are no issues, let's proceed to the next step.</h2>
             </ConfirmAlbumTitle>
             <ConfirmAlbumForm>
-              <ConfirmAlbumItems>
-                <ConfirmAlbumLabel>Editor:</ConfirmAlbumLabel>
-                <span>{editor}</span>
-              </ConfirmAlbumItems>
-              <ConfirmAlbumItems>
-                <ConfirmAlbumLabel>Album name:</ConfirmAlbumLabel>
-                <span>{name}</span>
-              </ConfirmAlbumItems>
-              <ConfirmAlbumItems>
-                <ConfirmAlbumLabel>Date:</ConfirmAlbumLabel>
-                <span> {date}</span>
-              </ConfirmAlbumItems>
-              <ConfirmAlbumItems>
-                <ConfirmAlbumLabel> Description:</ConfirmAlbumLabel>
-                <span>{description}</span>
-              </ConfirmAlbumItems>
+              <ConfirmAlbumBoxes>
+                <ConfirmAlbumItems>
+                  <ConfirmAlbumLabel>Editor:</ConfirmAlbumLabel>
+                  <span>{editor}</span>
+                </ConfirmAlbumItems>
+                <ConfirmAlbumItems>
+                  <ConfirmAlbumLabel>Album name:</ConfirmAlbumLabel>
+                  <span>{name}</span>
+                </ConfirmAlbumItems>
+                <ConfirmAlbumItems>
+                  <ConfirmAlbumLabel>Date:</ConfirmAlbumLabel>
+                  <span> {date}</span>
+                </ConfirmAlbumItems>
+                <ConfirmAlbumItems>
+                  <ConfirmAlbumLabel> Description:</ConfirmAlbumLabel>
+                  <span>{description}</span>
+                </ConfirmAlbumItems>
+              </ConfirmAlbumBoxes>
             </ConfirmAlbumForm>
             <ConfirmAlbumButtonBorder>
               <ConfirmAlbumButton onClick={() => prev()}>
@@ -150,7 +141,7 @@ const ConfirmAlbumInfo = () => {
         ) : (
           <SubmitAlbumInfo />
         )}
-      </ConfirmAlbumBoxes>
+      </ConfirmAlbumContainer>
     </>
   );
 };

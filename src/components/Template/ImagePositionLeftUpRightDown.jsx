@@ -80,7 +80,7 @@ const EditBgImageRightDown = styled.div`
   /* transform: translate(-50%, -50%); */
 `;
 
-const AlbumTemplateForTwo = () => {
+const ImagePositionLeftUpRightDown = () => {
   return (
     <>
       <ImageLeftUp></ImageLeftUp>
@@ -91,5 +91,5 @@ const AlbumTemplateForTwo = () => {
   );
 };
 
-export default AlbumTemplateForTwo;
+export default ImagePositionLeftUpRightDown;
 export { ImageLeftUp, ImageRightDown, EditBgImageLeftUp, EditBgImageRightDown };

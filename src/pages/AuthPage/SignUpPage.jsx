@@ -7,47 +7,39 @@ import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
 
 // import BackGroundSetup from "../components/BackGroundSetup";
-import loginImg from "../../assets/cryPeople.JPG";
-import changeImg from "../../assets/musicPeople.JPG";
+// import loginImg from "../../assets/cryPeople.JPG";
+// import changeImg from "../../assets/musicPeople.JPG";
+import signupImg from "../../assets/signupImg.svg";
 
 import { AuthErrorCodes } from "firebase/auth";
 import { AuthContext } from "./UserAuthProvider";
+import Button from "../../components/Button";
 
 const SignupDialogCenter = styled.div`
+  max-width: 1200px;
   width: 100%;
-  height: calc(100vh - 50px);
-  //  background-image: linear-gradient(-225deg,#95a7b5 0%, #2580B3 100%);;
-  // background-color: #95a7b5;
-  background: rgb(222, 208, 173);
+  height: 600px;
+  border-radius: 25px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 70px;
+  background: white;
+  /* background: rgb(245, 239, 230); */
   position: relative;
-  //   padding: 200px 0;
-  //   background-color: rgb(220, 220, 166);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
 `;
 
 const SignupDialogBoxes = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgb(248, 248, 232);
-  padding: 70px 10px;
-  width: 70%;
-  // height: 50%;
+  width: 85%;
+  height: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  // margin: auto;
-  border-radius: 20px;
-  position: relative;
-  box-shadow: rgb(109, 109, 168) 0px 0px 0px 2px inset,
-    rgb(255, 255, 255) 10px -10px 0px -3px, rgb(63, 112, 62) 10px -10px,
-    rgb(255, 255, 255) 20px -20px 0px -3px, rgb(212, 194, 105) 20px -20px,
-    rgb(255, 255, 255) 30px -30px 0px -3px, rgb(207, 147, 105) 30px -30px,
-    rgb(255, 255, 255) 40px -40px 0px -3px, rgb(191, 109, 109) 40px -40px;
-  // box-shadow: 0 0 30px rgb(119, 119, 119);
-  // box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-  // box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(232, 231, 231, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 `;
 
 const SignupDialogBgimg = styled.div`
@@ -55,8 +47,8 @@ const SignupDialogBgimg = styled.div`
   padding: 20px;
   position: relative;
   img {
-    width: 85%;
-    border-radius: 15px;
+    width: 90%;
+    /* border-radius: 15px; */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -78,26 +70,80 @@ const SignupDialogLogin = styled.div`
 const SignupDialogTitle = styled.div`
   font-size: 24px;
   line-height: 35px;
-  // font-weight: 600;
-  // padding: 90px 0 0 0px;
   letter-spacing: 1.5px;
 `;
 
 const Fields = styled.div`
   display: flex;
-  width: 300px;
+  width: 350px;
   flex-direction: column;
-  margin: 50px auto;
+  justify-content: center;
+  align-items: center;
+  /* margin: 50px auto; */
   input {
+    border-bottom: 2px solid gray;
     width: 100%;
     font-size: 20px;
     padding: 10px;
     margin: 10px 0;
-    border-radius: 10px;
+    color:gray;
+    caret-color: auto; /* 預設 */
+    caret-color: transparent; /* 透明 */
+    caret-color: gray; /* 指定色 */
+    outline: none; /* 外框效果 */
+    /* border-radius: 10px; */
     letter-spacing: 1.5px;
     &:hover {
       opacity: 0.8;
     }
+  }
+`;
+
+const SignupDialogForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    font-size: 30px;
+    color: gray;
+    margin: 20px;
+  }
+  p {
+    margin: 15px;
+    letter-spacing: 1.5px;
+  }
+  input {
+    /* width: 100px; */
+  }
+  /* button {
+    width: 120px;
+    height: 40px;
+    margin: 20px;
+    border-radius: 8px;  
+  } */
+`;
+
+const SignupButton = styled(Button)`
+  width: 100px;
+  height: 40px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: 2px solid gray;
+  color: gray;
+  margin: 15px 15px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  line-height: 40px;
+  padding: auto 15px;
+  font-size: 18px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+    background: gray;
+    color: white;
   }
 `;
 
@@ -118,21 +164,57 @@ const SignupBtn = styled.div`
   }
 `;
 
+const SignUpLink = styled(Link)`
+  line-height: 5px;
+  color: gray;
+`;
+
+const ErrorRemind = styled.p`
+  color: #de6666;
+`;
+
+// const Circle = styled.div`
+//   width: 300px;
+//   height: 300px;
+//   border-radius: 50%;
+//   background: rgb(239, 236, 230);
+//   opacity:0.2;
+//   position:absolute;
+//   top:50%;
+//   left:70%;
+//   z-index:999;
+//   overflow: hidden;
+
+// `;
+
+// const Circle2 = styled.div`
+//   width: 500px;
+//   height: 500px;
+//   border-radius: 50%;
+//   background: rgb(239, 236, 230);
+//   opacity:0.4;
+//   position:absolute;
+//   top:26%;
+//   left:11%;
+//   z-index:999;
+
+// `;
+
 function SignUpPage() {
-  // , error, currentuser
-  // const { SignUp } = AuthContext();
   const { SignUp } = useContext(AuthContext);
   const navigate = useNavigate();
   const [err, setError] = useState("");
-  // const [backError, setBackError] = useState("");
   const [user, setUser] = useState({
     username: "",
     email: "",
     password: "",
   });
 
+  const [show, setShow] = useState(false);
+
   console.log(user.email);
 
+  // 有bug
   // useEffect(() => {
   //   console.log("i am in");
   //   if (error) {
@@ -158,16 +240,16 @@ function SignUpPage() {
         setError("");
       }, 5000);
       return setError("please fill all the field");
-      // } else if (password !== confirmpassword) {
-      //   setInterval(() => {
-      //     setError("");
-      //   }, 5000);
-      //   return setError("password does not match");
-      // } else if (password.length >= 6 || !confirmpassword.length >= 6) {
-      //   setInterval(() => {
-      //     setError("");
-      //   }, 5000);
-      //   return setError("password must be greater then 6 length");
+    } else if (password !== confirmpassword) {
+      setInterval(() => {
+        setError("");
+      }, 5000);
+      return setError("password does not match");
+    } else if (password.length >= 6 || !confirmpassword.length >= 6) {
+      setInterval(() => {
+        setError("");
+      }, 5000);
+      return setError("password must be greater then 6 length");
     } else {
       try {
         await SignUp(email, password, username);
@@ -188,77 +270,25 @@ function SignUpPage() {
           setError(err.message);
         }
       }
-
-      // {
-      //   currentuser &&
-      //     setUser({
-      //       username: "",
-      //       email: "",
-      //       password: "",
-      //     });
-      // }
     }
   };
-
-  // const [loading, setLoading] = useState(false);
-  // const currentUser = UseAuth();
-
-  // const emailRef = useRef();
-  // const passwordRef = useRef();
-
-  // async function handleSignup() {
-  //   setLoading(true);
-  //   // try {
-  //   await signup(emailRef.current.value, passwordRef.current.value);
-  //   // } catch {
-  //   // alert("Error!");
-  //   // }
-  //   setLoading(false);
-  // }
-
-  // async function handleLogin() {
-  //   setLoading(true);
-  //   try {
-  //     await login(emailRef.current.value, passwordRef.current.value);
-  //   } catch {
-  //     alert("Error!");
-  //   }
-  //   setLoading(false);
-  // }
-
-  // async function handleLogout() {
-  //   setLoading(true);
-  //   try {
-  //     await logout();
-  //   } catch {
-  //     alert("Error!");
-  //   }
-  //   setLoading(false);
-  // }
 
   return (
     <div>
       <NavbarLayout />
       <BackgroundLayout>
+        {/* <Circle></Circle>
+        <Circle2></Circle2>
+        <Circle></Circle> */}
         <SignupDialogCenter>
           <SignupDialogBoxes>
             <SignupDialogBgimg>
-              <img className="loginImg" src={loginImg} alt="loginImg" />
-              <img className="changeImg" src={changeImg} alt="changeImg" />
+              <img src={signupImg} alt="" />
             </SignupDialogBgimg>
             <SignupDialogLogin>
-              <SignupDialogTitle>
-                Welcome to Album Editor
-                <br />
-                {/* Currently logged in as: {currentUser?.email}{" "} */}
-              </SignupDialogTitle>
               <Fields>
-                {err && <p className="error">{err}</p>}
-                {/* {err
-                ? err && <p className="error">{err}</p>
-                : backError && <p className="error">{backError}</p>} */}
-                <form onSubmit={SubmitHandler} className="form">
-                  <h2>Registration Form</h2>
+                <SignupDialogForm onSubmit={SubmitHandler} className="form">
+                  <h2>Register</h2>
                   <div className="inputfield">
                     <input
                       type="text"
@@ -297,112 +327,20 @@ function SignUpPage() {
                   /> */}
                   </div>
                   <div className="inputfield">
-                    <input type="submit" />
+                    <SignupButton type="submit">Sign up</SignupButton>
                   </div>
                   <p className="forget">
                     Already Have an account?{" "}
-                    <Link to={"/home/login"} className="link">
-                      {"login"}
-                    </Link>
+                    <SignUpLink to={"/home/login"} className="link">
+                      {"Sign in"}
+                    </SignUpLink>
                   </p>
-                </form>
+                  {err && <ErrorRemind>{err}</ErrorRemind>}
+                </SignupDialogForm>
               </Fields>
-              {/* <SignupBtn>
-              <button disabled={loading || currentUser} onClick={handleSignup}>
-                Sign Up
-              </button>
-              <button disabled={loading || currentUser} onClick={handleLogin}>
-                Log In
-              </button>
-              <button disabled={loading || !currentUser} onClick={handleLogout}>
-                Log Out
-              </button>
-            </SignupBtn> */}
             </SignupDialogLogin>
           </SignupDialogBoxes>
         </SignupDialogCenter>
-        {/* <div className="box">
-        {err
-          ? err && <p className="error">{err}</p>
-          : backError && <p className="error">{backError}</p>}
-
-        <form onSubmit={SubmitHandler} className="form">
-          <h2>Registration Form</h2>
-          <div className="inputfield">
-            <input
-              type="text"
-              placeholder="UserName"
-              value={user.FullName}
-              name="FullName"
-              onChange={UserHandler}
-            />
-          </div>
-          <div className="inputfield">
-            <input
-              type="text"
-              placeholder="Email"
-              value={user.email}
-              name="email"
-              onChange={UserHandler}
-            />
-          </div>
-
-          <div className="inputfield">
-            <input
-              type="password"
-              placeholder="Password"
-              value={user.password}
-              name="password"
-              onChange={UserHandler}
-            />
-          </div>
-          <div className="inputfield">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              value={user.confirmPassword}
-              name="confirmPassword"
-              onChange={UserHandler}
-            />
-          </div>
-          <div className="inputfield">
-            <input type="submit" />
-          </div>
-          <p className="forget">
-            Don't have an account? <a href="">Sign up </a>
-          </p>
-        </form>
-      </div> */}
-        {/* <SignupDialogCenter>
-        <SignupDialogBoxes>
-          <SignupDialogBgimg>
-            <img className="loginImg" src={loginImg} alt="loginImg" />
-            <img className="changeImg" src={changeImg} alt="changeImg" />
-          </SignupDialogBgimg>
-          <SignupDialogLogin>
-            <SignupDialogTitle>
-              Welcome to Album Editor
-              <br />
-              Currently logged in as: {currentUser?.email}{" "}
-            </SignupDialogTitle>
-            <Fields>
-              <input ref={emailRef} placeholder="Email" />
-              <input ref={passwordRef} type="password" placeholder="Password" />
-            </Fields>
-            <SignupBtn>
-              <button disabled={loading || currentUser} onClick={handleSignup}>
-                Sign Up
-              </button>
-              <button disabled={loading || currentUser} onClick={handleLogin}>
-                Log In
-              </button>
-              <button disabled={loading || !currentUser} onClick={handleLogout}>
-                Log Out
-              </button>
-            </SignupBtn>
-          </SignupDialogLogin>
-        </SignupDialogBoxes>
-      </SignupDialogCenter> */}
       </BackgroundLayout>
       <FooterLayout />
     </div>
@@ -410,5 +348,3 @@ function SignUpPage() {
 }
 
 export default SignUpPage;
-
-//   <Link to="/signinPage">Signin</Link>

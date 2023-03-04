@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const DisplayedWrapper = styled.div`
   display: inline-block;
-  height: 100%;
+  /* height: 100%; */
   transform: ${(props) => props.transform};
   position: ${(props) =>
     props.progress <= 100 ? (props.progress >= 0 ? "fixed" : "static") : "absolute"};

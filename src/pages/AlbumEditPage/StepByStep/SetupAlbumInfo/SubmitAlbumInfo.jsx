@@ -15,12 +15,13 @@ const SubmitBoxes = styled.div`
 
 const SubmitTitle = styled.div`
   margin: 70px auto;
+  padding: 0 50px;
+  line-height: 70px;
+  text-align: center;
   color: gray;
 
   h2 {
-    /* font-family: "Courier New", Courier, monospace; */
     font-size: 50px;
-    /* color: transparent; */
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
   }
@@ -33,9 +34,6 @@ const SubmitInputContainer = styled.div`
 const SubmitForm = styled.form`
   width: 500px;
   margin: 0 auto;
-  /* background-color: rgba(255, 255, 255, 0.7); */
-  font-family: "Courier New", Courier, monospace;
-  /* border-radius: 20px; */
   span {
     display: flex;
     padding: 10px auto;
@@ -61,14 +59,20 @@ const SubmitTag = styled.div`
 
   input {
     width: 80%;
+    color: gray;
+    border-bottom: 3px solid gray;
+    caret-color: auto; /* 預設 */
+    caret-color: transparent; /* 透明 */
+    caret-color: gray; /* 指定色 */
+    outline: none; /* 外框效果 */
     /* display: flex;
       justify-content: center;
       align-items: center; */
     margin-left: 15px;
     padding: 5px 10px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     background: rgba(255, 255, 255, 0.1);
-    outline: 1.5px solid gray;
+    /* outline: 1.5px solid gray; */
     font-size: 24px;
 
     &:active {
@@ -76,7 +80,34 @@ const SubmitTag = styled.div`
     }
   }
 `;
+const Textarea = styled.textarea`
+  max-width: 320px;
+  max-height: 100px;
+  background: rgba(255, 255, 255, 0.1);
+  width: 80%;
+  border-bottom: 3px solid gray;
+  caret-color: auto; /* 預設 */
+  caret-color: transparent; /* 透明 */
+  caret-color: gray; /* 指定色 */
+  outline: none; /* 外框效果 */
+  margin-left: 15px;
+  padding: 5px 10px;
 
+  background: rgba(255, 255, 255, 0.1);
+  /* outline: 1.5px solid gray; */
+  font-size: 24px;
+  color: gray;
+  border: 2px solid gray;
+  background: rgb(239, 236, 230);
+  padding: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+
+  &:active {
+    color: gray;
+    opacity: 0.5;
+  }
+`;
 const SubmitLabel = styled.div`
   margin: 0;
   min-width: 160px;
@@ -90,7 +121,7 @@ const SubmitButton = styled(Button)`
   background: rgba(255, 255, 255, 0.1);
   outline: 2.5px solid gray;
   color: gray;
-  font-family: "Courier New", Courier, monospace;
+  /* font-family: "Courier New", Courier, monospace; */
   letter-spacing: 1.5px;
   &:hover {
     background: gray;
@@ -124,7 +155,9 @@ function SubmitAlbumInfo(props) {
     setDate(event.target.value);
   };
   const handleDescription = (event) => {
-    setDescription(event.target.value);
+    if (event.target.value == "limit 50 words") {
+      setDescription("");
+    } else setDescription(event.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -188,10 +221,14 @@ function SubmitAlbumInfo(props) {
                 <SubmitInputBlock>
                   <SubmitTag>
                     <SubmitLabel>Description:</SubmitLabel>
-                    <input
+                    <Textarea
                       type="text"
                       value={description}
                       onChange={handleDescription}
+                      maxlength="52"
+                      rows="4"
+                      cols="13"
+                      onClick={handleDescription}
                     />
                   </SubmitTag>
                   {errors.description ? (

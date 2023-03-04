@@ -8,16 +8,15 @@ import HomePage from "./pages/HomePage/HomePage";
 import EditPage from "./pages/AlbumEditPage/EditPage";
 import SignUpPage from "./pages/AuthPage/SignUpPage";
 import LoginPage from "./pages/AuthPage/LoginPage";
-import MemberPage from "./pages/MemberPage/MemberPage";
-import ProfilePage from "./pages/MemberPage/PlayAlbumPage";
-import LibraryPage from "./pages/MemberPage/LibraryPage";
-import PlayAlbumPage from "./pages/MemberPage/PlayAlbumPage";
+// import MemberPage from "./pages/AlbumLibraryPage/MemberPage";
+// import ProfilePage from "./pages/AlbumLibraryPage/PlayAlbumPage";
+import AlbumLibraryPage from "./pages/AlbumLibraryPage/AlbumLibraryPage";
+import SnapShowPage from "./pages/AlbumLibraryPage/SnapShowPage";
 import NotFound from "./pages/NotFound";
 
 import UserAuthProvider from "./pages/AuthPage/UserAuthProvider";
 
 const App = () => {
-  
   return (
     <UserAuthProvider>
       <BrowserRouter>
@@ -27,15 +26,15 @@ const App = () => {
             <Route path="home" element={<HomePage />} />
           </Route>
           <Route path="/home">
-            <Route path="library/:id" element={<PlayAlbumPage />} />
-            <Route path="library" element={<LibraryPage />}></Route>
+            <Route path="albumlibrary/:id" element={<SnapShowPage />} />
+            <Route path="albumlibrary" element={<AlbumLibraryPage />}></Route>
             <Route path="signup" element={<SignUpPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="edit" element={<EditPage />} />
           </Route>
-          <Route path="/home/member">
+          {/* <Route path="/home/member">
             <Route path="profile" element={<ProfilePage />} />
-          </Route>
+          </Route> */}
           <Route>
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -13,25 +13,28 @@ import { useNavigate } from "react-router-dom";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
 import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
-import animationBgimg from "../../assets/toy.jpg";
-import MoveInWidthwise from "../../pages/HomePage/MoveInWidthwise";
+import MoveInWidthwise from "../HomePage/MoveInWidthwise";
 
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 
-import AlbumTemplateForOne, { ImageCenter } from "./AlbumTemplateForOne ";
-import AlbumTemplateForTwo, {
+import ImagePositionCenter, {
+  ImageCenter,
+} from "../../components/Template/ImagePositionCenter";
+import ImagePositionLeftUpRightDown, {
   ImageLeftUp,
   ImageRightDown,
-} from "./AlbumTemplateForTwo";
-import AlbumTemplateForThree, {
+} from "../../components/Template/ImagePositionLeftUpRightDown";
+import ImagePositionLeftDownRightUp, {
   ImageLeftDown,
   ImageRightUp,
-} from "./AlbumTemplateForThree";
+} from "../../components/Template/ImagePositionLeftDownRightUp";
 
-import AlbumTemplateForFour, { ImageFull } from "./AlbumTemplateForFour";
+import ImagePositionFull, {
+  ImageFull,
+} from "../../components/Template/ImagePositionFull";
 
 import CustomCursor from "../../components/CustomCursor";
 
@@ -130,8 +133,10 @@ const Heading = styled.div`
 
 const TestComponent = styled.div`
   display: flex;
-  /* width: ${(props) => props.itemCount * 100}vw; */
-  width: 1000vw;
+  /* height: 100vh; */
+  width: ${(props) => props.count * 100}vw;
+  /* width: 1000vw; */
+  /* width: 700vw; */
   background: ${(props) => props.backgroundColor};
 `;
 
@@ -141,14 +146,16 @@ const TestItem = styled.div`
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  flex: 0 0 10%;
+  /* flex: 0 0 10%; */
   /* background: rgb(221, 214, 201); */
 `;
 
-function PlayAlbumPage(props) {
+function SnapShowPage(props) {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   const [copied, setCopied] = useState(false);
+  // const [photoGroups, setPhotoGroups] = useState([]);
+  const [count, setCount] = useState(1);
   // const testComponentRef = useRef(null);
 
   const currentUrl = window.location.href;
@@ -205,12 +212,49 @@ function PlayAlbumPage(props) {
   const handleMouseLeave = () => {
     setCopied(false);
   };
-  console.log("123");
-  // console.log(albums);
-  // console.log(albums[0]);
-  // console.log(name);
-  // console.log(albums[0].Name)
-  // console.log(albums[0].name)
+
+  const aaa = (album) => {
+    let currentGroup = [];
+    const photoGroups = [];
+
+    // 將照片分組，每組最多兩張照片
+    album.UrlArray.forEach((url, index) => {
+      currentGroup.push(url);
+      console.log(url);
+      if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      }
+      // (currentGroup.length === 2 || index === photoCount - 1) {
+      //   photoGroups.push(currentGroup);
+      //   currentGroup = [];
+      // }
+    });
+    // setItemCount(photoGroups.length);
+    return photoGroups;
+  };
+
+  useEffect(() => {
+    if (albums[0] == undefined) {
+      return;
+    }
+    aaa(albums[0]);
+    const photoGroups = aaa(albums[0]);
+    setCount(photoGroups.length);
+    console.log(photoGroups.length);
+  }, [albums]);
+
+  let testItemLen = 0;
+  console.log(testItemLen);
 
   return (
     <>
@@ -229,20 +273,19 @@ function PlayAlbumPage(props) {
           </Heading>
         </PageContainer>
         <MoveInWidthwise
+          height={`${count * 100}vh`}
           displayed={
             // ref={testComponentRef}
             <TestComponent
+              count={count}
               backgroundColor={albums.map((album) => album.BackgroundColor)}
             >
               {albums.map((album) => {
-                const photoCount = album.UrlArray.length;
-                console.log(albums);
-                console.log(album.id);
-
                 let currentGroup = [];
                 const photoGroups = [];
 
                 // 將照片分組，每組最多兩張照片
+
                 album.UrlArray.forEach((url, index) => {
                   currentGroup.push(url);
                   console.log(url);
@@ -271,15 +314,18 @@ function PlayAlbumPage(props) {
                     photoGroups.push(currentGroup);
                     currentGroup = [];
                   }
-                  // (currentGroup.length === 2 || index === photoCount - 1) {
-                  //   photoGroups.push(currentGroup);
-                  //   currentGroup = [];
-                  // }
                 });
+                // const photoCount = album.UrlArray.length;
+                // console.log(albums);
+                // console.log(album.id);
 
+                // const photoGroups = aaa(album);
+                // console.log(photoGroups);
+                // setPhotoGroups(photoGroups);
                 // 渲染每個照片組
                 let currentIndex = 0;
                 return photoGroups.map((group) => {
+                  // testItemLen += 1;
                   let layout;
                   if (currentIndex % 4 === 0) {
                     layout = (
@@ -339,6 +385,7 @@ function PlayAlbumPage(props) {
         <PageContainer>
           <Heading>
             <h1>Story</h1>
+            {/* <p>Photo groups length: {photoGroups.length}</p> */}
             <React.Fragment>
               {albums.map((album) => {
                 return (
@@ -388,4 +435,4 @@ function PlayAlbumPage(props) {
   );
 }
 
-export default PlayAlbumPage;
+export default SnapShowPage;

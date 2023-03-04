@@ -4,28 +4,39 @@ import { Link, useNavigate } from "react-router-dom";
 import { NavbarTitleH1 } from "../../components/NavbarTitleStyle";
 import { TiDeleteOutline } from "react-icons/ti";
 import { AuthContext } from "../../pages/AuthPage/UserAuthProvider";
-import { async } from "@firebase/util";
 
 const Navbar = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  z-index: 999;
+  background: rgb(239, 236, 230);
+`;
+
+const NavContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  position: fixed;
-  width: 100%;
-  height: 100px;
-  z-index: 999;
-  /* background-color: rgb(248, 248, 232); */
-  background: rgb(245, 239, 230);
   padding: 0 30px;
+
+  @media (max-width: 1550px) {
+    width: 95%;
+    /* padding: 0; */
+    justify-content: space-evenly;
+  }
 `;
 
 const NavbarUsername = styled.div`
+  width: calc(100% / 3);
   line-height: 100px;
+  display: flex;
+  justify-content: start;
 
   h2 {
     text-align: center;
     font-size: 28px;
-    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
     color: gray;
     text-shadow: gray 0.05em 0.05em 0.05em;
     letter-spacing: 1px;
@@ -37,18 +48,15 @@ const NavbarUsername = styled.div`
       opacity: 1;
       cursor: pointer;
       color: gray;
-      /* width: 100px;
-      height: 10px;
-      background: #e7b68b;
-      position: absolute;
-      left: 20%;
-      top: 40%; */
     }
   }
 `;
 
+
 const NavbarTitle = styled(Link)`
+  width: calc(100% / 3);
   display: flex;
+  justify-content: center;
   align-items: center;
   line-height: 100px;
   /* padding: 8px 0px 8px 310px; */
@@ -69,8 +77,10 @@ const NavbarTitle = styled(Link)`
 `;
 
 const NavbarItems = styled.div`
+  width: calc(100% / 3);
   display: flex;
-  margin: auto 0;
+  justify-content: end;
+  align-items: center;
   text-align: center;
 `;
 
@@ -191,40 +201,6 @@ const NavbarIcon = styled.div`
   }
 `;
 
-// const NavbarUl = styled.ul`
-//   // display:none;
-//   height: 30px;
-//   display: flex;
-//   // flex-direction: column;
-//   position: absolute;
-//   top: 150%;
-//   left: -25%;
-//   // background-color: white;
-//   /* &:hover {
-//     outline: 0;
-
-//     li {
-//       display: block;
-//     }
-//   } */
-// `;
-
-// const NavbarLi = styled.li`
-//   display: none;
-//   width: 185px;
-//   color: white;
-//   line-height: 30px;
-//   padding: 0 15px;
-//   margin: 0 auto;
-//   margin-right: 10px;
-//   background-color: rgb(198, 161, 80);
-//   border-radius: 8px;
-//   &:hover {
-//     outline: 0;
-//     display: block;
-//   }
-// `;
-
 const RemindSigninTag = styled.div`
   /* height: 50px; */
   padding: 20px 20px;
@@ -263,9 +239,7 @@ const RemindSigninTag = styled.div`
     font-size: 16px;
     font-weight: 700;
     color: gray;
-    font-family: Optima, Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;
   }
-  /* display: none; */
 `;
 
 const DeleteIcon = styled.div`
@@ -309,45 +283,46 @@ const NavbarLayout = () => {
 
   return (
     <Navbar>
-      <NavbarUsername>
-        <h2
-          onClick={() => {
-            handleUsername();
-          }}
-        >
-          {currentUser == undefined
-            ? ""
-            : " Hello , " + currentUser.displayName + " . "}
-        </h2>
-      </NavbarUsername>
-      <NavbarTitle to="/home">
-        <NavbarTitleH1>
-          <span>D</span>
-          <span>E</span>
-          <span>F</span>
-          <span>I</span>
-          <span>N</span>
-          <span>E</span>
-          <span> </span>
-          <span>Y</span>
-          <span>O</span>
-          <span>U</span>
-          <span>R</span>
-          <span> </span>
-          <span>L</span>
-          <span>I</span>
-          <span>F</span>
-          <span>E</span>
-        </NavbarTitleH1>
-      </NavbarTitle>
-      <NavbarItems>
-        {currentUser == undefined ? (
-          ""
-        ) : (
-          <NavbarItem to="/home/library">
-            <NavbarIcon>Album Library</NavbarIcon>
+      <NavContainer>
+        <NavbarUsername>
+          <h2
+            onClick={() => {
+              handleUsername();
+            }}
+          >
+            {currentUser == undefined
+              ? ""
+              : " Hello , " + currentUser.displayName + " . "}
+          </h2>
+        </NavbarUsername>
+        <NavbarTitle to="/home">
+          <NavbarTitleH1>
+            <span>D</span>
+            <span>E</span>
+            <span>F</span>
+            <span>I</span>
+            <span>N</span>
+            <span>E</span>
+            <span> </span>
+            <span>Y</span>
+            <span>O</span>
+            <span>U</span>
+            <span>R</span>
+            <span> </span>
+            <span>L</span>
+            <span>I</span>
+            <span>F</span>
+            <span>E</span>
+          </NavbarTitleH1>
+        </NavbarTitle>
+        <NavbarItems>
+          {currentUser == undefined ? (
+            ""
+          ) : (
+            <NavbarItem to="/home/albumlibrary">
+              <NavbarIcon>Album Library</NavbarIcon>
 
-            {/* <NavbarUl>
+              {/* <NavbarUl>
               <NavbarIcon></NavbarIcon>
               <NavbarLi>
                 <Link to="/home/member/profile">Profile</Link>
@@ -357,38 +332,39 @@ const NavbarLayout = () => {
                 <Link to="/home/library">Album Library</Link>
               </NavbarLi>
             </NavbarUl> */}
-          </NavbarItem>
-        )}
+            </NavbarItem>
+          )}
 
-        <NavbarItemButton>
-          <NavbarIcon>
-            {currentUser == undefined ? (
-              <div onClick={() => handleTosignin()}>Album Edit</div>
-            ) : (
-              <div onClick={() => handleAlbumEdit()}>Album Edit</div>
-            )}
-          </NavbarIcon>
-        </NavbarItemButton>
+          <NavbarItemButton>
+            <NavbarIcon>
+              {currentUser == undefined ? (
+                <div onClick={() => handleTosignin()}>Album Edit</div>
+              ) : (
+                <div onClick={() => handleAlbumEdit()}>Album Edit</div>
+              )}
+            </NavbarIcon>
+          </NavbarItemButton>
 
-        <NavbarItemButton>
-          <NavbarIcon>
-            {currentUser == undefined ? (
-              <div onClick={() => handleSignup()}>Sign up</div>
-            ) : (
-              <div onClick={() => handleLogout()}>Sign out</div>
-            )}
-          </NavbarIcon>
-        </NavbarItemButton>
-        <RemindSigninTag style={{ display: display ? "none" : "block" }}>
-          <p>Please register or login.</p>{" "}
-          <DeleteIcon>
-            <TiDeleteOutline />
-          </DeleteIcon>
-        </RemindSigninTag>
-        {/* <NavbarItem to="/home/edit">
+          <NavbarItemButton>
+            <NavbarIcon>
+              {currentUser == undefined ? (
+                <div onClick={() => handleSignup()}>Sign up</div>
+              ) : (
+                <div onClick={() => handleLogout()}>Sign out</div>
+              )}
+            </NavbarIcon>
+          </NavbarItemButton>
+          <RemindSigninTag style={{ display: display ? "none" : "block" }}>
+            <p>Please register or login.</p>{" "}
+            <DeleteIcon>
+              <TiDeleteOutline />
+            </DeleteIcon>
+          </RemindSigninTag>
+          {/* <NavbarItem to="/home/edit">
           <NavbarIcon>Album Edit</NavbarIcon>
         </NavbarItem> */}
-      </NavbarItems>
+        </NavbarItems>
+      </NavContainer>
     </Navbar>
   );
 };

@@ -9,10 +9,10 @@ const InnerContainer = styled.div`
   display: flex;
   width: ${(props) => `${100 * props.count.length}%`};
   height: 100%;
-  
 `;
 
 const MultiChildScroller = ({ className, children }) => {
+  // e.preventDefault();
   const containerRef = useRef(null);
   const [progress, setProgress] = useState(0);
 

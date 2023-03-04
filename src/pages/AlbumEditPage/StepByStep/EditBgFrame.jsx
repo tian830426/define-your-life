@@ -25,44 +25,34 @@ import {
 import { v4 } from "uuid";
 import Button from "../../../components/Button";
 
-import { EditorState, convertToRaw } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
+// import { EditorState, convertToRaw } from "draft-js";
+// import { Editor } from "react-draft-wysiwyg";
+// import draftToHtml from "draftjs-to-html";
+// import htmlToDraft from "html-to-draftjs";
 
-import { Navigation, Pagination, Scrollbar, A11y, EffectFade } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-
-import animationBgimg from "../../../assets/toy.jpg";
 import layoutLined from "../../../assets/iconmonstr-layout-lined.svg";
 
 import paintBrush from "../../../assets/iconmonstr-paintbrush-7.svg";
 
 import colorFan from "../../../assets/iconmonstr-color-fan-2.svg";
 
-import EditBgMoveInWidthwise from "../../HomePage/EditBgMoveInWidthwise";
-
 import MultiChildScroller from "../../HomePage/MultiChildScroller";
 
-import AlbumTemplateForOne, {
+import ImagePositionCenter, {
   EditBgImageCenter,
-} from "../../MemberPage/AlbumTemplateForOne ";
-import AlbumTemplateForTwo, {
+} from "../../../components/Template/ImagePositionCenter";
+import ImagePositionLeftUpRightDown, {
   EditBgImageLeftUp,
   EditBgImageRightDown,
-} from "../../MemberPage/AlbumTemplateForTwo";
-import AlbumTemplateForThree, {
+} from "../../../components/Template/ImagePositionLeftUpRightDown";
+import ImagePositionLeftDownRightUp, {
   EditBgImageLeftDown,
   EditBgImageRightUp,
-} from "../../MemberPage/AlbumTemplateForThree";
+} from "../../../components/Template/ImagePositionLeftDownRightUp";
 
-import AlbumTemplateForFour, {
+import ImagePositionFull, {
   EditBgImageFull,
-} from "../../MemberPage/AlbumTemplateForFour";
+} from "../../../components/Template/ImagePositionFull";
 
 import CustomCursor from "../../../components/CustomCursor";
 
@@ -110,8 +100,20 @@ const EditorBgTitle = styled.div`
 
 const EditorBgIconList = styled.div`
   display: flex;
-  justify-content: space-between;
+  margin-left: 40px;
+`;
+
+const EditorBgIconItem = styled.div`
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.5;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
+  margin: 0 20px;
   img {
     width: 50px;
     height: 50px;
@@ -119,6 +121,13 @@ const EditorBgIconList = styled.div`
     border-radius: 50%;
     margin: 0 20px;
     color: gray;
+    opacity: 0.8;
+
+    &:hover {
+      width: 52px;
+      height: 52px;
+      opacity: 1;
+    }
   }
 `;
 
@@ -160,8 +169,9 @@ const EditBgFrameButton = styled(Button)`
   background: rgba(173, 161, 132, 0.1);
   outline: 2.5px solid gray;
   color: gray;
+  /* opacity: 0.8; */
   &:hover {
-    background: gray;
+    color: gray;
   }
 `;
 
@@ -241,12 +251,107 @@ const TestItem = styled.div`
   height: 100%;
   /* flex: 0 0 10%; */
 `;
+
+// Layout
+
+const LayoutPicker = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 130px;
+  left: 650px;
+  padding: 16px;
+  border-radius: 8px;
+  z-index: 1000;
+`;
+
+const LayoutTitle = styled.div`
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: gray;
+  padding-bottom: 16px;
+  margin-right: 4px;
+`;
+const LayoutBoxes = styled.div`
+  display: flex;
+  height: auto;
+  -webkit-box-pack: start;
+  justify-content: start;
+  width: 100%;
+  padding-bottom: 24px;
+`;
+
+const LayoutButton = styled.button`
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgb(255, 255, 255);
+  outline: rgb(173, 173, 173) solid 2px;
+  border-radius: 8px;
+  margin-right: 16px;
+  transition: all 0.1s ease-in 0s;
+  background: ${(props) => props.backgroundColor};
+  cursor: pointer;
+`;
+//
+
+const PalettePicker = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  position: absolute;
+  top: 130px;
+  left: 650px;
+  padding: 16px;
+  border-radius: 8px;
+  z-index: 1000;
+`;
+
+const PaletteTitle = styled.div`
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: gray;
+  padding-bottom: 16px;
+  margin-right: 4px;
+`;
+const PaletteBoxes = styled.div`
+  display: flex;
+  height: auto;
+  -webkit-box-pack: start;
+  justify-content: start;
+  width: 100%;
+  padding-bottom: 24px;
+`;
+
+const PaletteButton = styled.button`
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgb(255, 255, 255);
+  outline: rgb(173, 173, 173) solid 2px;
+  border-radius: 8px;
+  margin-right: 16px;
+  transition: all 0.1s ease-in 0s;
+  background: ${(props) => props.backgroundColor};
+  cursor: pointer;
+`;
+
+//color fan
 const ColorPicker = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 280px;
+  width: 300px;
   height: auto;
   background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
@@ -309,7 +414,10 @@ const ColorFanButton = styled.button`
 const EditBgFrame = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
-  const [show, setShow] = useState(false);
+  const [showLayout, setShowLayout] = useState(false);
+  const [switchLayout, setSwitchLayout] = useState("version-1");
+  const [showPalette, setShowPalette] = useState(false);
+  const [showColorFan, setShowColorFan] = useState(false);
   // const [backgroundColor, setBackgroundColor] = useState("");
 
   const {
@@ -392,62 +500,37 @@ const EditBgFrame = () => {
     padding: "1rem",
   };
 
-  const finish = async (e) => {
-    try {
-      const urlArray = [];
-      for (let i = 0; i < cards.length; i++) {
-        const imageRef = ref(storage, `images/${cards[i].file.name + v4()}`);
-        const snapshot = await uploadBytes(imageRef, cards[i].file);
-        const url = await getDownloadURL(snapshot.ref);
-        urlArray.push(url);
-      }
-      alert("image upload");
-      const timestamp = Date.now();
-      const randomString = Math.random().toString(36).substring(2);
-      const uniqueId = `${timestamp}_${randomString}`;
-      const newDocRef = doc(collection(db, "albums"), uniqueId);
-      await setDoc(newDocRef, {
-        Editor: editor,
-        Name: name,
-        Date: date,
-        Description: description,
-        Message: message,
-        RawMessage: rawMessage,
-        BackgroundColor: backgroundColor,
-        UrlArray: urlArray,
-        createdAt: new Date(),
-      });
-
-      const newDocRef2 = doc(
-        db,
-        "users",
-        currentUser.email,
-        "album",
-        newDocRef.id
-      );
-      await setDoc(newDocRef2, {
-        Editor: editor,
-        Name: name,
-        Date: date,
-        Description: description,
-        Message: message,
-        UrlArray: urlArray,
-        createdAt: new Date(),
-      });
-      navigate("/home/library");
-
-      console.log("Document written with ID: ", newDocRef.id);
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
-  };
-
   const handleMessage = (event) => {
     setMessage(event.target.value);
   };
 
-  const handleColorFanBlock = () => {
-    setShow(!show);
+  //Layout
+  const handleLayoutBlock = (e) => {
+    e.preventDefault();
+    setShowLayout(!showLayout);
+  };
+
+  // function handleLayoutChange() {
+  //   setSwitchLayout(switchLayout);
+  // }
+  const handleLayoutChange = (layoutOption) => {
+    setSwitchLayout(layoutOption);
+  };
+
+  // Palette
+  const handlePaletteBlock = (e) => {
+    e.preventDefault();
+    setShowPalette(!showPalette);
+  };
+
+  function handlePaletteChange(color) {
+    setBackgroundColor(color);
+  }
+
+  //  colorfan
+  const handleColorFanBlock = (e) => {
+    e.preventDefault();
+    setShowColorFan(!showColorFan);
   };
 
   function handleColorChange(color) {
@@ -492,17 +575,61 @@ const EditBgFrame = () => {
         <EditorBgTitle>
           <h2>Palette and Layout</h2>
           <EditorBgIconList>
-            <img src={layoutLined} />
-            <img src={paintBrush}></img>
-            <img src={colorFan} onClick={handleColorFanBlock}></img>
-            <div>
-              <input
-                type="color"
-                value={color}
-                onChange={(event) => setColor(event.target.value)}
-              ></input>{" "}
-            </div>
-            {show && (
+            <EditorBgIconItem>
+              <img src={layoutLined} onClick={handleLayoutBlock} />
+            </EditorBgIconItem>
+            <EditorBgIconItem>
+              {" "}
+              <img src={paintBrush} onClick={handlePaletteBlock}></img>
+            </EditorBgIconItem>
+            <EditorBgIconItem>
+              <img src={colorFan} onClick={handleColorFanBlock}></img>
+            </EditorBgIconItem>
+
+            {/* 切換版面 */}
+            {showLayout && (
+              <LayoutPicker>
+                <LayoutTitle>
+                  <h3>Change Photo Layout</h3>
+                </LayoutTitle>
+                <LayoutBoxes>
+                  <LayoutButton
+                    onClick={() => handleLayoutChange("version-1")}
+                  ></LayoutButton>
+                  <LayoutButton
+                    onClick={() => handleLayoutChange("version-2")}
+                  ></LayoutButton>
+                  <LayoutButton
+                    onClick={() => handleLayoutChange("version-3")}
+                  ></LayoutButton>
+                  {/* <LayoutButton
+                    onClick={() => handleLayoutChange("verson-4")}
+                  ></LayoutButton> */}
+                </LayoutBoxes>
+              </LayoutPicker>
+            )}
+            {/* 
+              palette */}
+            {showPalette && (
+              <PalettePicker>
+                <PaletteTitle>
+                  <h3>Change Background Color</h3>
+                </PaletteTitle>
+                <PaletteBoxes>
+                  <PaletteButton>
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={(event) =>
+                        handlePaletteChange(event.target.value)
+                      }
+                    ></input>{" "}
+                  </PaletteButton>
+                </PaletteBoxes>
+              </PalettePicker>
+            )}
+            {/* colorfan */}
+            {showColorFan && (
               <ColorPicker>
                 <ColorTitle>
                   <h3>Change Background Color</h3>
@@ -510,11 +637,11 @@ const EditBgFrame = () => {
                 <ColorBoxes>
                   <ColorFanButton
                     background="red"
-                    onClick={() => handleColorChange("#e7e3ef")}
+                    onClick={() => handleColorChange("#ffffff")}
                   ></ColorFanButton>
                   <ColorFanButton
                     background="green"
-                    onClick={() => handleColorChange("#e6edde")}
+                    onClick={() => handleColorChange("#fffff7")}
                   ></ColorFanButton>
                   <ColorFanButton
                     background="blue"
@@ -529,103 +656,107 @@ const EditBgFrame = () => {
             )}
           </EditorBgIconList>
         </EditorBgTitle>
-        {/* <EditorBgBoxes> */}
         <ScrollerContainer>
           <CustomCursor />
-          {/* <PageContainer>
-              <Heading>
-                <div>Define Your Life</div>
-                <div>12345</div>
-              </Heading>
-            </PageContainer> */}
-          <Scroller backgroundColor={backgroundColor}>
-            {photoGroups.map((group) => {
-              let layout;
-              if (currentIndex % 4 === 0) {
+          {/* version-1 */}
+          {/* <Scroller> */}
+          {switchLayout === "version-1" ? (
+            <Scroller backgroundColor={backgroundColor}>
+              {photoGroups.map((group) => {
+                let layout;
+                if (currentIndex % 4 === 0) {
+                  layout = (
+                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                      <EditBgImageCenter>
+                        <img src={group[0].text} key={group[0]} />
+                      </EditBgImageCenter>
+                    </TestItem>
+                  );
+
+                  currentIndex += 1;
+                } else if (currentIndex % 4 === 1) {
+                  layout = (
+                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                      <EditBgImageLeftUp>
+                        <img src={group[0].text} key={group[0]} />
+                      </EditBgImageLeftUp>
+                      {group.length > 1 && (
+                        <EditBgImageRightDown>
+                          <img src={group[1].text} key={group[1]} />
+                        </EditBgImageRightDown>
+                      )}
+                      {group.length === 1 && <EditBgImageCenter />}
+                    </TestItem>
+                  );
+                  currentIndex += 1;
+                } else if (currentIndex % 4 === 2) {
+                  layout = (
+                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                      <EditBgImageFull>
+                        <img src={group[0].text} key={group[0]} />
+                      </EditBgImageFull>
+                    </TestItem>
+                  );
+                  currentIndex += 1;
+                } else if (currentIndex % 4 === 3) {
+                  layout = (
+                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                      <EditBgImageLeftDown>
+                        <img src={group[0].text} key={group[0]} />
+                      </EditBgImageLeftDown>
+                      {group.length > 1 && (
+                        <EditBgImageRightUp>
+                          <img src={group[1].text} key={group[1]} />
+                        </EditBgImageRightUp>
+                      )}
+                      {group.length === 1 && <EditBgImageCenter />}
+                    </TestItem>
+                  );
+                  currentIndex += 1;
+                }
+                return layout;
+              })}
+            </Scroller>
+          ) : switchLayout === "version-2" ? (
+            <Scroller backgroundColor={backgroundColor}>
+              {photoGroups.map((group) => {
+                let layout;
                 layout = (
-                  <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <TestItem key={group}>
                     <EditBgImageCenter>
                       <img src={group[0].text} key={group[0]} />
                     </EditBgImageCenter>
                   </TestItem>
                 );
-
-                currentIndex += 1;
-              } else if (currentIndex % 4 === 1) {
+                return layout;
+              })}
+            </Scroller>
+          ) : switchLayout === "version-3" ? (
+            <Scroller backgroundColor={backgroundColor}>
+              {photoGroups.map((group) => {
+                let layout;
                 layout = (
-                  <TestItem key={`${group[0].text}-${currentIndex}`}>
-                    <EditBgImageLeftUp>
-                      <img src={group[0].text} key={group[0]} />
-                    </EditBgImageLeftUp>
-                    {group.length > 1 && (
-                      <EditBgImageRightDown>
-                        <img src={group[1].text} key={group[1]} />
-                      </EditBgImageRightDown>
-                    )}
-                    {group.length === 1 && <EditBgImageCenter />}
-                  </TestItem>
-                );
-                currentIndex += 1;
-              } else if (currentIndex % 4 === 2) {
-                layout = (
-                  <TestItem key={`${group[0].text}-${currentIndex}`}>
+                  <TestItem key={group}>
                     <EditBgImageFull>
                       <img src={group[0].text} key={group[0]} />
                     </EditBgImageFull>
                   </TestItem>
                 );
-                currentIndex += 1;
-              } else if (currentIndex % 4 === 3) {
-                layout = (
-                  <TestItem key={`${group[0].text}-${currentIndex}`}>
-                    <EditBgImageLeftDown>
-                      <img src={group[0].text} key={group[0]} />
-                    </EditBgImageLeftDown>
-                    {group.length > 1 && (
-                      <EditBgImageRightUp>
-                        <img src={group[1].text} key={group[1]} />
-                      </EditBgImageRightUp>
-                    )}
-                    {group.length === 1 && <EditBgImageCenter />}
-                  </TestItem>
-                );
-                currentIndex += 1;
-              }
-              return layout;
-            })}
-            {/* </TestComponent> */}
-          </Scroller>
-          {/* <PageContainer>
-              <Heading>
-                <h1>Story</h1>
-              </Heading>
-            </PageContainer> */}
+                return layout;
+              })}
+            </Scroller>
+          ) : (
+            switchLayout === "version-4"(<Finish />)
+          )}
+          {/* </Scroller> */}
         </ScrollerContainer>
-
-        {/* <React.Fragment>
-            <div
-              style={{
-                // border: "1px solid #969696",
-                borderRadius: "3px",
-                width: "50%",
-                height: "80%",
-                padding: "1rem",
-              }}
-            >
-              <div dangerouslySetInnerHTML={{ __html: message }}></div>
-            </div>
-          </React.Fragment> */}
-        {/* </EditorBgBoxes> */}
       </EditorBgContainer>
       <EditBgFrameBorderButton>
         <EditBgFrameButton onClick={() => prev()}>Prev</EditBgFrameButton>
-        <EditBgFrameButton onClick={() => finish()}>Finish</EditBgFrameButton>
+        <EditBgFrameButton onClick={() => next()}>Next</EditBgFrameButton>
       </EditBgFrameBorderButton>
     </>
   );
 };
 
 export default EditBgFrame;
-//  <div key={index}>
-//       <EditorImg src={image.text} alt="" />
-//  </div>

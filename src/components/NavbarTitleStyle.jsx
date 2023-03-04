@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
 const NavbarTitleStyle = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 20px;
   font: bold 4.2vw/1.6 "Signika", sans-serif;
   user-select: none;
@@ -119,13 +115,11 @@ const NavbarTitleStyle = styled.div`
 `;
 
 const NavbarTitleH1 = styled.h1`
-  position: absolute; 
+  position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   font-size: 50px;
-  font-family: "Signika", sans-serif;
-  // font: bold 2vw/1.6 ;
   user-select: none;
   letter-spacing: 8px;
   span {
@@ -151,6 +145,22 @@ const NavbarTitleH1 = styled.h1`
     color: hsl(30, 65%, 60%);
     text-shadow: 1px 1px hsl(30, 45%, 50%), 2px 2px hsl(30, 45%, 50%),
       3px 3px hsl(30, 45%, 50%), 4px 4px hsl(30, 45%, 50%);
+  }
+
+  @media (max-width: 1550px) {
+    font-size: 45px;
+  }
+
+  @media (max-width: 1310px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 1110px) {
+    font-size: 37px;
+  }
+
+  @media(max-width:768px){
+    font-size: 30px;
   }
 `;
 export { NavbarTitleStyle, NavbarTitleH1 };
