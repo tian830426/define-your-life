@@ -24,6 +24,8 @@ export const StepContext = React.createContext({
   setColor: () => {},
   backgroundColor: [],
   setBackgroundColor: () => {},
+  switchLayout: [],
+  setSwitchLayout: () => {},
 });
 
 const StepBoxes = styled.div`
@@ -58,8 +60,10 @@ const StepByStep = () => {
   const [message, setMessage] = useState("Try the editor below!");
   const [rawMessage, setRawMessage] = useState("");
 
-  const [color, setColor] = useState("#d0ded5");
-  const [backgroundColor, setBackgroundColor] = useState("#d0ded5");
+  const [color, setColor] = useState("#ffffff");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [version, setVersion] = useState("");
+  const [switchLayout, setSwitchLayout] = useState("version-1");
 
   return (
     <>
@@ -91,6 +95,10 @@ const StepByStep = () => {
           setColor: setColor,
           backgroundColor: backgroundColor,
           setBackgroundColor: setBackgroundColor,
+          version: version,
+          setVersion: setVersion,
+          switchLayout: switchLayout,
+          setSwitchLayout: setSwitchLayout,
         }}
       >
         <StepBoxes>
@@ -114,10 +122,3 @@ const StepByStep = () => {
 };
 
 export default StepByStep;
-
-{
-  /* <StepBtn>
-          <Button onClick={() => setStep(step - 1)}>prev</Button>
-          <Button onClick={() => setStep(step + 1)}>next</Button>
-        </StepBtn> */
-}

@@ -35,6 +35,7 @@ import {
 import { v4 } from "uuid";
 
 import trashCan from "../../assets/iconmonstr-trash-can-lined.svg";
+import pencil from "../../assets/iconmonstr-pencil-8.svg";
 
 const LibraryContainer = styled.div`
   max-width: 1200px;
@@ -110,14 +111,17 @@ const ImgBox = styled.div`
     transform: rotateY(-160deg);
   }
 `;
-
-const TranshCanBox = styled.div`
-  width: 35px;
-  height: 35px;
+const TranshCanBoxes = styled.div`
+  display: flex;
   position: absolute;
   margin: 8px;
   top: 0;
   right: 0;
+`;
+const TranshCanBox = styled.div`
+  margin: 5px;
+  width: 35px;
+  height: 35px;
   background: #dddad9;
   display: flex;
   cursor: pointer;
@@ -183,6 +187,13 @@ function AlbumLibraryPage() {
   const [albums, setAlbums] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
+  const [content, setContent] = useState("Hello, world!");
+  const [isEditing, setIsEditing] = useState(false);
+
+  // const [isEditing, setIsEditing] = useState(false);
+  const [albumName, setAlbumName] = useState(albums.Name);
+  const [editor, setEditor] = useState(albums.Editor);
+  const [description, setDescription] = useState(albums.Description);
 
   // useEffect(() => {
   //   const q = query(collection(db, "albums"));
@@ -233,6 +244,40 @@ function AlbumLibraryPage() {
     }
   };
 
+  const handleEditClick = (album) => {
+    setIsEditing(true);
+    setAlbumName(album.Name);
+    setEditor(album.Editor);
+    setDescription(album.Description);
+  };
+
+  // const handleSaveClick = () => {
+  //   setIsEditing(false);
+  // };
+  const handleCancelClick = () => {
+    setIsEditing(false);
+  };
+
+  const handleChange = (event) => {
+    setContent(event.target.value);
+  };
+
+  const handleSaveClick = async (albumId) => {
+    setIsEditing(false);
+    if (currentUser != undefined) {
+      try {
+        const albumRef = doc(db, "albums", albumId);
+        await updateDoc(albumRef, {
+          Name: albumName,
+          Editor: editor,
+          Description: description,
+        });
+        console.log("Album updated successfully.");
+      } catch (error) {
+        console.error("Error updating album: ", error);
+      }
+    }
+  };
   return (
     <>
       <NavbarLayout />
@@ -251,23 +296,58 @@ function AlbumLibraryPage() {
                 <ImgBox>
                   <LibraryImage src={album.UrlArray[0]} alt="" />
                 </ImgBox>
-                <LibraryInfo>
-                  <LibraryInfoName>{album.Name}</LibraryInfoName>
-                  <LibraryInfoEditor>{album.Editor}</LibraryInfoEditor>
-                  <LibraryInfoDescription>
-                    {album.Description}
-                  </LibraryInfoDescription>
-                  <LibraryInfoDate>{album.Date}</LibraryInfoDate>
-                </LibraryInfo>
-                <TranshCanBox>
-                  <TranshCanIcon
-                    src={trashCan}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      deleteAlbum(album.id);
-                    }}
-                  ></TranshCanIcon>
-                </TranshCanBox>
+                <div>
+                  {isEditing ? (
+                    <div>
+                      <input
+                        value={albumName}
+                        onChange={(e) => setAlbumName(e.target.value)}
+                      />
+                      <input
+                        value={editor}
+                        onChange={(e) => setEditor(e.target.value)}
+                      />
+                      <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                      <button onClick={handleSaveClick}>儲存</button>
+                      <button onClick={handleCancelClick}>取消</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <LibraryInfo>
+                        <LibraryInfoName>{album.Name}</LibraryInfoName>
+                        <LibraryInfoEditor>{album.Editor}</LibraryInfoEditor>
+                        <LibraryInfoDescription>
+                          {album.Description}
+                        </LibraryInfoDescription>
+                        <LibraryInfoDate>{album.Date}</LibraryInfoDate>
+                      </LibraryInfo>
+                      <TranshCanBoxes>
+                        <TranshCanBox>
+                          <TranshCanIcon
+                            src={pencil}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleEditClick(album.id);
+                            }}
+                          ></TranshCanIcon>
+                        </TranshCanBox>
+                        <TranshCanBox>
+                          {" "}
+                          <TranshCanIcon
+                            src={trashCan}
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              deleteAlbum(album.id);
+                            }}
+                          ></TranshCanIcon>
+                        </TranshCanBox>
+                      </TranshCanBoxes>
+                    </div>
+                  )}
+                </div>
               </LibraryCard>
             ))}
           </LibraryGrid>
@@ -277,6 +357,16 @@ function AlbumLibraryPage() {
           return <img src={url} />;
         })} */}
         </LibraryContainer>
+        {/* <div>
+          {isEditing ? (
+            <textarea value={content} onChange={handleChange} />
+          ) : (
+            <p>{content}</p>
+          )}
+          <button onClick={isEditing ? handleSaveClick : handleEditClick}>
+            {isEditing ? "Save" : "Edit"}
+          </button>
+        </div> */}
       </BackgroundLayout>
       <FooterLayout />
     </>

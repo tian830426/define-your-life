@@ -126,6 +126,10 @@ const EditWord = () => {
     setColor,
     backgroundColor,
     setBackgroundColor,
+    version,
+    setVersion,
+    switchLayout,
+    setSwitchLayout,
   } = useContext(StepContext);
 
   const handleEditorStateToMessage = () => {
@@ -154,6 +158,7 @@ const EditWord = () => {
         Message: message,
         RawMessage: rawMessage,
         BackgroundColor: backgroundColor,
+        SwitchLayout: switchLayout,
         UrlArray: urlArray,
         createdAt: new Date(),
       });
@@ -171,6 +176,8 @@ const EditWord = () => {
         Date: date,
         Description: description,
         Message: message,
+        BackgroundColor: backgroundColor,
+        SwitchLayout: switchLayout,
         UrlArray: urlArray,
         createdAt: new Date(),
       });

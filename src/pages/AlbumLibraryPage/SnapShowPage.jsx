@@ -167,7 +167,6 @@ function SnapShowPage(props) {
 
   useEffect(() => {
     const q = query(collection(db, "albums"));
-    console.log(q);
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       let albumsArr = [];
       querySnapshot.forEach((doc) => {
@@ -218,27 +217,35 @@ function SnapShowPage(props) {
     const photoGroups = [];
 
     // 將照片分組，每組最多兩張照片
-    album.UrlArray.forEach((url, index) => {
-      currentGroup.push(url);
-      console.log(url);
-      if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
-        photoGroups.push(currentGroup);
-        currentGroup = [];
-      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
-        photoGroups.push(currentGroup);
-        currentGroup = [];
-      } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
-        photoGroups.push(currentGroup);
-        currentGroup = [];
-      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+    if (album.SwitchLayout === "version-1") {
+      album.UrlArray.forEach((url, index) => {
+        currentGroup.push(url);
+        console.log(url);
+        if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
+          photoGroups.push(currentGroup);
+          currentGroup = [];
+        } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
+          photoGroups.push(currentGroup);
+          currentGroup = [];
+        } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
+          photoGroups.push(currentGroup);
+          currentGroup = [];
+        } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+          photoGroups.push(currentGroup);
+          currentGroup = [];
+        }
+      });
+      if (currentGroup.length === 1) {
         photoGroups.push(currentGroup);
         currentGroup = [];
       }
-      // (currentGroup.length === 2 || index === photoCount - 1) {
-      //   photoGroups.push(currentGroup);
-      //   currentGroup = [];
-      // }
-    });
+    } else {
+      album.UrlArray.forEach((url, index) => {
+        currentGroup.push(url);
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      });
+    }
     // setItemCount(photoGroups.length);
     return photoGroups;
   };
@@ -249,6 +256,7 @@ function SnapShowPage(props) {
     }
     aaa(albums[0]);
     const photoGroups = aaa(albums[0]);
+
     setCount(photoGroups.length);
     console.log(photoGroups.length);
   }, [albums]);
@@ -281,40 +289,10 @@ function SnapShowPage(props) {
               backgroundColor={albums.map((album) => album.BackgroundColor)}
             >
               {albums.map((album) => {
-                let currentGroup = [];
-                const photoGroups = [];
+                const photoGroups = aaa(album);
 
                 // 將照片分組，每組最多兩張照片
 
-                album.UrlArray.forEach((url, index) => {
-                  currentGroup.push(url);
-                  console.log(url);
-                  if (
-                    currentGroup.length === 1 &&
-                    photoGroups.length % 4 === 0
-                  ) {
-                    photoGroups.push(currentGroup);
-                    currentGroup = [];
-                  } else if (
-                    currentGroup.length === 2 &&
-                    photoGroups.length % 4 === 1
-                  ) {
-                    photoGroups.push(currentGroup);
-                    currentGroup = [];
-                  } else if (
-                    currentGroup.length === 1 &&
-                    photoGroups.length % 4 === 2
-                  ) {
-                    photoGroups.push(currentGroup);
-                    currentGroup = [];
-                  } else if (
-                    currentGroup.length === 2 &&
-                    photoGroups.length % 4 === 3
-                  ) {
-                    photoGroups.push(currentGroup);
-                    currentGroup = [];
-                  }
-                });
                 // const photoCount = album.UrlArray.length;
                 // console.log(albums);
                 // console.log(album.id);
@@ -324,59 +302,87 @@ function SnapShowPage(props) {
                 // setPhotoGroups(photoGroups);
                 // 渲染每個照片組
                 let currentIndex = 0;
-                return photoGroups.map((group) => {
+                return photoGroups.map((group, index) => {
                   // testItemLen += 1;
-                  let layout;
-                  if (currentIndex % 4 === 0) {
-                    layout = (
-                      <TestItem key={`${album.id}-${currentIndex}`}>
+                  if (album.SwitchLayout == "version-1") {
+                    let layout;
+                    if (currentIndex % 4 === 0) {
+                      layout = (
+                        <TestItem key={index}>
+                          <ImageCenter>
+                            <img src={group[0]} />
+                          </ImageCenter>
+                        </TestItem>
+                      );
+                      currentIndex += 1;
+                    } else if (currentIndex % 4 === 1) {
+                      layout = (
+                        <TestItem key={index}>
+                          {group.length === 1 ? (
+                            <ImageCenter>
+                              <img src={group[0]} />
+                            </ImageCenter>
+                          ) : (
+                            <>
+                              <ImageLeftUp>
+                                <img src={group[0]} />
+                              </ImageLeftUp>
+                              <ImageRightDown>
+                                <img src={group[1]} />
+                              </ImageRightDown>
+                            </>
+                          )}
+                        </TestItem>
+                      );
+                      currentIndex += 1;
+                    } else if (currentIndex % 4 === 2) {
+                      layout = (
+                        <TestItem key={index}>
+                          <ImageFull>
+                            <img src={group[0]} />
+                          </ImageFull>
+                        </TestItem>
+                      );
+                      currentIndex += 1;
+                    } else if (currentIndex % 4 === 3) {
+                      layout = (
+                        <TestItem key={index}>
+                          {group.length === 1 ? (
+                            <ImageCenter>
+                              <img src={group[0]} />
+                            </ImageCenter>
+                          ) : (
+                            <>
+                              <ImageLeftDown>
+                                <img src={group[0]} />
+                              </ImageLeftDown>
+                              <ImageRightUp>
+                                <img src={group[1]} />
+                              </ImageRightUp>
+                            </>
+                          )}
+                        </TestItem>
+                      );
+                      currentIndex += 1;
+                    }
+                    return layout;
+                  } else if (album.SwitchLayout == "version-2") {
+                    return (
+                      <TestItem key={index}>
                         <ImageCenter>
-                          <img src={group[0]} key={group[0]} />
+                          <img src={group[0]} />
                         </ImageCenter>
                       </TestItem>
                     );
-                    currentIndex += 1;
-                  } else if (currentIndex % 4 === 1) {
-                    layout = (
-                      <TestItem key={`${album.id}-${currentIndex}`}>
-                        <ImageLeftUp>
-                          <img src={group[0]} key={group[0]} />
-                        </ImageLeftUp>
-                        {group.length > 1 && (
-                          <ImageRightDown>
-                            <img src={group[1]} key={group[1]} />
-                          </ImageRightDown>
-                        )}
-                        {group.length === 1 && <ImageCenter />}
-                      </TestItem>
-                    );
-                    currentIndex += 1;
-                  } else if (currentIndex % 4 === 2) {
-                    layout = (
-                      <TestItem key={`${album.id}-${currentIndex}`}>
+                  } else if (album.SwitchLayout == "version-3") {
+                    return (
+                      <TestItem key={index}>
                         <ImageFull>
-                          <img src={group[0]} key={group[0]} />
+                          <img src={group[0]} />
                         </ImageFull>
                       </TestItem>
                     );
-                    currentIndex += 1;
-                  } else if (currentIndex % 4 === 3) {
-                    layout = (
-                      <TestItem key={`${album.id}-${currentIndex}`}>
-                        <ImageLeftDown>
-                          <img src={group[0]} key={group[0]} />
-                        </ImageLeftDown>
-                        {group.length > 1 && (
-                          <ImageRightUp>
-                            <img src={group[1]} key={group[1]} />
-                          </ImageRightUp>
-                        )}
-                        {group.length === 1 && <ImageCenter />}
-                      </TestItem>
-                    );
-                    currentIndex += 1;
                   }
-                  return layout;
                 });
               })}
             </TestComponent>

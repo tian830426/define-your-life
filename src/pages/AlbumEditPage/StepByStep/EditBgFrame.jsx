@@ -171,7 +171,7 @@ const EditBgFrameButton = styled(Button)`
   color: gray;
   /* opacity: 0.8; */
   &:hover {
-    color: gray;
+    background: gray;
   }
 `;
 
@@ -415,7 +415,7 @@ const EditBgFrame = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [showLayout, setShowLayout] = useState(false);
-  const [switchLayout, setSwitchLayout] = useState("version-1");
+  // const [switchLayout, setSwitchLayout] = useState("version-1");
   const [showPalette, setShowPalette] = useState(false);
   const [showColorFan, setShowColorFan] = useState(false);
   // const [backgroundColor, setBackgroundColor] = useState("");
@@ -447,6 +447,10 @@ const EditBgFrame = () => {
     setColor,
     backgroundColor,
     setBackgroundColor,
+    version,
+    setVersion,
+    switchLayout, 
+    setSwitchLayout
   } = useContext(StepContext);
 
   // useEffect(() => {
@@ -550,23 +554,37 @@ const EditBgFrame = () => {
 
   let currentGroup = [];
   const photoGroups = [];
-
-  cards.forEach((album, index) => {
-    currentGroup.push(album);
-    if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
-      photoGroups.push(currentGroup);
-      currentGroup = [];
-    } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
-      photoGroups.push(currentGroup);
-      currentGroup = [];
-    } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
-      photoGroups.push(currentGroup);
-      currentGroup = [];
-    } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+  // console.log(cards.length);
+  if (switchLayout === "version-1") {
+    cards.forEach((album, index) => {
+      currentGroup.push(album);
+      if (currentGroup.length === 1 && photoGroups.length % 4 === 0) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 1) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 1 && photoGroups.length % 4 === 2) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      } else if (currentGroup.length === 2 && photoGroups.length % 4 === 3) {
+        photoGroups.push(currentGroup);
+        currentGroup = [];
+      }
+    });
+    if (currentGroup.length === 1) {
       photoGroups.push(currentGroup);
       currentGroup = [];
     }
-  });
+  } else {
+    cards.forEach((album, index) => {
+      currentGroup.push(album);
+      photoGroups.push(currentGroup);
+      currentGroup = [];
+    });
+  }
+  console.log(photoGroups.length);
+
   let currentIndex = 0;
 
   return (
@@ -662,13 +680,13 @@ const EditBgFrame = () => {
           {/* <Scroller> */}
           {switchLayout === "version-1" ? (
             <Scroller backgroundColor={backgroundColor}>
-              {photoGroups.map((group) => {
+              {photoGroups.map((group, index) => {
                 let layout;
                 if (currentIndex % 4 === 0) {
                   layout = (
-                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                    <TestItem key={index}>
                       <EditBgImageCenter>
-                        <img src={group[0].text} key={group[0]} />
+                        <img src={group[0].text} />
                       </EditBgImageCenter>
                     </TestItem>
                   );
@@ -676,40 +694,51 @@ const EditBgFrame = () => {
                   currentIndex += 1;
                 } else if (currentIndex % 4 === 1) {
                   layout = (
-                    <TestItem key={`${group[0].text}-${currentIndex}`}>
-                      <EditBgImageLeftUp>
-                        <img src={group[0].text} key={group[0]} />
-                      </EditBgImageLeftUp>
-                      {group.length > 1 && (
-                        <EditBgImageRightDown>
-                          <img src={group[1].text} key={group[1]} />
-                        </EditBgImageRightDown>
+                    <TestItem key={index}>
+                      {group.length == 1 ? (
+                        <EditBgImageFull>
+                          <img src={group[0].text} />
+                        </EditBgImageFull>
+                      ) : (
+                        <>
+                          {" "}
+                          <EditBgImageLeftUp>
+                            <img src={group[0].text} />
+                          </EditBgImageLeftUp>
+                          <EditBgImageRightDown>
+                            <img src={group[1].text} />
+                          </EditBgImageRightDown>
+                        </>
                       )}
-                      {group.length === 1 && <EditBgImageCenter />}
                     </TestItem>
                   );
                   currentIndex += 1;
                 } else if (currentIndex % 4 === 2) {
                   layout = (
-                    <TestItem key={`${group[0].text}-${currentIndex}`}>
+                    <TestItem key={index}>
                       <EditBgImageFull>
-                        <img src={group[0].text} key={group[0]} />
+                        <img src={group[0].text} />
                       </EditBgImageFull>
                     </TestItem>
                   );
                   currentIndex += 1;
                 } else if (currentIndex % 4 === 3) {
                   layout = (
-                    <TestItem key={`${group[0].text}-${currentIndex}`}>
-                      <EditBgImageLeftDown>
-                        <img src={group[0].text} key={group[0]} />
-                      </EditBgImageLeftDown>
-                      {group.length > 1 && (
-                        <EditBgImageRightUp>
-                          <img src={group[1].text} key={group[1]} />
-                        </EditBgImageRightUp>
+                    <TestItem key={index}>
+                      {group.length === 1 ? (
+                        <EditBgImageCenter>
+                          <img src={group[0].text} />
+                        </EditBgImageCenter>
+                      ) : (
+                        <>
+                          <EditBgImageLeftDown>
+                            <img src={group[0].text} />
+                          </EditBgImageLeftDown>
+                          <EditBgImageRightUp>
+                            <img src={group[1].text} />
+                          </EditBgImageRightUp>
+                        </>
                       )}
-                      {group.length === 1 && <EditBgImageCenter />}
                     </TestItem>
                   );
                   currentIndex += 1;
@@ -719,12 +748,12 @@ const EditBgFrame = () => {
             </Scroller>
           ) : switchLayout === "version-2" ? (
             <Scroller backgroundColor={backgroundColor}>
-              {photoGroups.map((group) => {
+              {photoGroups.map((group, index) => {
                 let layout;
                 layout = (
-                  <TestItem key={group}>
+                  <TestItem key={index}>
                     <EditBgImageCenter>
-                      <img src={group[0].text} key={group[0]} />
+                      <img src={group[0].text} />
                     </EditBgImageCenter>
                   </TestItem>
                 );
@@ -733,12 +762,12 @@ const EditBgFrame = () => {
             </Scroller>
           ) : switchLayout === "version-3" ? (
             <Scroller backgroundColor={backgroundColor}>
-              {photoGroups.map((group) => {
+              {photoGroups.map((group, index) => {
                 let layout;
                 layout = (
-                  <TestItem key={group}>
+                  <TestItem key={index}>
                     <EditBgImageFull>
-                      <img src={group[0].text} key={group[0]} />
+                      <img src={group[0].text} />
                     </EditBgImageFull>
                   </TestItem>
                 );

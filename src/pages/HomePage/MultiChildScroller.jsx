@@ -41,7 +41,7 @@ const MultiChildScroller = ({ className, children }) => {
     });
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
-
+  // console.log(children.length);
   return (
     <Container ref={containerRef} className={className}>
       <InnerContainer count={children}>{children}</InnerContainer>
