@@ -8,10 +8,13 @@ const Bgc = styled.div`
   height: 100%; 
   padding-top: 70px;
   background:rgb(239,236,230);
-  /* background: rgb(245, 239, 230); */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media(max-width:1200px){
+    align-items: start;
+  }
 `;
 
 function BackgroundLayout(props) {

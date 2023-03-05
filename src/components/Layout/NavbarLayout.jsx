@@ -23,7 +23,6 @@ const NavContainer = styled.div`
 
   @media (max-width: 1550px) {
     width: 95%;
-    /* padding: 0; */
     justify-content: space-evenly;
   }
 `;

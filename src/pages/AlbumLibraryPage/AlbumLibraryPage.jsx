@@ -49,6 +49,14 @@ const LibraryGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 30px;
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+  }
 `;
 
 const LibraryCard = styled.div`
@@ -272,7 +280,7 @@ function AlbumLibraryPage() {
           Editor: editor,
           Description: description,
         });
-        console.log("Album updated successfully.");
+        // console.log("Album updated successfully.");
       } catch (error) {
         console.error("Error updating album: ", error);
       }
@@ -281,7 +289,6 @@ function AlbumLibraryPage() {
   return (
     <>
       <NavbarLayout />
-      {/* <ColorPicker /> */}
       <BackgroundLayout>
         <LibraryContainer>
           <LibraryGrid>

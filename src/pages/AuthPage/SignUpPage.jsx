@@ -24,13 +24,25 @@ const SignupDialogCenter = styled.div`
   margin-top: 50px;
   margin-bottom: 70px;
   background: white;
-  /* background: rgb(245, 239, 230); */
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+
+  @media (max-width: 1200px) {
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 450px;
+  }
+  @media (max-width: 375px) {
+    width: 90%;
+    height: 500px;
+  }
 `;
 
 const SignupDialogBoxes = styled.div`
@@ -40,12 +52,20 @@ const SignupDialogBoxes = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SignupDialogBgimg = styled.div`
   width: 45%;
   padding: 20px;
   position: relative;
+  @media (max-width: 768px) {
+    display: none;
+    width: 0%;
+  }
+
   img {
     width: 90%;
     /* border-radius: 15px; */
@@ -65,6 +85,9 @@ const SignupDialogBgimg = styled.div`
 
 const SignupDialogLogin = styled.div`
   width: 45%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const SignupDialogTitle = styled.div`
@@ -79,14 +102,17 @@ const Fields = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* margin: 50px auto; */
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
   input {
     border-bottom: 2px solid gray;
     width: 100%;
     font-size: 20px;
     padding: 10px;
     margin: 10px 0;
-    color:gray;
+    color: gray;
     caret-color: auto; /* 預設 */
     caret-color: transparent; /* 透明 */
     caret-color: gray; /* 指定色 */
@@ -104,6 +130,7 @@ const SignupDialogForm = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   h2 {
     font-size: 30px;
     color: gray;
@@ -227,7 +254,7 @@ function SignUpPage() {
 
   const UserHandler = (e) => {
     const { name, value } = e.target;
-    console.log(name + "::::" + value);
+    // console.log(name + "::::" + value);
     setUser((perState) => ({ ...perState, [name]: value }));
   };
 

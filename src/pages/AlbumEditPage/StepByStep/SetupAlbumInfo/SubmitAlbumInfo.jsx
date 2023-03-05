@@ -11,19 +11,73 @@ import ConfirmAlbumInfo from "./ConfirmAlbumInfo";
 const SubmitBoxes = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 640px) {
+    width: 95%;
+  }
+
+  @media (max-width: 600px) {
+    width: 95%;
+  }
+
+  @media (max-width: 490px) {
+    width: 90%;
+  }
+  @media (max-width: 430px) {
+    width: 85%;
+  }
 `;
 
 const SubmitTitle = styled.div`
+  height: 20%;
   margin: 70px auto;
   padding: 0 50px;
   line-height: 70px;
   text-align: center;
   color: gray;
 
+  @media (max-width: 640px) {
+    margin: 35px auto;
+    height: 0%;
+  }
+  @media (max-width: 600px) {
+    padding: 0 25px;
+  }
+  @media (max-width: 570px) {
+    padding: 0 15px;
+  }
+  @media (max-width: 490px) {
+    padding: 0 15px;
+  }
+  @media (max-width: 430px) {
+    padding: 0 15px;
+  }
+
   h2 {
     font-size: 50px;
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
+    @media (max-width: 640px) {
+      font-size: 45px;
+    }
+    @media (max-width: 600px) {
+      font-size: 40px;
+    }
+    @media (max-width: 570px) {
+      font-size: 40px;
+    }
+    @media (max-width: 490px) {
+      font-size: 35px;
+    }
+    @media (max-width: 430px) {
+      font-size: 28px;
+    }
+    @media (max-width: 400px) {
+      font-size: 26px;
+    }
+    @media (max-width: 375px) {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -34,6 +88,26 @@ const SubmitInputContainer = styled.div`
 const SubmitForm = styled.form`
   width: 500px;
   margin: 0 auto;
+
+  @media (max-width: 600px) {
+    width: 400px;
+  }
+  @media (max-width: 570px) {
+    width: 380px;
+  }
+  @media (max-width: 490px) {
+    width: 350px;
+  }
+  @media (max-width: 430px) {
+    width: 310px;
+  }
+  @media (max-width: 400px) {
+    width: 280px;
+  }
+  @media (max-width: 375px) {
+    font-size: 270px;
+  }
+
   span {
     display: flex;
     padding: 10px auto;
@@ -57,6 +131,13 @@ const SubmitTag = styled.div`
   letter-spacing: 1.5px;
   padding: 10x 10px;
 
+  @media (max-width: 490px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px 0;
+  }
+
   input {
     width: 80%;
     color: gray;
@@ -73,7 +154,12 @@ const SubmitTag = styled.div`
     /* border-radius: 10px; */
     background: rgba(255, 255, 255, 0);
     /* outline: 1.5px solid gray; */
-    font-size: 24px;
+    font-size: 22px;
+
+    @media (max-width: 490px) {
+      margin: 5px 0;
+      width: 100%;
+    }
 
     &:active {
       color: white;
@@ -86,22 +172,26 @@ const Textarea = styled.textarea`
   background: rgba(255, 255, 255, 0.1);
   width: 80%;
   border-bottom: 3px solid gray;
-  caret-color: auto; /* 預設 */
-  caret-color: transparent; /* 透明 */
-  caret-color: gray; /* 指定色 */
-  outline: none; /* 外框效果 */
+  caret-color: auto;
+  caret-color: transparent;
+  caret-color: gray;
+  outline: none;
   margin-left: 15px;
   padding: 5px 10px;
-
   background: rgba(255, 255, 255, 0);
   /* outline: 1.5px solid gray; */
-  font-size: 24px;
+  font-size: 22px;
   color: gray;
   border: 2px solid gray;
   background: rgb(239, 236, 230);
   padding: 5px;
-  font-size: 16px;
   line-height: 1.5;
+  @media (max-width: 490px) {
+    width: 100%;
+    margin: 5px 0;
+    max-width: 100%;
+    max-height: 100%;
+  }
 
   &:active {
     color: gray;
@@ -123,6 +213,12 @@ const SubmitButton = styled(Button)`
   color: gray;
   /* font-family: "Courier New", Courier, monospace; */
   letter-spacing: 1.5px;
+  @media (max-width: 490px) {
+    margin: 20px auto;
+    max-width: 400px;
+    max-height: 100px;
+  }
+
   &:hover {
     background: gray;
   }
@@ -154,10 +250,13 @@ function SubmitAlbumInfo(props) {
   const handleDate = (event) => {
     setDate(event.target.value);
   };
+  // const handleDescription = () => {
+  //   setDescription("");
+  // };
   const handleDescription = (event) => {
-    if (event.target.value == "limit 50 words") {
-      setDescription("");
-    } else setDescription(event.target.value);
+    if (event.target.value.length <= "50") {
+      setDescription(event.target.value);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -223,12 +322,12 @@ function SubmitAlbumInfo(props) {
                   <SubmitTag>
                     <SubmitLabel>Short Intro:</SubmitLabel>
                     <Textarea
+                      placeholder="limit 50 words"
                       type="text"
                       value={description}
                       onChange={handleDescription}
-                      maxlength="52"
+                      maxLength="50"
                       rows="4"
-                      cols="13"
                       onClick={handleDescription}
                     />
                   </SubmitTag>

@@ -28,6 +28,18 @@ const SignupDialogCenter = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+  @media (max-width: 1200px) {
+    width: 90%;
+  }
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 450px;
+  }
+
+  @media (max-width: 375px) {
+    width: 90%;
+    height: 500px;
+  }
 `;
 
 const SignupDialogBoxes = styled.div`
@@ -37,12 +49,19 @@ const SignupDialogBoxes = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const SignupDialogBgimg = styled.div`
   width: 45%;
   padding: 20px;
   position: relative;
+  @media (max-width: 768px) {
+    display: none;
+    width: 0%;
+  }
   img {
     width: 90%;
     /* border-radius: 15px; */
@@ -86,6 +105,9 @@ const SignupButton = styled(Button)`
 const SignupDialogLogin = styled.div`
   width: 45%;
   // padding: 20px;
+    @media (max-width: 768px) {
+      width:90%;
+  }
 `;
 
 const SignupDialogTitle = styled.div`
@@ -103,13 +125,16 @@ const Fields = styled.div`
   justify-content: center;
   align-items: center;
   /* margin: 50px auto; */
+  @media (max-width: 768px) {
+    width: 100%;
+  }
   input {
     border-bottom: 2px solid gray;
     width: 100%;
     font-size: 20px;
     padding: 10px;
     margin: 10px 0;
-    color:gray;
+    color: gray;
     caret-color: auto; /* 預設 */
     caret-color: transparent; /* 透明 */
     caret-color: gray; /* 指定色 */
@@ -136,14 +161,7 @@ const SignupDialogForm = styled.form`
     letter-spacing: 1.5px;
   }
   input {
-    /* width: 100px; */
   }
-  /* button {
-    width: 120px;
-    height: 40px;
-    margin: 20px;
-    border-radius: 8px;  
-  } */
 `;
 const SignupBtn = styled.div`
   display: flex;

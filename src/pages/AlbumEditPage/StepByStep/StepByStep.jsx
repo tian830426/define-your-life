@@ -34,7 +34,6 @@ const StepBoxes = styled.div`
   height: 750px;
   border-radius: 25px;
   background: rgb(239, 236, 230);
-  /* background:white; */
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 70px;
@@ -43,6 +42,24 @@ const StepBoxes = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+
+  @media (max-width: 1200px) {
+    width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: 780px;
+  }
+  @media (max-width: 430px) {
+    width: 85%;
+    height: 800px;
+  }
+
+  @media (max-width: 375px) {
+    width: 90%;
+    height: 950px;
+  }
 `;
 
 const StepByStep = () => {
@@ -52,7 +69,7 @@ const StepByStep = () => {
   const [editor, setEditor] = useState("");
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const [description, setDescription] = useState("limit 50 words");
+  const [description, setDescription] = useState("");
   const [selectedImages, setSelectedImages] = useState([]);
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
@@ -61,7 +78,7 @@ const StepByStep = () => {
   const [rawMessage, setRawMessage] = useState("");
 
   const [color, setColor] = useState("#ffffff");
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");;
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
   const [switchLayout, setSwitchLayout] = useState("version-1");
 
   return (

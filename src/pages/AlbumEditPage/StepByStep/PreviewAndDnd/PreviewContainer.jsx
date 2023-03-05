@@ -22,25 +22,106 @@ import Button from "../../../../components/Button";
 const PreviewBoxes = styled.section`
   width: 100%;
   height: 90%;
-  /* padding: 1.5rem 0; */
   position: relative;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 640px) {
+    width: 95%;
+  }
+
+  @media (max-width: 600px) {
+    width: 95%;
+  }
+
+  @media (max-width: 490px) {
+  }
+  @media (max-width: 430px) {
+  }
 `;
 
 const PreviewTitle = styled.div`
+  height: 20%;
   margin: 30px auto;
   padding: 0 50px;
   line-height: 70px;
   text-align: center;
   color: gray;
+
+  @media (max-width: 640px) {
+    margin: 30px auto;
+    padding: 0 35px;
+    line-height: 65px;
+  }
+  @media (max-width: 600px) {
+    margin: 25px auto;
+    padding: 0 10px;
+    line-height: 60px;
+  }
+  @media (max-width: 570px) {
+    margin: 20px auto;
+    padding: 0 10px;
+    line-height: 55px;
+  }
+  @media (max-width: 490px) {
+    margin: 15px auto;
+    padding: 0 10px;
+    line-height: 50px;
+  }
+  @media (max-width: 430px) {
+    margin: 10px auto;
+    padding: 0 10px;
+    line-height: 45px;
+  }
+  @media (max-width: 375px) {
+    margin: 10px auto;
+    padding: 0 5px;
+    line-height: 40px;
+  }
+
   h2 {
     font-size: 50px;
+    line-height: 70px;
     /* color: transparent; */
     -webkit-text-stroke: 1.5px gray;
     letter-spacing: 2px;
+
+    @media (max-width: 695px) {
+      font-size: 45px;
+    }
+    @media (max-width: 640px) {
+      font-size: 38px;
+    }
+    @media (max-width: 570px) {
+      font-size: 36px;
+    }
+    @media (max-width: 500px) {
+      font-size: 34px;
+    }
+    @media (max-width: 470px) {
+      font-size: 31px;
+    }
+    @media (max-width: 400px) {
+      font-size: 28px;
+    }
+    @media (max-width: 375px) {
+      font-size: 26px;
+    }
   }
   p {
     font-size: 24px;
     text-align: center;
+    @media (max-width: 570px) {
+      font-size: 23px;
+    }
+    @media (max-width: 500px) {
+      font-size: 22px;
+    }
+    @media (max-width: 430px) {
+      font-size: 21px;
+    }
+    @media (max-width: 375px) {
+      font-size: 19px;
+    }
   }
 `;
 const PreviewLabel = styled.label`
@@ -55,6 +136,19 @@ const PreviewLabel = styled.label`
   border-radius: 12px;
   color: gray;
   cursor: pointer;
+
+  @media (max-width: 570px) {
+    margin: 0px;
+  }
+  @media (max-width: 490px) {
+  }
+  @media (max-width: 430px) {
+  }
+  @media (max-width: 400px) {
+  }
+  @media (max-width: 380px) {
+  }
+
   img {
     width: 100px;
     height: 100px;
@@ -93,6 +187,25 @@ const PreviewAlbumSwiper = styled.div`
   /* overflow-y: auto;
   overflow-x: scroll; */
   overflow-y: hidden;
+  @media (max-width: 640px) {
+    margin-top: -20px;
+  }
+  @media (max-width: 600px) {
+    margin-top: 0;
+  }
+
+  @media (max-width: 490px) {
+    margin-top: 5px;
+  }
+  @media (max-width: 470px) {
+    margin-top: 10px;
+  }
+  @media (max-width: 430px) {
+    margin-top: 30px;
+  }
+  @media (max-width: 375px) {
+    margin-top: 50px;
+  }
 `;
 
 const PreviewImages = styled.div`

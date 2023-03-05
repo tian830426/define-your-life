@@ -4,8 +4,8 @@ import { AuthContext } from "../../AuthPage/UserAuthProvider";
 import { StepContext } from "../StepByStep/StepByStep";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import EditorConvertToHTML from "../../../components/EditorConvertToHTML";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import EditorConvertToHTML from "../../../components/EditorConvertToHTML";
 import { db } from "../../../components/firebase";
 const EditorContainer = styled.div`
   width: 100%;
@@ -69,12 +69,19 @@ const EditorTitele = styled.div`
   }
 `;
 
-const EditorNote = styled.div`
+const EditorBoxes = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 0 100px;
-  /* color: transparent;  */
-  /* background: rgb(207, 198, 175); */
-  /* background-color: */
+  height: 75%;
+`;
+const EditorNote = styled.textarea`
+  padding: 20px;
+  font-size: 18px;
+  width: 80%;
+  height: 100%;
+  border-radius: 15px;
+  background: white;
 `;
 
 const EditWordBorderButton = styled.div`
@@ -194,9 +201,13 @@ const EditWord = () => {
           {/* <h2>Add Text To Your Album</h2> */}
           <h2>Add Story to Your Album</h2>
         </EditorTitele>
-        <EditorNote>
-          <EditorConvertToHTML>Enter Text...</EditorConvertToHTML>
-        </EditorNote>
+        <EditorBoxes>
+          <EditorNote
+            type="text"
+            value={rawMessage}
+            onChange={(event) => setRawMessage(event.target.value)}
+          ></EditorNote>
+        </EditorBoxes>
         {/* </EditorBoxes> */}
       </EditorContainer>
       <EditWordBorderButton>
@@ -204,7 +215,7 @@ const EditWord = () => {
         <EditWordButton
           onClick={() => {
             finish();
-            handleEditorStateToMessage();
+            // handleEditorStateToMessage();
           }}
         >
           Finish

@@ -20,6 +20,8 @@ import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 
+import TypewriterEffect from "../../components/TypewriterEffect";
+
 import ImagePositionCenter, {
   ImageCenter,
 } from "../../components/Template/ImagePositionCenter";
@@ -112,7 +114,32 @@ const PageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #e3e1d6;
+  background: rgb(239, 236, 230);
+  position: relative;
+`;
+
+const Circle = styled.div`
+  width: 500px;
+  height: 500px;
+  position: absolute;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  transform: translate(-50%, -50%);
+  background: white;
+  opacity: 0.2;
+  border-radius: 50%;
+`;
+
+const Circle2 = styled.div`
+  width: 300px;
+  height: 300px;
+  top: ${(props) => props.top};
+  left: ${(props) => props.left};
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: white;
+  opacity: 0.2;
+  border-radius: 50%;
 `;
 
 const Heading = styled.div`
@@ -122,12 +149,15 @@ const Heading = styled.div`
   flex-direction: column;
   max-width: 1200px;
   h1 {
-    margin: 30px 0;
+    margin: 50px 0;
     font-size: 80px;
+    z-index: 2;
   }
   p {
     color: gray;
-    font-size: 60px;
+    font-size: 30px;
+    line-height:50px;
+    z-index: 2;
   }
 `;
 
@@ -150,13 +180,21 @@ const TestItem = styled.div`
   /* background: rgb(221, 214, 201); */
 `;
 
-function SnapShowPage(props) {
+const StoryContainer = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px 0;
+`;
+
+function SnapShowPage({ text, delay }) {
   const { currentUser } = useContext(AuthContext);
   console.log(currentUser);
   const [copied, setCopied] = useState(false);
-  // const [photoGroups, setPhotoGroups] = useState([]);
   const [count, setCount] = useState(1);
-  // const testComponentRef = useRef(null);
 
   const currentUrl = window.location.href;
   const userID = currentUrl.match(/([^/]+)$/)[1];
@@ -184,17 +222,6 @@ function SnapShowPage(props) {
     });
     return () => unsubscribe();
   }, [currentUser]);
-
-  // useEffect(() => {
-  //   if (testComponentRef.current) {
-  //     const testItems =
-  //       testComponentRef.current.querySelectorAll(":scope > div"); // Get all direct child divs of TestComponent
-  //     const itemCount = testItems.length;
-  //     const newWidth = itemCount * 100 + "vw"; // Calculate the new width
-  //     testComponentRef.current.style.width = newWidth; // Set the new width
-  //   }
-  // });
-
   const handleCopyUrl = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
@@ -271,6 +298,14 @@ function SnapShowPage(props) {
       <AlbumContainer>
         <CustomCursor />
         <PageContainer>
+          <Circle top={"20%"} left={"10%"}></Circle>
+          <Circle2 top={"45%"} left={"90%"}></Circle2>
+          <Circle top={"10%"} left={"70%"}></Circle>
+          <Circle2 top={"75%"} left={"45%"}></Circle2>
+          <Circle top={"70%"} left={"20%"}></Circle>
+          <Circle2 top={"20%"} left={"40%"}></Circle2>
+          <Circle2 top={"47%"} left={"52%"}></Circle2>
+          <Circle top={"65%"} left={"75%"}></Circle>
           <Heading>
             <h1>Define Your Life</h1>
             <p>
@@ -391,36 +426,19 @@ function SnapShowPage(props) {
         <PageContainer>
           <Heading>
             <h1>Story</h1>
-            {/* <p>Photo groups length: {photoGroups.length}</p> */}
-            <React.Fragment>
+
+            <StoryContainer>
               {albums.map((album) => {
                 return (
-                  <div
-                    dangerouslySetInnerHTML={{ __html: album.Message }}
-                  ></div>
+                  <div key={album.id}>
+                    <TypewriterEffect text={album.RawMessage} delay={100} />
+                  </div>
                 );
               })}
-            </React.Fragment>
-            {/* <p>
-              {" "}
-              {albums.map((album) => {
-                return album.rawMessage;
-              })}
-            </p> */}
+            </StoryContainer>
           </Heading>
         </PageContainer>
       </AlbumContainer>
-      <>
-        {/* {albums.map((album) => (
-            <TestComponent key={album.id}>
-              {album.UrlArray.map((url) => (
-                <TestItem key={url}>
-                  <img src={url} style={{ width: 300, height: 300 }} />
-                </TestItem>
-              ))}
-            </TestComponent>
-          ))} */}
-      </>
       <ButtonFlex>
         <CopyBox>
           <div>

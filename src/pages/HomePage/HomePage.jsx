@@ -19,16 +19,16 @@ import image7 from "../../assets/IMG_3021.JPG";
 import DomoOne from "../../assets/Domo-1.png";
 import DomoTwo from "../../assets/Domo-2.png";
 
+import CustomCursor from "../../components/CustomCursor";
+
 const SectionContainer = styled.div`
   /* max-width: 1200px; */
   margin: auto;
   width: 100%;
-  height: 75vh;
   background: rgb(239, 236, 230);
   position: relative;
 
-  @media (max-width: 1024) {
-    width: 80%;
+  @media (max-width: 1024px) {
   }
 `;
 
@@ -51,9 +51,15 @@ const SectionBoxes = styled.div`
   width: 90%;
   display: grid;
   grid-template-columns: 50% 50%;
+  justify-content: center;
   grid-gap: 30px;
   padding-top: 100px;
   margin: 0 auto;
+
+  @media (max-width: 1200px) {
+
+    grid-template-columns: 100%;
+  }
 `;
 
 const SectionText = styled.div`
@@ -96,6 +102,7 @@ const Scroller = styled(MoveIn)`
   height: 80%;
   border-radius: 12px;
   box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+  cursor: all-scroll;
 `;
 
 const TestItem = styled.div`
