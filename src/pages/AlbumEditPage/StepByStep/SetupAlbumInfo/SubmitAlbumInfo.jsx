@@ -191,13 +191,14 @@ function SubmitAlbumInfo(props) {
         {show ? null : (
           <>
             <SubmitTitle>
-              <h2>Let's try to make special album by yourself !</h2>
+              {/* <h2>Let's try to make special album by yourself !</h2> */}
+              <h2>Edit Album's Info</h2>
             </SubmitTitle>
             <SubmitInputContainer>
               <SubmitForm onSubmit={handleSubmit}>
                 <SubmitInputBlock>
                   <SubmitTag>
-                    <SubmitLabel>Editor:</SubmitLabel>
+                    <SubmitLabel>Author:</SubmitLabel>
                     <input type="text" value={editor} onChange={handleEditor} />
                   </SubmitTag>
                   {errors.editor ? <span>{errors.editor}</span> : null}
@@ -205,7 +206,7 @@ function SubmitAlbumInfo(props) {
 
                 <SubmitInputBlock>
                   <SubmitTag>
-                    <SubmitLabel> Album Name:</SubmitLabel>
+                    <SubmitLabel>Album Title:</SubmitLabel>
                     <input type="text" value={name} onChange={handleName} />
                   </SubmitTag>
                   {errors.name ? <span>{errors.name}</span> : null}
@@ -213,14 +214,14 @@ function SubmitAlbumInfo(props) {
 
                 <SubmitInputBlock>
                   <SubmitTag>
-                    <SubmitLabel> Date:</SubmitLabel>
+                    <SubmitLabel>Publish Date:</SubmitLabel>
                     <input type="date" value={date} onChange={handleDate} />
                   </SubmitTag>
                   {errors.date ? <span>{errors.date}</span> : null}
                 </SubmitInputBlock>
                 <SubmitInputBlock>
                   <SubmitTag>
-                    <SubmitLabel>Description:</SubmitLabel>
+                    <SubmitLabel>Short Intro:</SubmitLabel>
                     <Textarea
                       type="text"
                       value={description}

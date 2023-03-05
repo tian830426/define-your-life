@@ -107,24 +107,25 @@ const ConfirmAlbumInfo = () => {
         {show ? (
           <ConfirmAlbumList>
             <ConfirmAlbumTitle>
-              <h2>If there are no issues, let's proceed to the next step.</h2>
+              {/* <h2>If there are no issues, let's proceed to the next step.</h2> */}
+              <h2>Confirm the Info</h2>
             </ConfirmAlbumTitle>
             <ConfirmAlbumForm>
               <ConfirmAlbumBoxes>
                 <ConfirmAlbumItems>
-                  <ConfirmAlbumLabel>Editor:</ConfirmAlbumLabel>
+                  <ConfirmAlbumLabel>Author:</ConfirmAlbumLabel>
                   <span>{editor}</span>
                 </ConfirmAlbumItems>
                 <ConfirmAlbumItems>
-                  <ConfirmAlbumLabel>Album name:</ConfirmAlbumLabel>
+                  <ConfirmAlbumLabel>Album Title:</ConfirmAlbumLabel>
                   <span>{name}</span>
                 </ConfirmAlbumItems>
                 <ConfirmAlbumItems>
-                  <ConfirmAlbumLabel>Date:</ConfirmAlbumLabel>
+                  <ConfirmAlbumLabel>Publish Date:</ConfirmAlbumLabel>
                   <span> {date}</span>
                 </ConfirmAlbumItems>
                 <ConfirmAlbumItems>
-                  <ConfirmAlbumLabel> Description:</ConfirmAlbumLabel>
+                  <ConfirmAlbumLabel>Short Intro:</ConfirmAlbumLabel>
                   <span>{description}</span>
                 </ConfirmAlbumItems>
               </ConfirmAlbumBoxes>

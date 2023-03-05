@@ -324,8 +324,10 @@ const PreviewContainer = (props) => {
     <>
       <PreviewBoxes>
         <PreviewTitle>
-          <h2>UpLoad and Sort Photos</h2>
-          <p>Try to drag and drog for sorting photos</p>
+          <h2>Add Photos to Album</h2>
+          <p>Drag-and-drop to arrange the photos</p>
+          {/* <h2>UpLoad and Sort Photos</h2>
+          <p>Try to drag and drog for sorting photos</p> */}
         </PreviewTitle>
         <PreviewAlbum>
           <PreviewAlbumSwiper>

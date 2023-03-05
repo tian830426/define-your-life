@@ -261,7 +261,7 @@ const NavbarLayout = () => {
   const [display, setDisplay] = useState(true);
 
   const handleUsername = async () => {
-    navigate("/home/library");
+    navigate("/home/albumlibrary");
   };
 
   const handleSignup = async () => {

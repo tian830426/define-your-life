@@ -77,6 +77,8 @@ const Solgn = styled.div`
   font-size: 30px;
   color: gray;
   margin-top: 20px;
+  line-height: 50px;
+  text-align: start;
 `;
 
 const SectionImg = styled.div`
@@ -265,9 +267,9 @@ function HomePage() {
       <SectionContainer>
         <SectionBoxes>
           <SectionText>
-            <Title>Online Tools for Album Editor</Title>
+            <Title>Your Digital Photo Album</Title>
             <Solgn>
-              including Preview and Sort Photo, Upload and appreciate.
+            Upload and organize your photos with simple drag-and-drop.
             </Solgn>
           </SectionText>
           <SectionImg>
@@ -281,9 +283,9 @@ function HomePage() {
             <img src={DomoTwo} alt="" />
           </SectionImg>
           <SectionText>
-            <Title>Online Tools for Photo Editor</Title>
+            <Title>Keep and Share Your Moment</Title>
             <Solgn>
-              including Preview and Sort Photo, Upload and appreciate.
+            Now, your album comes with its own story.
             </Solgn>
           </SectionText>
         </SectionBoxes>
@@ -291,9 +293,9 @@ function HomePage() {
       <SectionContainer>
         <SectionBoxes>
           <SectionText>
-            <Title>Online Tools for Photo Editor</Title>
+            <Title>Manage Your Albums in One Place</Title>
             <Solgn>
-              including Preview and Sort Photo, Upload and appreciate.
+            Never be overwhelmed by the excessive functionality. Keep your albums tidy in one place.
             </Solgn>
           </SectionText>
           <SectionImg>

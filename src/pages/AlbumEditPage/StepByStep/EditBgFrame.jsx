@@ -509,9 +509,10 @@ const EditBgFrame = () => {
   };
 
   //Layout
-  const handleLayoutBlock = (e) => {
-    e.preventDefault();
+  const handleLayoutBlock = () => {
     setShowLayout(!showLayout);
+    setShowPalette(showPalette);
+    setShowColorFan(showColorFan);
   };
 
   // function handleLayoutChange() {
@@ -591,10 +592,15 @@ const EditBgFrame = () => {
     <>
       <EditorBgContainer>
         <EditorBgTitle>
-          <h2>Palette and Layout</h2>
+          {/* <h2>Palette and Layout</h2> */}
+          <h2>Change Photo Layout and Color Theme</h2>
           <EditorBgIconList>
             <EditorBgIconItem>
-              <img src={layoutLined} onClick={handleLayoutBlock} />
+              <img src={layoutLined} onClick={(event)=>{
+                //  event.stopPropagation();
+                 event.preventDefault();
+                handleLayoutBlock()
+              }}/>
             </EditorBgIconItem>
             <EditorBgIconItem>
               {" "}
@@ -634,7 +640,7 @@ const EditBgFrame = () => {
                   <h3>Change Background Color</h3>
                 </PaletteTitle>
                 <PaletteBoxes>
-                  <PaletteButton>
+                  <div>
                     <input
                       type="color"
                       value={color}
@@ -642,7 +648,7 @@ const EditBgFrame = () => {
                         handlePaletteChange(event.target.value)
                       }
                     ></input>{" "}
-                  </PaletteButton>
+                  </div>
                 </PaletteBoxes>
               </PalettePicker>
             )}

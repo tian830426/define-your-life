@@ -126,8 +126,6 @@ const EditWord = () => {
     setColor,
     backgroundColor,
     setBackgroundColor,
-    version,
-    setVersion,
     switchLayout,
     setSwitchLayout,
   } = useContext(StepContext);
@@ -176,6 +174,7 @@ const EditWord = () => {
         Date: date,
         Description: description,
         Message: message,
+        RawMessage: rawMessage,
         BackgroundColor: backgroundColor,
         SwitchLayout: switchLayout,
         UrlArray: urlArray,
@@ -192,7 +191,8 @@ const EditWord = () => {
     <>
       <EditorContainer>
         <EditorTitele>
-          <h2>Add Text To Your Album</h2>
+          {/* <h2>Add Text To Your Album</h2> */}
+          <h2>Add Story to Your Album</h2>
         </EditorTitele>
         <EditorNote>
           <EditorConvertToHTML>Enter Text...</EditorConvertToHTML>

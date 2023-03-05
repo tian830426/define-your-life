@@ -57,12 +57,11 @@ const StepByStep = () => {
   const [files, setFiles] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
   const [cards, setCards] = useState([]);
-  const [message, setMessage] = useState("Try the editor below!");
+  const [message, setMessage] = useState("");
   const [rawMessage, setRawMessage] = useState("");
 
   const [color, setColor] = useState("#ffffff");
-  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [version, setVersion] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");;
   const [switchLayout, setSwitchLayout] = useState("version-1");
 
   return (
@@ -95,8 +94,6 @@ const StepByStep = () => {
           setColor: setColor,
           backgroundColor: backgroundColor,
           setBackgroundColor: setBackgroundColor,
-          version: version,
-          setVersion: setVersion,
           switchLayout: switchLayout,
           setSwitchLayout: setSwitchLayout,
         }}
