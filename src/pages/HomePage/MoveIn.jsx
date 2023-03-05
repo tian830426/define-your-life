@@ -12,11 +12,15 @@ const InnerContainer = styled.div`
 `;
 
 const MultiChildScroller = ({ className, children }) => {
-  // e.preventDefault();
   const containerRef = useRef(null);
   const [progress, setProgress] = useState(0);
 
+  // const windowRef = useRef(window);
+
+  const [isMouseIn, setIsMouseIn] = useState(false);
+
   const handleWheel = (e) => {
+    e.preventDefault();
     const step = 1 / (children.length - 1) / 10;
     const container = containerRef.current;
     const { clientWidth, scrollWidth } = container;
@@ -36,15 +40,37 @@ const MultiChildScroller = ({ className, children }) => {
     }
   };
 
+  const handleMouseEnter = () => {
+    setIsMouseIn(true);
+    // windowRef.current.addEventListener("wheel", handleWheel, {
+    //   passive: false,
+    // });
+  };
+  const handleMouseLeave = () => {
+    setIsMouseIn(false);
+    // windowRef.current.removeEventListener("wheel", handleWheel);
+    // console.log("leave");
+  };
+
   useEffect(() => {
-    window.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, []);
+    if (isMouseIn == true) {
+      window.addEventListener("wheel", handleWheel, {
+        passive: false,
+      });
+      //1. delete components => return() 
+      //2. isMouseIn 狀態改變 => return()
+      return () => window.removeEventListener("wheel", handleWheel);
+    }
+    
+  }, [isMouseIn]);
 
   return (
-    <Container ref={containerRef} className={className}>
+    <Container
+      ref={containerRef}
+      className={className}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <InnerContainer count={children}>{children}</InnerContainer>
     </Container>
   );

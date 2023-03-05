@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-// import { signup, login, logout } from "../../components/firebase";
+import { signup, login, logout } from "../../components/firebase";
 import NavbarLayout from "../../components/Layout/NavbarLayout";
 import BackgroundLayout from "../../components/Layout/BackgroundLayout";
 import FooterLayout from "../../components/Layout/FooterLayout";
@@ -212,7 +212,7 @@ function SignUpPage() {
 
   const [show, setShow] = useState(false);
 
-  console.log(user.email);
+  // console.log(user.email);
 
   // 有bug
   // useEffect(() => {
@@ -240,12 +240,7 @@ function SignUpPage() {
         setError("");
       }, 5000);
       return setError("please fill all the field");
-    } else if (password !== confirmpassword) {
-      setInterval(() => {
-        setError("");
-      }, 5000);
-      return setError("password does not match");
-    } else if (password.length >= 6 || !confirmpassword.length >= 6) {
+    } else if (password.length < 6) {
       setInterval(() => {
         setError("");
       }, 5000);
@@ -253,7 +248,7 @@ function SignUpPage() {
     } else {
       try {
         await SignUp(email, password, username);
-        alert("WelCome New User Create successfully");
+        // alert("WelCome New User Create successfully");
         navigate("/home/login");
       } catch (err) {
         if (err.code === "auth/email-already-in-use") {
@@ -317,15 +312,15 @@ function SignUpPage() {
                       onChange={UserHandler}
                     />
                   </div>
-                  <div className="inputfield">
-                    {/* <input
+                  {/* <div className="inputfield">
+                    <input
                     type="password"
                     placeholder="Confirm Password"
                     value={user.confirmpassword}
                     name="confirmPassword"
                     onChange={UserHandler}
-                  /> */}
-                  </div>
+                  />
+                  </div> */}
                   <div className="inputfield">
                     <SignupButton type="submit">Sign up</SignupButton>
                   </div>

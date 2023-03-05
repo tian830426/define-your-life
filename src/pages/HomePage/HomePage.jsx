@@ -78,7 +78,7 @@ const Solgn = styled.div`
   color: gray;
   margin-top: 20px;
   line-height: 50px;
-  text-align: start;
+  text-align: cent;
 `;
 
 const SectionImg = styled.div`
@@ -260,7 +260,6 @@ function HomePage() {
   //   }
   // };
 
-  // ref={scrollARef} onScroll={handleScroll}
   return (
     <>
       <NavbarLayout />
@@ -269,7 +268,7 @@ function HomePage() {
           <SectionText>
             <Title>Your Digital Photo Album</Title>
             <Solgn>
-            Upload and organize your photos with simple drag-and-drop.
+              Upload and organize your photos with simple drag-and-drop.
             </Solgn>
           </SectionText>
           <SectionImg>
@@ -279,25 +278,6 @@ function HomePage() {
       </SectionContainer>
       <SectionContainer>
         <SectionBoxes>
-          <SectionImg>
-            <img src={DomoTwo} alt="" />
-          </SectionImg>
-          <SectionText>
-            <Title>Keep and Share Your Moment</Title>
-            <Solgn>
-            Now, your album comes with its own story.
-            </Solgn>
-          </SectionText>
-        </SectionBoxes>
-      </SectionContainer>
-      <SectionContainer>
-        <SectionBoxes>
-          <SectionText>
-            <Title>Manage Your Albums in One Place</Title>
-            <Solgn>
-            Never be overwhelmed by the excessive functionality. Keep your albums tidy in one place.
-            </Solgn>
-          </SectionText>
           <SectionImg>
             <Scroller>
               <TestItem>
@@ -335,6 +315,27 @@ function HomePage() {
                 </Image6>
               </TestItem>
             </Scroller>
+          </SectionImg>
+          <SectionText>
+            <Title>Keep and Share Your Moment</Title>
+            <Solgn>
+              Now, your album comes with its own story. Write down the story and
+              share it.
+            </Solgn>
+          </SectionText>
+        </SectionBoxes>
+      </SectionContainer>
+      <SectionContainer>
+        <SectionBoxes>
+          <SectionText>
+            <Title>Manage Your Albums in One Place</Title>
+            <Solgn>
+              Never be overwhelmed by the excessive functionality. Keep your
+              albums tidy in one place.
+            </Solgn>
+          </SectionText>
+          <SectionImg>
+            <img src={DomoTwo} alt="" />
           </SectionImg>
         </SectionBoxes>
       </SectionContainer>

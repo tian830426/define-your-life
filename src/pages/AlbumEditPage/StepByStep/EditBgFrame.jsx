@@ -56,13 +56,6 @@ import ImagePositionFull, {
 
 import CustomCursor from "../../../components/CustomCursor";
 
-// import ColorFanBlock, {
-//   ColorBlockOne,
-//   ColorBlockTwo,
-//   ColorBlockThree,
-//   ColorBlockFour,
-// } from "../../../components/ColorFanBlock";
-
 const Scroller = styled(MultiChildScroller)`
   width: 80%;
   height: 100%;
@@ -415,10 +408,8 @@ const EditBgFrame = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
   const [showLayout, setShowLayout] = useState(false);
-  // const [switchLayout, setSwitchLayout] = useState("version-1");
   const [showPalette, setShowPalette] = useState(false);
   const [showColorFan, setShowColorFan] = useState(false);
-  // const [backgroundColor, setBackgroundColor] = useState("");
 
   const {
     prev,
@@ -449,8 +440,8 @@ const EditBgFrame = () => {
     setBackgroundColor,
     version,
     setVersion,
-    switchLayout, 
-    setSwitchLayout
+    switchLayout,
+    setSwitchLayout,
   } = useContext(StepContext);
 
   // useEffect(() => {
@@ -511,21 +502,19 @@ const EditBgFrame = () => {
   //Layout
   const handleLayoutBlock = () => {
     setShowLayout(!showLayout);
-    setShowPalette(showPalette);
-    setShowColorFan(showColorFan);
+    setShowPalette(false);
+    setShowColorFan(false);
   };
 
-  // function handleLayoutChange() {
-  //   setSwitchLayout(switchLayout);
-  // }
   const handleLayoutChange = (layoutOption) => {
     setSwitchLayout(layoutOption);
   };
 
   // Palette
   const handlePaletteBlock = (e) => {
-    e.preventDefault();
     setShowPalette(!showPalette);
+    setShowLayout(false);
+    setShowColorFan(false);
   };
 
   function handlePaletteChange(color) {
@@ -534,8 +523,9 @@ const EditBgFrame = () => {
 
   //  colorfan
   const handleColorFanBlock = (e) => {
-    e.preventDefault();
     setShowColorFan(!showColorFan);
+    setShowPalette(false);
+    setShowLayout(false);
   };
 
   function handleColorChange(color) {
@@ -593,14 +583,17 @@ const EditBgFrame = () => {
       <EditorBgContainer>
         <EditorBgTitle>
           {/* <h2>Palette and Layout</h2> */}
-          <h2>Change Photo Layout and Color Theme</h2>
+          <h2>Layout and Theme</h2>
           <EditorBgIconList>
             <EditorBgIconItem>
-              <img src={layoutLined} onClick={(event)=>{
-                //  event.stopPropagation();
-                 event.preventDefault();
-                handleLayoutBlock()
-              }}/>
+              <img
+                src={layoutLined}
+                onClick={(event) => {
+                  //  event.stopPropagation();
+                  event.preventDefault();
+                  handleLayoutBlock();
+                }}
+              />
             </EditorBgIconItem>
             <EditorBgIconItem>
               {" "}

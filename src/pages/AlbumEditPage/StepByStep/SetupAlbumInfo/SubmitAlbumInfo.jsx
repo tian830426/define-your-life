@@ -71,7 +71,7 @@ const SubmitTag = styled.div`
     margin-left: 15px;
     padding: 5px 10px;
     /* border-radius: 10px; */
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0);
     /* outline: 1.5px solid gray; */
     font-size: 24px;
 
@@ -93,7 +93,7 @@ const Textarea = styled.textarea`
   margin-left: 15px;
   padding: 5px 10px;
 
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0);
   /* outline: 1.5px solid gray; */
   font-size: 24px;
   color: gray;
