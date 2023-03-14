@@ -35,6 +35,7 @@ const SubmitTitle = styled.div`
   line-height: 70px;
   text-align: center;
   color: gray;
+  /* border-bottom: 5px solid gray; */
 
   @media (max-width: 640px) {
     margin: 35px auto;

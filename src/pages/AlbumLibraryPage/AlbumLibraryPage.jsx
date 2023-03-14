@@ -22,6 +22,7 @@ import {
   setDoc,
   doc,
   deleteDoc,
+  getFirestore,
 } from "firebase/firestore";
 import { storage } from "../../components/firebase";
 import {
@@ -169,23 +170,26 @@ const LibraryInfo = styled.div`
 const LibraryInfoName = styled.h2`
   font-size: 26px;
   padding: 10px 10px;
+  color:black;
 `;
 
 const LibraryInfoEditor = styled.p`
   font-size: 20px;
-  color: #666;
+  color: gray;
   padding: 10px 10px;
 `;
 
 const LibraryInfoDescription = styled.p`
   font-size: 20px;
-  color: #666;
+  color: gray;
   padding: 10px 10px;
 `;
 const LibraryInfoDate = styled.p`
   font-size: 20px;
-  color: #666;
+  color: gray;
   padding: 10px 10px;
+  display: flex;
+  align-items: end;
 `;
 
 function AlbumLibraryPage() {
@@ -263,7 +267,7 @@ function AlbumLibraryPage() {
   //   setIsEditing(false);
   // };
   const handleCancelClick = () => {
-    setIsEditing(false);
+    setIsEditing(flase);
   };
 
   const handleChange = (event) => {
@@ -303,58 +307,37 @@ function AlbumLibraryPage() {
                 <ImgBox>
                   <LibraryImage src={album.UrlArray[0]} alt="" />
                 </ImgBox>
-                <div>
-                  {isEditing ? (
-                    <div>
-                      <input
-                        value={albumName}
-                        onChange={(e) => setAlbumName(e.target.value)}
-                      />
-                      <input
-                        value={editor}
-                        onChange={(e) => setEditor(e.target.value)}
-                      />
-                      <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                      />
-                      <button onClick={handleSaveClick}>儲存</button>
-                      <button onClick={handleCancelClick}>取消</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <LibraryInfo>
-                        <LibraryInfoName>{album.Name}</LibraryInfoName>
-                        <LibraryInfoEditor>{album.Editor}</LibraryInfoEditor>
-                        <LibraryInfoDescription>
-                          {album.Description}
-                        </LibraryInfoDescription>
-                        <LibraryInfoDate>{album.Date}</LibraryInfoDate>
-                      </LibraryInfo>
-                      <TranshCanBoxes>
-                        <TranshCanBox>
-                          <TranshCanIcon
-                            src={pencil}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              handleEditClick(album.id);
-                            }}
-                          ></TranshCanIcon>
-                        </TranshCanBox>
-                        <TranshCanBox>
-                          {" "}
-                          <TranshCanIcon
-                            src={trashCan}
-                            onClick={(event) => {
-                              event.stopPropagation();
-                              deleteAlbum(album.id);
-                            }}
-                          ></TranshCanIcon>
-                        </TranshCanBox>
-                      </TranshCanBoxes>
-                    </div>
-                  )}
-                </div>
+
+                <LibraryInfo>
+                  <LibraryInfoName>{album.Name}</LibraryInfoName>
+                  <hr />
+                  <LibraryInfoEditor>{album.Editor}</LibraryInfoEditor>
+                  <LibraryInfoDescription>
+                    {album.Description}
+                  </LibraryInfoDescription>
+                  <LibraryInfoDate>{album.Date}</LibraryInfoDate>
+                </LibraryInfo>
+                <TranshCanBoxes>
+                  {/* <TranshCanBox>
+                    <TranshCanIcon
+                      src={pencil}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleEditClick(album.id);
+                      }}
+                    ></TranshCanIcon>
+                  </TranshCanBox> */}
+                  <TranshCanBox>
+                    {" "}
+                    <TranshCanIcon
+                      src={trashCan}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        deleteAlbum(album.id);
+                      }}
+                    ></TranshCanIcon>
+                  </TranshCanBox>
+                </TranshCanBoxes>
               </LibraryCard>
             ))}
           </LibraryGrid>

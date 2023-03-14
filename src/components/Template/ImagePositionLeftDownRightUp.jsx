@@ -17,6 +17,7 @@ const ImageLeftDown = styled.div`
     width: 40vw;
     height: 45vh;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -36,6 +37,7 @@ const ImageRightUp = styled.div`
     width: 40vw;
     height: 45vh;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -57,6 +59,7 @@ const EditBgImageLeftDown = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -78,6 +81,7 @@ const EditBgImageRightUp = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 

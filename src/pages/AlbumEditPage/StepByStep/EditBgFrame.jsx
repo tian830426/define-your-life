@@ -25,6 +25,10 @@ import {
 import { v4 } from "uuid";
 import Button from "../../../components/Button";
 
+import carouselLined from "../../../assets/iconmonstr-carousel-lined.svg";
+import fullScreen from "../../../assets/iconmonstr-full-screen-lined.svg";
+import screenSize from "../../../assets/iconmonstr-screen-size-decrease-lined.svg";
+
 // import { EditorState, convertToRaw } from "draft-js";
 // import { Editor } from "react-draft-wysiwyg";
 // import draftToHtml from "draftjs-to-html";
@@ -61,8 +65,9 @@ const Scroller = styled(MultiChildScroller)`
   height: 100%;
   /* margin-bottom: 25px; */
   border-radius: 15px;
-  background-color: "#e7e3ef";
-  background-color: ${(props) => props.backgroundColor};
+  /* background-color: "#e7e3ef"; */
+  /* background:linear-gradient(90deg, #d5d5a7,#636312);  */
+  background: ${(props) => props.backgroundColor}; 
   /* color: ${(props) => props.color}; */
   /* border: 5px solid black; */
 `;
@@ -252,8 +257,9 @@ const LayoutPicker = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: auto;
   height: auto;
+
   background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
   top: 130px;
@@ -274,22 +280,30 @@ const LayoutTitle = styled.div`
 const LayoutBoxes = styled.div`
   display: flex;
   height: auto;
-  -webkit-box-pack: start;
-  justify-content: start;
+  justify-content: center;
+  align-items:center;
   width: 100%;
-  padding-bottom: 24px;
+  
 `;
 
 const LayoutButton = styled.button`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
+  /* background-image:url(${carouselLined}) no-repeat center center; */
   border: 2px solid rgb(255, 255, 255);
   outline: rgb(173, 173, 173) solid 2px;
   border-radius: 8px;
   margin-right: 16px;
   transition: all 0.1s ease-in 0s;
-  background: ${(props) => props.backgroundColor};
   cursor: pointer;
+  img{
+    color:gray;
+    opacity:0.7;
+    &:hover{
+      opacity:1;
+
+    }
+  }
 `;
 //
 
@@ -298,13 +312,13 @@ const PalettePicker = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: auto;
   height: auto;
   background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
   top: 130px;
-  left: 650px;
-  padding: 16px;
+  left: 818px;
+  /* padding: 16px; */
   border-radius: 8px;
   z-index: 1000;
 `;
@@ -314,16 +328,17 @@ const PaletteTitle = styled.div`
   font-weight: 400;
   letter-spacing: 1px;
   color: gray;
-  padding-bottom: 16px;
-  margin-right: 4px;
+  margin:4px;
+  
 `;
 const PaletteBoxes = styled.div`
   display: flex;
   height: auto;
-  -webkit-box-pack: start;
-  justify-content: start;
+  
+  justify-content: center;
   width: 100%;
-  padding-bottom: 24px;
+  padding:4px;
+  
 `;
 
 const PaletteButton = styled.button`
@@ -344,12 +359,12 @@ const ColorPicker = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width:auto;
   height: auto;
   background-color: rgba(255, 255, 255, 0.7);
   position: absolute;
   top: 130px;
-  left: 650px;
+  left: 848px;
   padding: 16px;
   border-radius: 8px;
   z-index: 1000;
@@ -361,15 +376,14 @@ const ColorTitle = styled.div`
   letter-spacing: 1px;
   color: gray;
   padding-bottom: 16px;
-  margin-right: 4px;
+  margin: 4px;
 `;
 const ColorBoxes = styled.div`
   display: flex;
   height: auto;
-  -webkit-box-pack: start;
-  justify-content: start;
+  justify-content: center;
   width: 100%;
-  padding-bottom: 24px;
+  padding:4px
 `;
 
 const ColorFanButton = styled.button`
@@ -596,7 +610,6 @@ const EditBgFrame = () => {
               />
             </EditorBgIconItem>
             <EditorBgIconItem>
-              {" "}
               <img src={paintBrush} onClick={handlePaletteBlock}></img>
             </EditorBgIconItem>
             <EditorBgIconItem>
@@ -606,19 +619,19 @@ const EditBgFrame = () => {
             {/* 切換版面 */}
             {showLayout && (
               <LayoutPicker>
-                <LayoutTitle>
+                {/* <LayoutTitle>
                   <h3>Change Photo Layout</h3>
-                </LayoutTitle>
+                </LayoutTitle> */}
                 <LayoutBoxes>
-                  <LayoutButton
-                    onClick={() => handleLayoutChange("version-1")}
-                  ></LayoutButton>
-                  <LayoutButton
-                    onClick={() => handleLayoutChange("version-2")}
-                  ></LayoutButton>
-                  <LayoutButton
-                    onClick={() => handleLayoutChange("version-3")}
-                  ></LayoutButton>
+                  <LayoutButton onClick={() => handleLayoutChange("version-1")}>
+                    <img src={carouselLined} alt="" />
+                  </LayoutButton>
+                  <LayoutButton onClick={() => handleLayoutChange("version-2")}>
+                    <img src={screenSize}></img>
+                  </LayoutButton>
+                  <LayoutButton onClick={() => handleLayoutChange("version-3")}>
+                    <img src={fullScreen}></img>
+                  </LayoutButton>
                   {/* <LayoutButton
                     onClick={() => handleLayoutChange("verson-4")}
                   ></LayoutButton> */}
@@ -629,9 +642,9 @@ const EditBgFrame = () => {
               palette */}
             {showPalette && (
               <PalettePicker>
-                <PaletteTitle>
+                {/* <PaletteTitle>
                   <h3>Change Background Color</h3>
-                </PaletteTitle>
+                </PaletteTitle> */}
                 <PaletteBoxes>
                   <div>
                     <input
@@ -640,7 +653,7 @@ const EditBgFrame = () => {
                       onChange={(event) =>
                         handlePaletteChange(event.target.value)
                       }
-                    ></input>{" "}
+                    ></input>
                   </div>
                 </PaletteBoxes>
               </PalettePicker>
@@ -648,25 +661,25 @@ const EditBgFrame = () => {
             {/* colorfan */}
             {showColorFan && (
               <ColorPicker>
-                <ColorTitle>
+                {/* <ColorTitle>
                   <h3>Change Background Color</h3>
-                </ColorTitle>
+                </ColorTitle> */}
                 <ColorBoxes>
                   <ColorFanButton
                     background="red"
-                    onClick={() => handleColorChange("#ffffff")}
+                    onClick={() => handleColorChange("linear-gradient(to bottom left,#d5d5a7,#636312);")}
                   ></ColorFanButton>
                   <ColorFanButton
                     background="green"
-                    onClick={() => handleColorChange("#fffff7")}
+                    onClick={() => handleColorChange("linear-gradient(37deg,#FFAA32,#FFF5AF);")}
                   ></ColorFanButton>
                   <ColorFanButton
                     background="blue"
-                    onClick={() => handleColorChange("rgb(249, 247, 238)")}
+                    onClick={() => handleColorChange("linear-gradient( to top right ,#293A4F,#527396);")}
                   ></ColorFanButton>
                   <ColorFanButton
                     background="yellow"
-                    onClick={() => handleColorChange(" #f1dfdf")}
+                    onClick={() => handleColorChange("linear-gradient( 90deg,#D6c9b6,#A38178);")}
                   ></ColorFanButton>
                 </ColorBoxes>
               </ColorPicker>

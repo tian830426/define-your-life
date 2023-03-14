@@ -16,6 +16,7 @@ const ImageFull = styled.div`
     width: 70vw;
     height: 100vw;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -38,6 +39,7 @@ const EditBgImageFull = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 

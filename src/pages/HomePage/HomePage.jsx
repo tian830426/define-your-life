@@ -6,6 +6,7 @@ import FooterLayout from "../../components/Layout/FooterLayout";
 // import theme,{breakpoints} from "../../components/theme";
 
 // import MoveInWidthwise from "./MoveInWidthwise";
+
 import MoveIn from "./MoveIn";
 
 import image1 from "../../assets/clock.JPG";
@@ -57,15 +58,14 @@ const SectionBoxes = styled.div`
   margin: 0 auto;
 
   @media (max-width: 1200px) {
-
     grid-template-columns: 100%;
   }
 `;
 
 const SectionText = styled.div`
-  /* max-width: 1200px; */
+  max-width: 1500px; 
   width: 100%;
-  height: 75%;
+  height: 80%;
   margin: 40px;
   display: flex;
   flex-direction: column;
@@ -93,38 +93,42 @@ const SectionImg = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 12px;
+  padding: 20px 0;
   img {
     width: 100%;
   }
 `;
 const Scroller = styled(MoveIn)`
-  width: 80%;
-  height: 80%;
-  border-radius: 12px;
-  box-shadow: 0 30px 60px rgba(0, 0, 10, 0.3);
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  box-shadow: 0 30px 50px rgba(0, 0, 10, 0.3);
   cursor: all-scroll;
 `;
 
 const TestItem = styled.div`
-  position: relative;
   width: 100%;
   height: 100%;
   /* flex: 0 0 10%; */
-  background: rgb(246, 239, 230);
+  /* background: rgb(246, 239, 230); */
+  background: rgb(239, 236, 230);
+  position: relative;
 `;
 
 const Image1 = styled.div`
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
   object-fit: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
-  height: 65%;
+  width: 55%;
+  height: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   img {
     width: 100%;
     height: 100%;
@@ -141,7 +145,7 @@ const Image2 = styled.div`
   position: absolute;
   top: 15%;
   left: 12.5%;
-  width: 40%;
+  width: 45%;
   height: 45%;
   display: flex;
   justify-content: end;
@@ -163,7 +167,7 @@ const Image3 = styled.div`
   position: absolute;
   top: 40%;
   left: 47.5%;
-  width: 40%;
+  width: 45%;
   height: 45%;
   display: flex;
   img {
@@ -203,7 +207,7 @@ const Image5 = styled.div`
   -moz-background-size: cover;
   object-fit: cover;
   position: absolute;
-  width: 40%;
+  width: 45%;
   height: 45%;
   display: flex;
   align-items: end;
@@ -225,8 +229,8 @@ const Image6 = styled.div`
   position: absolute;
   top: 15%;
   right: 12.5%;
-  width: 40%;
-  height: 45%;
+  width: 45%;
+  height: 50%;
   display: flex;
   justify-content: end;
 

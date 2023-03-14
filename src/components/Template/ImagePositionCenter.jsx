@@ -19,6 +19,7 @@ const ImageCenter = styled.div`
     width: 50vw;
     height: 65vh;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
@@ -42,6 +43,7 @@ const EditBgImageCenter = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 `;
 
