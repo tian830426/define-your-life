@@ -31,6 +31,7 @@ Define Your Life is an album editor, quickly create a photo album and share it w
 - React
   - Hooks
   - routes 
+- styled-components
 
 ## Backend Techinique
 - Firebase
